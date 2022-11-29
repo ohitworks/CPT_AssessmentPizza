@@ -1,9 +1,8 @@
 /**
 **************************** test: Assessment3_password.c ****************************
-* Created by Juntong on 2022/11/28.
+* @file
 * @author     ohitworks
 * @date       2022-11-28
-* @file       Assessment3_password.c
 **************************** test: Assessment3_password.c ****************************
 */
 
@@ -11,6 +10,7 @@
 
 #include <io.h>
 #include <stdio.h>
+#include <string.h>
 
 
 #ifndef F_OK
@@ -112,8 +112,6 @@ int account_login(USERNAME_TYPE *username, char *password){
     } else {
         return -2;
     }
-
-    return 0;
 }
 
 /**
