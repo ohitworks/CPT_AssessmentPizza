@@ -24,7 +24,7 @@ int main(void) {
     for (int i=0; i<lines.length; i++) {
         memset(buffer, 0, sizeof(buffer));
         string = chain_table_get(&lines, i);
-        read_string(string, buffer, 128);
+        string_read(string, buffer, 128);
         printf("line[%2d]: %s\n", i+1, buffer);
     }
 

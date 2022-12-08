@@ -366,7 +366,7 @@ int chain_table_insert(ChainTableManager *manager, size_t element_size, bool is_
  *                    -1 : max_length < 名称长度
  *                    -2 : 获取节点失败
  */
-int read_string(ChainTableManager *string, char *dest, int max_length) {
+int string_read(ChainTableManager *string, char *dest, int max_length) {
     int length = 0, letter_count = 0, index = 0;
     char *ptr;
     ChainTableNode *node;
@@ -402,4 +402,16 @@ int read_string(ChainTableManager *string, char *dest, int max_length) {
         }
     }
     return -1;
+}
+
+
+int string_extend(ChainTableManager *string, const char *source, int source_length, uint16_t node_length) {
+    char *ptr;
+
+    if (source_length < 0) {
+        source_length = (int) strlen(source);
+    }
+    // TODO: FINISH
+
+    return 0;
 }

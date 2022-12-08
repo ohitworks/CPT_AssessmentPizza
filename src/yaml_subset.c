@@ -14,7 +14,6 @@
 #include <io.h>
 #include <stdio.h>
 #include <string.h>
-#include <stdlib.h>
 
 
 #ifndef F_OK
@@ -92,7 +91,7 @@ int read_ascii_file_lines(char *path, ChainTableManager *manager) {
             }
 
             // 赋值
-            *(ptr_in_line + letter_counter) = (char) c;
+            ptr_in_line[letter_counter] = (char) c;
             letter_counter += 1;
         }
     }
