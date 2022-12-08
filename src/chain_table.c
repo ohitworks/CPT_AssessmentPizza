@@ -19,24 +19,24 @@ int chain_table_node_create(ChainTableNode **node, size_t size);
 
 
 /**
- * @brief      初始化一个链表管理器
- * @param ctm  链表管理器
- * @return     始终返回 0
+ * @brief          初始化一个链表管理器
+ * @param manager  链表管理器
+ * @return         始终返回 0
  */
-int chain_table_init(ChainTableManager *ctm) {
-    memset(ctm, 0, sizeof(ChainTableManager));
+int chain_table_init(ChainTableManager *manager) {
+    memset(manager, 0, sizeof(ChainTableManager));
     return 0;
 }
 
 /**
- * @brief      清空链表管理器的所有链表
- * @param ctm  待清空的链表管理器
- * @return     始终返回 0
+ * @brief          清空链表管理器的所有链表
+ * @param manager  待清空的链表管理器
+ * @return         始终返回 0
  */
-int chain_table_clear(ChainTableManager *ctm) {
+int chain_table_clear(ChainTableManager *manager) {
 
-    ChainTableNode *ptr = ctm->tail->last;
-    ChainTableNode *to_del = ctm->tail;
+    ChainTableNode *ptr = manager->tail->last;
+    ChainTableNode *to_del = manager->tail;
 
     while (ptr != NULL) {
         free(to_del);
@@ -45,54 +45,54 @@ int chain_table_clear(ChainTableManager *ctm) {
     }
     free(to_del);
 
-    memset(ctm, 0, sizeof(ChainTableManager));
+    memset(manager, 0, sizeof(ChainTableManager));
 
     return 0;
 }
 
 
 /**
- * @brief        删除链表的 index 号节点
- * @param ctm    链表管理器
- * @param index  index 号链表节点, 若获取失败也可能修改
- * @return       0 表示成功
- *               -1 表示 index 不存在
- *               -2 表示链表有问题
+ * @brief          删除链表的 index 号节点
+ * @param manager  链表管理器
+ * @param index    index 号链表节点, 若获取失败也可能修改
+ * @return         0 表示成功
+ *                 -1 表示 index 不存在
+ *                 -2 表示链表有问题
  */
-int chain_table_remove(ChainTableManager *ctm, int index) {
-    ChainTableNode *to_del = ctm->tail;
+int chain_table_remove(ChainTableManager *manager, int index) {
+    ChainTableNode *to_del = manager->tail;
 
     // 长度判断
-    if (ctm->length <= 0) {
+    if (manager->length <= 0) {
         // 传入空链表
         return -1;
     }
     // 处理 index < 0 情况
     if (index < 0) {
-        index += ctm->length;
+        index += manager->length;
     }
     // 输入判断
-    if (index >= ctm->length or index < 0) {
+    if (index >= manager->length or index < 0) {
         return -1;
     }
 
     // 指定 to_del, 修改前后链表指针
     if (index == 0) {
         // 删除第一个
-        to_del = ctm->head;
-        ctm->head = to_del->next;
-        if (ctm->tail == to_del) {
-            ctm->tail = NULL;
+        to_del = manager->head;
+        manager->head = to_del->next;
+        if (manager->tail == to_del) {
+            manager->tail = NULL;
         }
-    } else if (index == ctm->length - 1) {
+    } else if (index == manager->length - 1) {
         // 删除末尾
-        to_del = ctm->tail;
-        ctm->tail = to_del->last;
-        if (ctm->head == to_del) {
-            ctm->head = NULL;
+        to_del = manager->tail;
+        manager->tail = to_del->last;
+        if (manager->head == to_del) {
+            manager->head = NULL;
         }
     } else {
-        if (chain_table_node_get(ctm, index, &to_del) != 0) {
+        if (chain_table_node_get(manager, index, &to_del) != 0) {
             return -2;
         }
         to_del->last->next = to_del->next;
@@ -101,32 +101,32 @@ int chain_table_remove(ChainTableManager *ctm, int index) {
 
     // 执行删除
     free(to_del);
-    ctm->length -= 1;
+    manager->length -= 1;
     return 0;
 }
 
 /**
- * @brief        获取 index 号链表节点
- * @param ctm    链表管理器
- * @param index  索引, 0 代表第一个, 随链表向后依次递增; -1代表最后一个, 随链表向前依次递减
- * @param node   index 号链表节点, 若获取失败也可能修改
- * @return       0 表示成功
- *               -1 表示索引不合理
- *               -2 表示迭代时出现异常
- * @note         无论输入索引为多少, 程序由前向后查找元素
- * @warning      不应在链表管理器之外调用
+ * @brief          获取 index 号链表节点
+ * @param manager  链表管理器
+ * @param index    索引, 0 代表第一个, 随链表向后依次递增; -1代表最后一个, 随链表向前依次递减
+ * @param node     index 号链表节点, 若获取失败也可能修改
+ * @return         0 表示成功
+ *                 -1 表示索引不合理
+ *                 -2 表示迭代时出现异常
+ * @note           无论输入索引为多少, 程序由前向后查找元素
+ * @warning        不应在链表管理器之外调用
  */
-int chain_table_node_get(ChainTableManager *ctm, int index, ChainTableNode **node) {
+int chain_table_node_get(ChainTableManager *manager, int index, ChainTableNode **node) {
     // 处理 index < 0 情况
     if (index < 0) {
-        index += ctm->length;
+        index += manager->length;
     }
     // 输入判断
-    if (index >= ctm->length or index < 0) {
+    if (index >= manager->length or index < 0) {
         return -1;
     }
 
-    *node = ctm->head;
+    *node = manager->head;
     for (int i = 0; i < index; i++) {
         *node = (*node)->next;
         if ((*node) == NULL) {
@@ -137,15 +137,15 @@ int chain_table_node_get(ChainTableManager *ctm, int index, ChainTableNode **nod
 }
 
 /**
- * @brief        获取链表管理器 index 号元素对应内容的指针
- * @param ctm    链表管理器
- * @param index  索引, 0 代表第一个, 随链表向后依次递增; -1代表最后一个, 随链表向前依次递减
- * @return       获取失败返回 NULL, 成功返回指定元素对应内容的指针
- * @warning      不要试图释放指针空间
+ * @brief          获取链表管理器 index 号元素对应内容的指针
+ * @param manager  链表管理器
+ * @param index    索引, 0 代表第一个, 随链表向后依次递增; -1代表最后一个, 随链表向前依次递减
+ * @return         获取失败返回 NULL, 成功返回指定元素对应内容的指针
+ * @warning        不要试图释放指针空间
  */
-void *chain_table_get(ChainTableManager *ctm, int index) {
+void *chain_table_get(ChainTableManager *manager, int index) {
     ChainTableNode *node = NULL;
-    if (chain_table_node_get(ctm, index, &node) != 0) {
+    if (chain_table_node_get(manager, index, &node) != 0) {
         return NULL;
     }
     return node->ptr;
@@ -175,12 +175,12 @@ int chain_table_node_create(ChainTableNode **node, size_t size) {
 
 /**
  *@brief                向链表后添加一个节点
- * @param ctm           链表管理器
+ * @param manager       链表管理器
  * @param element_size  新节点的元素大小
  * @return              0 成功
  *                      -1 内存分配失败
  */
-int chain_table_append(ChainTableManager *ctm, size_t element_size) {
+int chain_table_append(ChainTableManager *manager, size_t element_size) {
     ChainTableNode *new_node = NULL;
 
     chain_table_node_create(&new_node, element_size);
@@ -188,22 +188,22 @@ int chain_table_append(ChainTableManager *ctm, size_t element_size) {
         return -1;
     }
 
-    if (ctm->tail != NULL) {
-        ctm->tail->next = new_node;
+    if (manager->tail != NULL) {
+        manager->tail->next = new_node;
     }
-    new_node->last = ctm->tail;
-    ctm->tail = new_node;
-    if (ctm->length == 0) {
-        ctm->head = new_node;
+    new_node->last = manager->tail;
+    manager->tail = new_node;
+    if (manager->length == 0) {
+        manager->head = new_node;
     }
 
-    ctm->length += 1;
+    manager->length += 1;
     return 0;
 }
 
 /**
  *@brief                向链表插入一个节点, 新节点的索引为 index
- * @param ctm           链表管理器
+ * @param manager       链表管理器
  * @param element_size  新节点的元素大小
  * @param index         新节点的索引; 0 代表第一个, 随链表向后依次递增; -1代表最后一个, 随链表向前依次递减
  * @return              0 成功
@@ -211,16 +211,16 @@ int chain_table_append(ChainTableManager *ctm, size_t element_size) {
  *                      -2 索引错误
  *                      -3 意外错误
  */
-int chain_table_insert(ChainTableManager *ctm, size_t element_size, int index) {
+int chain_table_insert(ChainTableManager *manager, size_t element_size, int index) {
     ChainTableNode *new_node = NULL;
     ChainTableNode *old_node = NULL;
 
     // 处理 index < 0 情况
     if (index < 0) {
-        index += ctm->length;
+        index += manager->length;
     }
     // 输入判断
-    if (index > ctm->length or index < 0) {
+    if (index > manager->length or index < 0) {
         return -2;
     }
 
@@ -229,20 +229,20 @@ int chain_table_insert(ChainTableManager *ctm, size_t element_size, int index) {
     if (new_node == NULL) {
         return -1;
     }
-    if (index == ctm->length) {
-        if (ctm->tail != NULL) {
-            ctm->tail->next = new_node;
+    if (index == manager->length) {
+        if (manager->tail != NULL) {
+            manager->tail->next = new_node;
         }
-        new_node->last = ctm->tail;
-        ctm->tail = new_node;
+        new_node->last = manager->tail;
+        manager->tail = new_node;
     } else if (index == 0) {
-        if (ctm->head != NULL) {
-            ctm->head->last = new_node;
+        if (manager->head != NULL) {
+            manager->head->last = new_node;
         }
-        new_node->next = ctm->head;
-        ctm->head = new_node;
+        new_node->next = manager->head;
+        manager->head = new_node;
     } else {
-        if (chain_table_node_get(ctm, index, &old_node) != 0) {
+        if (chain_table_node_get(manager, index, &old_node) != 0) {
             return -3;
         }
 
@@ -255,6 +255,6 @@ int chain_table_insert(ChainTableManager *ctm, size_t element_size, int index) {
         old_node->last = new_node;
     }
 
-    ctm->length += 1;
+    manager->length += 1;
     return 0;
 }
