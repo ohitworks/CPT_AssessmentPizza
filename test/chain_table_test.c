@@ -42,10 +42,14 @@ int main(void) {
     }
 
 
-    printf("%s %s %s\n",
+    printf("numbers: %s\n",
+           (char *) chain_table_get(&ctm, 1));
+
+    chain_table_remove(&ctm, 1);
+
+    printf("%s %s\n",
            (char *) chain_table_get(&ctm, 0),
-           (char *) chain_table_get(&ctm, 1),
-           (char *) chain_table_get(&ctm, 2));
+           (char *) chain_table_get(&ctm, 1));
 
     chain_table_clear(&ctm);
 
