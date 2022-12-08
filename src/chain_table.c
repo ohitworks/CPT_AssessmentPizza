@@ -17,33 +17,7 @@
 
 int chain_table_node_create(ChainTableNode **node, size_t size);
 
-int chain_table_node_init(ChainTableNode *ctn, size_t size);
-
 int chain_table_node_free(ChainTableNode *ctn);
-
-
-/**
- * @brief       初始化一个节点
- * @param node  节点指针
- * @param size  节点对应的元素空间
- * @return      0 表示成功
- *              -1 获取内存失败
- * @note        不检查传入的节点指向的空间是否为空, 请注意传入前确定空间为空
- */
-int chain_table_node_init(ChainTableNode *ctn, size_t size) {
-    memset(ctn, 0, sizeof(ChainTableNode));
-
-    ctn->ptr = malloc(size);
-
-    if (ctn->ptr == NULL) {
-        // 内存分配失败
-        return -1;
-    }
-
-    ctn->size = size;
-
-    return 0;
-}
 
 
 /**
@@ -230,7 +204,7 @@ int chain_table_node_create(ChainTableNode **node, size_t size) {
     memset(*node, 0, size + sizeof(ChainTableNode));
 
     (*node)->size = size;
-    (*node)->ptr = node + sizeof(ChainTableNode);
+    (*node)->ptr = node + 1;
     return 0;
 }
 

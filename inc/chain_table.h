@@ -29,7 +29,7 @@ typedef struct {
     ChainTableNode * tail;
 } ChainTableManager;
 
-int chain_table_creat(ChainTableManager * ctm);
+int chain_table_init(ChainTableManager * ctm);
 
 int chain_table_clear(ChainTableManager * ctm);
 
