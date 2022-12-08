@@ -280,10 +280,14 @@ int chain_table_insert(ChainTableManager *ctm, size_t element_size, int index) {
         if (chain_table_node_get(ctm, index, &old_node) != 0) {
             return -3;
         }
+
+        // 修改节点联系
         new_node->last = old_node->last;
         new_node->next = old_node;
-        old_node->last = old_node;
+
         old_node->last->next = new_node;
+
+        old_node->last = new_node;
     }
 
     ctm->length += 1;

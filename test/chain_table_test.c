@@ -26,18 +26,26 @@ int main(void) {
     ptr = (char *) chain_table_get(&ctm, 0);
     for (int i = 0; i < 13; i++, c++) {
         *(ptr + i) = (char) ('a' + c);
-        printf("%p: %c\n", (ptr + i), *(ptr + i));
     }
-    printf("\n%p: %s\n\n", ptr, ptr);
 
-    printf("----\n");
 
     ptr = (char *) chain_table_get(&ctm, 1);
     for (int i = 0; i < 13; i++, c++) {
         *(ptr + i) = (char) ('a' + c);
-        printf("%p: %c\n", (ptr + i), *(ptr + i));
     }
-    printf("\n%p: %s\n", ptr, ptr);
+
+    chain_table_insert(&ctm, sizeof(char) * 11, 1);
+    ptr = (char *) chain_table_get(&ctm, 1);
+    c = 0;
+    for (int i = 0; i < 10; i++, c++) {
+        *(ptr + i) = (char) ('0' + c);
+    }
+
+
+    printf("%s %s %s\n",
+           (char *) chain_table_get(&ctm, 0),
+           (char *) chain_table_get(&ctm, 1),
+           (char *) chain_table_get(&ctm, 2));
 
     chain_table_clear(&ctm);
 
