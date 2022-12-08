@@ -11,14 +11,18 @@
 #include "pizza.h"
 
 #include <stdio.h>
-#include <string.h>
 
 int main (void) {
     Pizza pizza;
+    PIZZA_NAME_TYPE name[16] = {0};
 
-    memset(&pizza, 0, sizeof(Pizza));
+    pizza_init(&pizza, "name 1234", "type 0", 10);
 
+    pizza_name_get(&pizza, name, 16);
 
+    printf("name: %s\n", name);
+
+    pizza_free(&pizza);
 
     return 0;
 }

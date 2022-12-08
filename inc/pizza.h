@@ -16,7 +16,7 @@
 
 typedef struct {
     ChainTableManager name;
-    char type[32];
+    char type[PIZZA_TYPE_NAME_MAX_LENGTH + 1];
     int size;
 } Pizza;
 
@@ -24,6 +24,8 @@ typedef struct {
 int pizza_name_get(Pizza *pizza, char *dest, int max_length);
 
 int pizza_init(Pizza *pizza, const char *pizza_name, const char *pizza_type, int pizza_size);
+
+void pizza_free(Pizza * pizza);
 
 
 #endif //ASSESSMENT_PIZZA_PIZZA_H

@@ -81,7 +81,9 @@ int pizza_init(Pizza *pizza, const char *pizza_name, const char *pizza_type, int
         // 名称未结束
         if (letter_count < PIZZA_NAME_NODE_SIZE) {
             name[letter_count] = *pizza_name;
+
             letter_count += 1;
+            pizza_name++;
         } else {
             // 需要添加节点
             if (chain_table_append(&pizza->name, sizeof(PIZZA_NAME_TYPE) * PIZZA_NAME_NODE_SIZE) != 0) {
@@ -90,11 +92,21 @@ int pizza_init(Pizza *pizza, const char *pizza_name, const char *pizza_type, int
                 return -1;
             }
             name = chain_table_get(&pizza->name, -1);
+            letter_count = 0;
         }
-        pizza_name++;
     }
     // ---- 写入类型和尺寸 ----
     strcpy(pizza->type, pizza_type);
     pizza->size = pizza_size;
     return 0;
+}
+
+
+/**
+ * @brief        释放 pizza 空间, 并将其置为0
+ * @param pizza  待处理的实例
+ */
+void pizza_free(Pizza * pizza) {
+    chain_table_clear(&pizza->name);
+    memset(pizza, 0, sizeof(Pizza));
 }
