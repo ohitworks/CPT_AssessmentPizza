@@ -355,3 +355,51 @@ int chain_table_insert(ChainTableManager *manager, size_t element_size, bool is_
     manager->length += 1;
     return 0;
 }
+
+
+/**
+ * @brief             获取字符串链表的内容, 将其写入 disk 中
+ * @param string      字符串链表管理器, 即所有节点存储数据类型为字符串数组的链表
+ * @param dest        名称写入此
+ * @param max_length  disk 的最大长度
+ * @return            >0 : 名称长度
+ *                    -1 : max_length < 名称长度
+ *                    -2 : 获取节点失败
+ */
+int read_string(ChainTableManager *string, char *dest, int max_length) {
+    int length = 0, letter_count = 0, index = 0;
+    char *ptr;
+    ChainTableNode *node;
+
+    if (chain_table_node_get(string, index++, &node) != 0) {
+        return -2;
+    }
+    ptr = node->ptr;
+
+    while (length < max_length) {
+        // dest 未写满
+        if (letter_count++ < node->size / sizeof(char)) {
+            // 不需要切换名称链表指针
+
+            // 将内容写入 disk
+            *(dest + length) = *ptr;
+            if (*ptr == '\0') {
+                return length;
+            }
+
+            ptr++;
+            length += 1;
+        } else {
+            // 需要切换链表指针
+            letter_count = 0;
+            if (chain_table_node_get(string, index++, &node) != 0) {
+                *(dest + length) = '\0';
+                return length;
+            } else {
+                ptr = node->ptr;
+                continue;
+            }
+        }
+    }
+    return -1;
+}
