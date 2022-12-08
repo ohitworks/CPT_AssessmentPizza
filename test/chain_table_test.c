@@ -25,15 +25,19 @@ int main(void) {
 
     ptr = (char *) chain_table_get(&ctm, 0);
     for (int i = 0; i < 13; i++, c++) {
-        *ptr = (char) ('a' + c);
+        *(ptr + i) = (char) ('a' + c);
+        printf("%p: %c\n", (ptr + i), *(ptr + i));
     }
+    printf("\n%p: %s\n\n", ptr, ptr);
+
+    printf("----\n");
+
     ptr = (char *) chain_table_get(&ctm, 1);
     for (int i = 0; i < 13; i++, c++) {
-        *ptr = (char) ('a' + c);
+        *(ptr + i) = (char) ('a' + c);
+        printf("%p: %c\n", (ptr + i), *(ptr + i));
     }
-
-    printf("%s\n", (char *) chain_table_get(&ctm, 0));
-    printf("%s\n", (char *) chain_table_get(&ctm, 1));
+    printf("\n%p: %s\n", ptr, ptr);
 
     chain_table_clear(&ctm);
 

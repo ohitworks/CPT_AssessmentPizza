@@ -73,12 +73,12 @@ int chain_table_clear(ChainTableManager *ctm) {
     ChainTableNode *ptr = ctm->tail->last;
     ChainTableNode *to_del = ctm->tail;
 
-    for (; ctm->length > 0; ctm->length--) {
+    while (ptr != NULL) {
         free(to_del);
         ptr = ptr->last;
         to_del = ptr;
     }
-    free(ptr);
+    free(to_del);
 
     memset(ctm, 0, sizeof(ChainTableManager));
 
@@ -204,7 +204,7 @@ int chain_table_node_create(ChainTableNode **node, size_t size) {
     memset(*node, 0, size + sizeof(ChainTableNode));
 
     (*node)->size = size;
-    (*node)->ptr = node + 1;
+    (*node)->ptr = (*node) + 1;
     return 0;
 }
 
