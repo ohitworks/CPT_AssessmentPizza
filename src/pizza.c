@@ -62,6 +62,7 @@ int pizza_name_get(Pizza *pizza, PIZZA_NAME_TYPE *dest, int max_length) {
  * @param pizza_size  披萨的尺寸
  * @return            0 成功
  *                    -1 内存获取失败
+ *                    -2 名称太长
  */
 int pizza_init(Pizza *pizza, const char *pizza_name, const char *pizza_type, int pizza_size) {
     PIZZA_NAME_TYPE *name;
@@ -69,6 +70,13 @@ int pizza_init(Pizza *pizza, const char *pizza_name, const char *pizza_type, int
 
     memset(pizza, 0, sizeof(Pizza));
     chain_table_init(&pizza->name);
+
+    // ---- 写入类型和尺寸 ----
+    if (strlen(pizza_type) > PIZZA_TYPE_NAME_MAX_LENGTH) {
+        return -2;
+    }
+    strcpy(pizza->type, pizza_type);
+    pizza->size = pizza_size;
 
     // ---- 写入名称 ----
     // 添加节点
@@ -95,9 +103,7 @@ int pizza_init(Pizza *pizza, const char *pizza_name, const char *pizza_type, int
             letter_count = 0;
         }
     }
-    // ---- 写入类型和尺寸 ----
-    strcpy(pizza->type, pizza_type);
-    pizza->size = pizza_size;
+
     return 0;
 }
 
