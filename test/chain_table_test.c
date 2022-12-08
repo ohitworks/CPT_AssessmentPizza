@@ -20,8 +20,8 @@ int main(void) {
 
     chain_table_init(&ctm);
 
-    chain_table_append(&ctm, sizeof(char) * 16);
-    chain_table_append(&ctm, sizeof(char) * 16);
+    chain_table_append(&ctm, sizeof(char) * 16, 0);
+    chain_table_append(&ctm, sizeof(char) * 16, 0);
 
     ptr = (char *) chain_table_get(&ctm, 0);
     for (int i = 0; i < 13; i++, c++) {
@@ -34,7 +34,7 @@ int main(void) {
         *(ptr + i) = (char) ('a' + c);
     }
 
-    chain_table_insert(&ctm, sizeof(char) * 11, 1);
+    chain_table_insert(&ctm, sizeof(char) * 11, 0, 1);
     ptr = (char *) chain_table_get(&ctm, 1);
     c = 0;
     for (int i = 0; i < 10; i++, c++) {
@@ -45,13 +45,13 @@ int main(void) {
     printf("numbers: %s\n",
            (char *) chain_table_get(&ctm, 1));
 
-    chain_table_remove(&ctm, 1);
+    chain_table_remove(&ctm, RETURN_IF_DYNAMIC, 1);
 
     printf("%s %s\n",
            (char *) chain_table_get(&ctm, 0),
            (char *) chain_table_get(&ctm, 1));
 
-    chain_table_clear(&ctm);
+    chain_table_clear(&ctm, FREE_AS_MANAGER);
 
     return 0;
 }

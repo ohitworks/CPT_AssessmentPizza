@@ -80,7 +80,7 @@ int pizza_init(Pizza *pizza, const char *pizza_name, const char *pizza_type, int
 
     // ---- 写入名称 ----
     // 添加节点
-    if (chain_table_append(&pizza->name, sizeof(PIZZA_NAME_TYPE) * PIZZA_NAME_NODE_SIZE) != 0) {
+    if (chain_table_append(&pizza->name, sizeof(PIZZA_NAME_TYPE) * PIZZA_NAME_NODE_SIZE, 0) != 0) {
         return -1;
     }
     name = chain_table_get(&pizza->name, -1);
@@ -94,9 +94,9 @@ int pizza_init(Pizza *pizza, const char *pizza_name, const char *pizza_type, int
             pizza_name++;
         } else {
             // 需要添加节点
-            if (chain_table_append(&pizza->name, sizeof(PIZZA_NAME_TYPE) * PIZZA_NAME_NODE_SIZE) != 0) {
+            if (chain_table_append(&pizza->name, sizeof(PIZZA_NAME_TYPE) * PIZZA_NAME_NODE_SIZE, 0) != 0) {
                 // 节点添加失败
-                chain_table_clear(&pizza->name);  // 清空已分配的内存
+                chain_table_clear(&pizza->name, RETURN_IF_DYNAMIC);  // 清空已分配的内存
                 return -1;
             }
             name = chain_table_get(&pizza->name, -1);
@@ -113,6 +113,6 @@ int pizza_init(Pizza *pizza, const char *pizza_name, const char *pizza_type, int
  * @param pizza  待处理的实例
  */
 void pizza_free(Pizza * pizza) {
-    chain_table_clear(&pizza->name);
+    chain_table_clear(&pizza->name, RETURN_IF_DYNAMIC);
     memset(pizza, 0, sizeof(Pizza));
 }

@@ -15,7 +15,7 @@
 #include <iso646.h>
 
 
-int chain_table_node_create(ChainTableNode **node, size_t size);
+int chain_table_node_create(ChainTableNode **node, size_t size, bool is_dynamic);
 
 
 /**
@@ -31,12 +31,53 @@ int chain_table_init(ChainTableManager *manager) {
 /**
  * @brief          清空链表管理器的所有链表
  * @param manager  待清空的链表管理器
- * @return         始终返回 0
+ * @return         0  顺利清空
+ *                 -1 有动态节点导致未能清空
  */
-int chain_table_clear(ChainTableManager *manager) {
+int chain_table_clear(ChainTableManager *manager, ChainTableFreeModes mode) {
 
+    int ret;
     ChainTableNode *ptr = manager->tail->last;
     ChainTableNode *to_del = manager->tail;
+
+    // ---- Mode check ----
+    if (mode == RETURN_IF_DYNAMIC) {
+        // 只要有被标记为动态的节点, 就返回-1
+        ptr = manager->head;
+        while (ptr != manager->tail) {
+            if (ptr->is_dynamic == true) {
+                return -1;
+            }
+            ptr = ptr->next;
+        }
+        if (ptr->is_dynamic == true) {
+            return -1;
+        }
+    } else if (mode == FREE_AS_MANAGER) {
+        // 如果遇到动态节点, 检测其大小是否等于链表管理器, 若是则将其内容是为管理器执行释放, 不是则返回-1
+        ptr = manager->head;
+        while (ptr != manager->tail) {
+            if (ptr->is_dynamic == true) {
+                if (ptr->size == sizeof(ChainTableManager)) {
+                    // 将 ptr 节点的值视作 管理器 , 尝试释放
+                    ret = chain_table_clear((ChainTableManager *) ptr->ptr, FREE_AS_MANAGER);
+                    if (ret != 0) {
+                        return ret;
+                    }
+                } else {
+                    return -1;
+                }
+            }
+            ptr = ptr->next;
+        }
+        if (ptr->is_dynamic == true) {
+            return -1;
+        }
+    }
+
+    // ---- Clear ----
+    ptr = manager->tail->last;
+    to_del = manager->tail;
 
     while (ptr != NULL) {
         free(to_del);
@@ -58,10 +99,14 @@ int chain_table_clear(ChainTableManager *manager) {
  * @return         0 表示成功
  *                 -1 表示 index 不存在
  *                 -2 表示链表有问题
+ *                 -3 有动态节点导致未执行
+ *                 -4 清空时出错
+ *                 -5 未知的模式
  */
-int chain_table_remove(ChainTableManager *manager, int index) {
+int chain_table_remove(ChainTableManager *manager, ChainTableFreeModes mode, int index) {
     ChainTableNode *to_del = manager->tail;
 
+    // ---- 判断索引 ----
     // 长度判断
     if (manager->length <= 0) {
         // 传入空链表
@@ -76,10 +121,26 @@ int chain_table_remove(ChainTableManager *manager, int index) {
         return -1;
     }
 
-    // 指定 to_del, 修改前后链表指针
+    // ---- 指定 to_del, 修改前后链表指针 ----
     if (index == 0) {
         // 删除第一个
         to_del = manager->head;
+        // 根据mode判断是否可释放
+        if (to_del->is_dynamic) {
+            if (mode == RETURN_IF_DYNAMIC) {
+                return -3;
+            } else if (mode == FREE_AS_MANAGER) {
+                if (to_del->size != sizeof(ChainTableManager)) {
+                    return -3;
+                }
+                if (chain_table_clear((ChainTableManager *) to_del->ptr, mode) != 0) {
+                    return -4;
+                }
+            } else {
+                return -5;
+            }
+        }
+        // 执行释放前准备
         manager->head = to_del->next;
         if (manager->tail == to_del) {
             manager->tail = NULL;
@@ -87,14 +148,48 @@ int chain_table_remove(ChainTableManager *manager, int index) {
     } else if (index == manager->length - 1) {
         // 删除末尾
         to_del = manager->tail;
+        // 根据mode判断是否可释放
+        if (to_del->is_dynamic) {
+            if (mode == RETURN_IF_DYNAMIC) {
+                return -3;
+            } else if (mode == FREE_AS_MANAGER) {
+                if (to_del->size != sizeof(ChainTableManager)) {
+                    return -3;
+                }
+                if (chain_table_clear((ChainTableManager *) to_del->ptr, mode) != 0) {
+                    return -4;
+                }
+            } else {
+                return -5;
+            }
+        }
+        // 执行释放前准备
         manager->tail = to_del->last;
         if (manager->head == to_del) {
             manager->head = NULL;
         }
     } else {
+        // 获取值
         if (chain_table_node_get(manager, index, &to_del) != 0) {
             return -2;
         }
+        // 根据mode判断是否可释放
+        if (to_del->is_dynamic) {
+            // 是动态节点, 需要考虑释放情况
+            if (mode == RETURN_IF_DYNAMIC) {
+                return -3;
+            } else if (mode == FREE_AS_MANAGER) {
+                if (to_del->size != sizeof(ChainTableManager)) {
+                    return -3;
+                }
+                if (chain_table_clear((ChainTableManager *) to_del->ptr, mode) != 0) {
+                    return -4;
+                }
+            } else {
+                return -5;
+            }
+        }
+        // 执行释放前准备
         to_del->last->next = to_del->next;
         to_del->next->last = to_del->last;
     }
@@ -152,15 +247,16 @@ void *chain_table_get(ChainTableManager *manager, int index) {
 }
 
 /**
- * @brief       创建一个节点
- * @param node  节点指针
- * @param size  节点对应的元素空间
- * @return      0 表示成功
- *              -1 获取内存失败
- * @note        事实上程序没有为节点的元素分配单独的空间, 而是在创建节点时一次性分配其所有空间,
- *              有 node == node->ptr + sizeof(ChainTableNode)
+ * @brief             创建一个节点
+ * @param node        节点指针
+ * @param size        节点对应的元素空间
+ * @param is_dynamic
+ * @return            0 表示成功
+ *                    -1 获取内存失败
+ * @note              事实上程序没有为节点的元素分配单独的空间, 而是在创建节点时一次性分配其所有空间,
+ *                    有 node == ((ChainTableNode *) node->ptr) + 1
  */
-int chain_table_node_create(ChainTableNode **node, size_t size) {
+int chain_table_node_create(ChainTableNode **node, size_t size, bool is_dynamic) {
 
     *node = malloc(size + sizeof(ChainTableNode));
     if (*node == NULL) {
@@ -169,6 +265,7 @@ int chain_table_node_create(ChainTableNode **node, size_t size) {
     memset(*node, 0, size + sizeof(ChainTableNode));
 
     (*node)->size = size;
+    (*node)->is_dynamic = is_dynamic;
     (*node)->ptr = (*node) + 1;
     return 0;
 }
@@ -180,10 +277,10 @@ int chain_table_node_create(ChainTableNode **node, size_t size) {
  * @return              0 成功
  *                      -1 内存分配失败
  */
-int chain_table_append(ChainTableManager *manager, size_t element_size) {
+int chain_table_append(ChainTableManager *manager, size_t element_size, bool is_dynamic) {
     ChainTableNode *new_node = NULL;
 
-    chain_table_node_create(&new_node, element_size);
+    chain_table_node_create(&new_node, element_size, is_dynamic);
     if (new_node == NULL) {
         return -1;
     }
@@ -211,7 +308,7 @@ int chain_table_append(ChainTableManager *manager, size_t element_size) {
  *                      -2 索引错误
  *                      -3 意外错误
  */
-int chain_table_insert(ChainTableManager *manager, size_t element_size, int index) {
+int chain_table_insert(ChainTableManager *manager, size_t element_size, bool is_dynamic, int index) {
     ChainTableNode *new_node = NULL;
     ChainTableNode *old_node = NULL;
 
@@ -225,7 +322,7 @@ int chain_table_insert(ChainTableManager *manager, size_t element_size, int inde
     }
 
     // 创建并插入节点
-    chain_table_node_create(&new_node, element_size);
+    chain_table_node_create(&new_node, element_size, is_dynamic);
     if (new_node == NULL) {
         return -1;
     }
