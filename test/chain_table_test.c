@@ -20,8 +20,8 @@ int main(void) {
 
     chain_table_init(&ctm);
 
-    chain_table_append(&ctm, sizeof(char) * 14);
-    chain_table_append(&ctm, sizeof(char) * 14);
+    chain_table_append(&ctm, sizeof(char) * 16);
+    chain_table_append(&ctm, sizeof(char) * 16);
 
     ptr = (char *) chain_table_get(&ctm, 0);
     for (int i = 0; i < 13; i++, c++) {
