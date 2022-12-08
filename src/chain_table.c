@@ -17,40 +17,6 @@
 
 int chain_table_node_create(ChainTableNode **node, size_t size);
 
-int chain_table_node_free(ChainTableNode *ctn);
-
-
-/**
- * @brief       释放一个节点指向的空间
- * @param node  节点指针
- * @return      0 表示成功
- *              -1 获取内存失败
- *              -2 表示节点已被释放, 不做修改
- */
-int chain_table_node_free(ChainTableNode *ctn) {
-    ChainTableNode *next, *last;
-
-    if (ctn->ptr == NULL) {
-        return -2;
-    }
-
-    next = ctn->next;
-    last = ctn->last;
-
-    free(ctn->ptr);
-    ctn->ptr = NULL;
-
-    if (next != NULL) {
-        next->last = last;
-    }
-
-    if (last != NULL) {
-        last->next = next;
-    }
-
-    return 0;
-}
-
 
 /**
  * @brief      初始化一个链表管理器
@@ -68,7 +34,6 @@ int chain_table_init(ChainTableManager *ctm) {
  * @return     始终返回 0
  */
 int chain_table_clear(ChainTableManager *ctm) {
-    int ret = 0;
 
     ChainTableNode *ptr = ctm->tail->last;
     ChainTableNode *to_del = ctm->tail;
@@ -82,7 +47,7 @@ int chain_table_clear(ChainTableManager *ctm) {
 
     memset(ctm, 0, sizeof(ChainTableManager));
 
-    return ret;
+    return 0;
 }
 
 
