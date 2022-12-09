@@ -68,6 +68,7 @@ int read_ascii_file_lines(char *path, ChainTableManager *manager) {
         letter_counter = READ_LINE_NODE_LENGTH;
         while (true) {
             c = getc(fp);
+//            fscanf(fp, "%16[^\n\r]", ptr_in_line);  // TODO: 使用 fscanf 函数 和 string 方法重写 read_ascii_file_lines
             // 检测是否结束
             if (c == EOF) {
                 not_end = false;
