@@ -18,6 +18,7 @@ int main(void) {
     ChainTableManager manager;
     ChainTableManager *sub;
     int c = 0;
+    char buffer[128] = {0};
     char *ptr;
 
     chain_table_init(&manager);
@@ -101,6 +102,18 @@ int main(void) {
 //    }
 
     chain_table_clear(&manager, FREE_AS_MANAGER);
+
+    string_extend(&manager, "Hello Ivy. Glad to meet you!", -1, 8);
+
+    string_read(&manager, buffer, 128);
+
+    printf("%s\n", buffer);
+
+    string_extend(&manager, "\nLet's go dinner, will you?", -1, 20);
+
+    printf("%s\n", buffer);
+
+    chain_table_clear(&manager, RETURN_IF_DYNAMIC);
 
     return 0;
 }

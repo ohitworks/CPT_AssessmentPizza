@@ -88,8 +88,8 @@ int chain_table_clear(ChainTableManager *manager, ChainTableFreeModes mode) {
 
     while (ptr != NULL) {
         free(to_del);
-        ptr = ptr->last;
         to_del = ptr;
+        ptr = ptr->last;
     }
     free(to_del);
 
