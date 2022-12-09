@@ -413,14 +413,14 @@ int string_read(ChainTableManager *string, char *dest, int max_length) {
 
 
 /**
- *
- * @param string
- * @param source
- * @param source_length
- * @param node_length
+ * @brief                向字符串后添加文本
+ * @param string         字符串链表管理器
+ * @param source         待添加的文本
+ * @param source_length  文本长度, 若传入值小于 0, 使用 strlen 函数自动判断长度
+ * @param node_length    若需要自动添加节点, 添加的节点长度
  * @return               0  成功
- *                       -1 获取节点失败
- *                       -2 空间申请失败
+ *                       -1 空间申请失败
+ *                       -2 获取节点失败
  *                       -3 长度过大
  */
 int string_extend(ChainTableManager *string, const char *source, int64_t source_length, uint16_t node_length) {
@@ -445,7 +445,7 @@ int string_extend(ChainTableManager *string, const char *source, int64_t source_
     if (string->length > 0) {
         // 节点不为 0, 取最后一个节点, 尝试写入
         if (chain_table_node_get(string, -1, &node) != 0) {
-            return -1;
+            return -2;
         }
         uint16_t this_node_length = node->size / sizeof(char);
         ptr = (char *) node->ptr;
@@ -465,12 +465,12 @@ int string_extend(ChainTableManager *string, const char *source, int64_t source_
 
     while (source_length > 0) {
         if (chain_table_append(string, node_length * sizeof(char), false) != 0) {
-            return -2;
+            return -1;
         }
         ptr = chain_table_get(string, -1);
 //        if (ptr == NULL) {
 //            // 想了想, 似乎没必要判断
-//            return -1;
+//            return -2;
 //        }
         write_length = string_extend_min(node_length, source_length);
         memcpy(ptr, source,write_length);
