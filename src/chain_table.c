@@ -455,6 +455,8 @@ int string_extend(ChainTableManager *string, const char *source, int64_t source_
             letter_count = strlen(ptr);  // letter_count 是已填入的长度
             write_length = string_extend_min(this_node_length - letter_count, source_length);
             memcpy(ptr + letter_count, source, write_length);
+
+            source += write_length;
             source_length -= write_length;
         } else {
             // 最后一个节点已装满

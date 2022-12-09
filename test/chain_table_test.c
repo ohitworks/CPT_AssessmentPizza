@@ -111,6 +111,7 @@ int main(void) {
 
     string_extend(&manager, "\nLet's go dinner, will you?", -1, 20);
 
+    string_read(&manager, buffer, 128);
     printf("%s\n", buffer);
 
     chain_table_clear(&manager, RETURN_IF_DYNAMIC);
