@@ -15,6 +15,9 @@
 #include <iso646.h>
 
 
+#define string_extend_min(a, b) a < b ? a : b
+
+
 int chain_table_node_create(ChainTableNode **node, size_t size, bool is_dynamic);
 
 
@@ -37,8 +40,12 @@ int chain_table_init(ChainTableManager *manager) {
 int chain_table_clear(ChainTableManager *manager, ChainTableFreeModes mode) {
 
     int ret;
-    ChainTableNode *ptr = manager->tail->last;
-    ChainTableNode *to_del = manager->tail;
+    ChainTableNode *ptr;
+    ChainTableNode *to_del;
+
+    if (manager->length == 0) {
+        return 0;
+    }
 
     // ---- Mode check ----
     if (mode == RETURN_IF_DYNAMIC) {
@@ -405,13 +412,70 @@ int string_read(ChainTableManager *string, char *dest, int max_length) {
 }
 
 
-int string_extend(ChainTableManager *string, const char *source, int source_length, uint16_t node_length) {
-    char *ptr;
+/**
+ *
+ * @param string
+ * @param source
+ * @param source_length
+ * @param node_length
+ * @return               0  成功
+ *                       -1 获取节点失败
+ *                       -2 空间申请失败
+ *                       -3 长度过大
+ */
+int string_extend(ChainTableManager *string, const char *source, int64_t source_length, uint16_t node_length) {
+    char *ptr = NULL;
+    uint16_t letter_count, write_length;
+    ChainTableNode *node;
 
+    // 判断值
     if (source_length < 0) {
-        source_length = (int) strlen(source);
+        // 自动填充字符长度
+        source_length = (int64_t) strlen(source);
     }
-    // TODO: FINISH
+    if (source_length == 0) {
+        // 无需填充
+        return 0;
+    } else if (source_length < 0) {
+        // 说明长度超标
+        return -3;
+    }
+
+    // ---- 特殊处理 节点不为零的情况, 此时可以填入最后一个节点 ----
+    if (string->length > 0) {
+        // 节点不为 0, 取最后一个节点, 尝试写入
+        if (chain_table_node_get(string, -1, &node) != 0) {
+            return -1;
+        }
+        uint16_t this_node_length = node->size / sizeof(char);
+        ptr = (char *) node->ptr;
+        if (ptr[this_node_length - 1] == '\0') {
+            // 说明未装满, 可以填入此节点
+            // NOTE: 因为不写入 \0 故装满时不能用 string 库函数判断长度
+            letter_count = strlen(ptr);  // letter_count 是已填入的长度
+            write_length = string_extend_min(this_node_length - letter_count, source_length);
+            memcpy(ptr + letter_count, source, write_length);
+            source_length -= write_length;
+        } else {
+            // 最后一个节点已装满
+        }
+    }
+
+    while (source_length > 0) {
+        if (chain_table_append(string, node_length * sizeof(char), false) != 0) {
+            return -2;
+        }
+        ptr = chain_table_get(string, -1);
+//        if (ptr == NULL) {
+//            // 想了想, 似乎没必要判断
+//            return -1;
+//        }
+        write_length = string_extend_min(node_length, source_length);
+        memcpy(ptr, source,write_length);
+
+        source += write_length;
+        source_length -= write_length;
+    }
 
     return 0;
 }

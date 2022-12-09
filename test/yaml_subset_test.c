@@ -29,4 +29,7 @@ int main(void) {
     }
 
     chain_table_clear(&lines, FREE_AS_MANAGER);
+
+//    printf("%llu\n", strlen("12345"));
+//    printf("%d\n", (int) UINT32_MAX);
 }
