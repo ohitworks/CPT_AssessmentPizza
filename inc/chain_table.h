@@ -43,7 +43,7 @@ int chain_table_clear(ChainTableManager *manager, ChainTableFreeModes mode);
 
 int chain_table_remove(ChainTableManager *manager, ChainTableFreeModes mode, int index);
 
-int chain_table_node_get(ChainTableManager *manager, int index, ChainTableNode **node);
+int chain_table_node_get(const ChainTableManager *manager, int index, ChainTableNode **node);
 
 void *chain_table_get(ChainTableManager *manager, int index);
 
@@ -53,6 +53,10 @@ int chain_table_insert(ChainTableManager *manager, size_t element_size, bool is_
 
 int string_read(ChainTableManager *string, char *dest, int max_length);
 
-int string_extend(ChainTableManager*string, const char * source, int64_t source_length, uint16_t node_length);
+int string_extend(ChainTableManager *string, const char *source, int64_t source_length, uint16_t node_length);
+
+int string_char_get(const ChainTableManager *string, char *c, int index);
+
+int string_length(const ChainTableManager *string);
 
 #endif //ASSESSMENT_PIZZA_CHAIN_TABLE_H

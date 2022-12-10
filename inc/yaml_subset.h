@@ -29,7 +29,7 @@ typedef struct {
 } Yaml;
 
 
-int read_ascii_file_lines(char *path, ChainTableManager *manager);
+int read_ascii_file_lines(const char *path, ChainTableManager *manager);
 
 int yaml_subset_read(const char *path, Yaml *yaml);
 

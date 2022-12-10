@@ -215,7 +215,7 @@ int chain_table_remove(ChainTableManager *manager, ChainTableFreeModes mode, int
  * @note           无论输入索引为多少, 程序由前向后查找元素
  * @warning        不应在链表管理器之外调用
  */
-int chain_table_node_get(ChainTableManager *manager, int index, ChainTableNode **node) {
+int chain_table_node_get(const ChainTableManager *manager, int index, ChainTableNode **node) {
     // 处理 index < 0 情况
     if (index < 0) {
         index += manager->length;
@@ -470,7 +470,7 @@ int string_extend(ChainTableManager *string, const char *source, int64_t source_
 //            return -2;
 //        }
         write_length = string_extend_min(node_length, source_length);
-        memcpy(ptr, source,write_length);
+        memcpy(ptr, source, write_length);
 
         source += write_length;
         source_length -= write_length;
@@ -478,3 +478,53 @@ int string_extend(ChainTableManager *string, const char *source, int64_t source_
 
     return 0;
 }
+
+/**
+ * @brief         返回字符串长度
+ * @param string  被处理的字符串
+ * @return        > 0 字符串长度
+ */
+int string_length(const ChainTableManager *string) {
+    ChainTableNode *node;
+    char *ptr;
+    int node_length;
+    int total_length = 0;
+
+    for (int i = 0; i < string->length; i++) {
+        chain_table_node_get(string, i, &node);
+        node_length = (int) (node->size / sizeof(char));
+        ptr = node->ptr;
+        if (ptr[node_length - 1] != '\0') {
+            // 一个满节点
+            total_length += node_length;
+        } else {
+            total_length += (int) strlen(ptr);
+        }
+    }
+
+    return total_length;
+}
+
+/**
+ * @brief
+ * @param string
+ * @param c
+ * @param index
+ * @return        -1 索引错误
+ */
+int string_char_get(const ChainTableManager *string, char *c, int index) {
+
+    int length;
+
+    length = string_length(string);
+
+    if (index < 0) {
+        index += length;
+    }
+    if (length < index) {
+        return -1;
+    }
+
+    // TODO: 完成此函数
+}
+

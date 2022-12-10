@@ -33,6 +33,9 @@
 #endif
 
 
+static int read_static_yaml_struct(const ChainTableManager *string, Yaml *yaml, uint8_t retract_level);
+
+
 /**
  * @brief
  * @param path
@@ -41,7 +44,7 @@
  *                 -1 文件不存在或不可读
  *                 -2 字符串失败
  */
-int read_ascii_file_lines(char *path, ChainTableManager *manager) {
+int read_ascii_file_lines(const char *path, ChainTableManager *manager) {
     int c, letter_counter;
     char buffer[16];
     bool file_not_end = true;
@@ -132,31 +135,28 @@ void yaml_subset_free(Yaml *yaml) {
     memset(yaml, 0, sizeof(Yaml));
 }
 
+static int read_static_yaml_struct(const ChainTableManager *string, Yaml *yaml, uint8_t retract_level) {
+    char buffer[4];
+    ChainTableNode *node;
+
+    return 0;
+}
+
 /**
  * @brief
  * @param path
  * @param yaml
  * @return      0  成功
- *              -1 文件不存在或不可读
+ *              -1 文件读取失败 (基于 read_ascii_file_lines)
  */
 int yaml_subset_read(const char *path, Yaml *yaml) {
-    FILE *fp;
-    char c;
+    ChainTableManager lines;
 
-    // ---- 判断和打开文件 ----
-    if (access(path, F_OK | R_OK) != 0) {
-        // 文件不存在或不可读
+    if (read_ascii_file_lines(path, &lines) != 0) {
         return -1;
     }
 
-    fp = fopen(path, "r");
-
-    // ---- 读文件 ----
-    do {
-        c = (char) getc(fp);
-
-
-    } while (c != EOF);
+// TODO: Finish simple read.
 
     return 0;
 }
