@@ -15,7 +15,7 @@
 #include "chain_table.h"
 
 typedef struct {
-    ChainTableManager name;
+    ChainTableManager name;  // Name is a string-like chain table manager.
     char type[PIZZA_TYPE_NAME_MAX_LENGTH + 1];
     int size;
 } Pizza;

@@ -63,7 +63,7 @@ int chain_table_clear(ChainTableManager *manager, ChainTableFreeModes mode) {
     } else if (mode == FREE_AS_MANAGER) {
         // 如果遇到动态节点, 检测其大小是否等于链表管理器, 若是则将其内容是为管理器执行释放, 不是则返回-1
         ptr = manager->head;
-        while (ptr != manager->tail) {
+        while (ptr != NULL) {
             if (ptr->is_dynamic == true) {
                 if (ptr->size == sizeof(ChainTableManager)) {
                     // 将 ptr 节点的值视作 管理器 , 尝试释放
@@ -76,9 +76,6 @@ int chain_table_clear(ChainTableManager *manager, ChainTableFreeModes mode) {
                 }
             }
             ptr = ptr->next;
-        }
-        if (ptr->is_dynamic == true) {
-            return -1;
         }
     }
 

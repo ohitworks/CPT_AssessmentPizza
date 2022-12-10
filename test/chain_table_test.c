@@ -15,7 +15,7 @@
 
 
 int main(void) {
-    ChainTableManager manager;
+    ChainTableManager manager, string;
     ChainTableManager *sub;
     int c = 0;
     char buffer[128] = {0};
@@ -103,18 +103,26 @@ int main(void) {
 
     chain_table_clear(&manager, FREE_AS_MANAGER);
 
-    string_extend(&manager, "Hello Ivy. Glad to meet you!", -1, 8);
+    // ---- string ----
+    chain_table_init(&string);
 
-    string_read(&manager, buffer, 128);
-
+    string_extend(&string, "Hello Ivy. Glad to meet you!", -1, 8);
+    string_read(&string, buffer, 128);
     printf("%s\n", buffer);
 
-    string_extend(&manager, "\nLet's go dinner, will you?", -1, 20);
-
-    string_read(&manager, buffer, 128);
+    string_extend(&string, "\nLet's go dinner, will you?", -1, 20);
+    string_read(&string, buffer, 128);
     printf("%s\n", buffer);
 
-    chain_table_clear(&manager, RETURN_IF_DYNAMIC);
+    // ---- Try clear. ----
+    chain_table_append(&manager, sizeof(char) * 10, false);
+    memcpy(chain_table_get(&manager, 0), "ABC", 3);
+
+    chain_table_append(&manager, sizeof(ChainTableManager), true);
+    memcpy(chain_table_get(&manager, 1), &string, sizeof(ChainTableManager));
+//    printf("%d\n", chain_table_clear(&string, RETURN_IF_DYNAMIC));
+    printf("%d\n", chain_table_clear(&manager, FREE_AS_MANAGER));
+    chain_table_init(&string);
 
     return 0;
 }
