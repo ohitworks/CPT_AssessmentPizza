@@ -37,12 +37,14 @@
  * @brief
  * @param path
  * @param manager  被写入的管理者, 应当未被初始化
- * @return         0 成功
+ * @return         0  成功
+ *                 -1 文件不存在或不可读
+ *                 -2 字符串失败
  */
 int read_ascii_file_lines(char *path, ChainTableManager *manager) {
     int c, letter_counter;
-    char *ptr_in_line;
-    bool not_end = true;
+    char buffer[16];
+    bool file_not_end = true;
     FILE *fp;
     ChainTableManager *line;
 
@@ -57,21 +59,17 @@ int read_ascii_file_lines(char *path, ChainTableManager *manager) {
     fp = fopen(path, "r");
 
     // ---- 读取文件 ----
-    while (not_end) {
-        // 建一个新行
+    while (file_not_end) {
+        // 建一个新行, line 是一个 "字符串"
         chain_table_append(manager, sizeof(ChainTableManager), true);
         line = chain_table_get(manager, -1);
         chain_table_init(line);
-        // 在行内添加字符
-        chain_table_append(line, sizeof(char) * READ_LINE_NODE_LENGTH, false);
-        ptr_in_line = chain_table_get(line, -1);
-        letter_counter = READ_LINE_NODE_LENGTH;
-        while (true) {
+        letter_counter = 0;
+        while (true) {  // 读取一行
             c = getc(fp);
-//            fscanf(fp, "%16[^\n\r]", ptr_in_line);  // TODO: 使用 fscanf 函数 和 string 方法重写 read_ascii_file_lines
             // 检测是否结束
             if (c == EOF) {
-                not_end = false;
+                file_not_end = false;
                 break;
             } else if (c == '\n') {
                 // LF
@@ -83,17 +81,20 @@ int read_ascii_file_lines(char *path, ChainTableManager *manager) {
                 }
                 break;
             }
-
-            // 判断是否需要添加节点
-            if (letter_counter == READ_LINE_NODE_LENGTH) {
-                chain_table_append(line, sizeof(char) * READ_LINE_NODE_LENGTH, false);
-                ptr_in_line = chain_table_get(line, -1);
-                letter_counter = 0;
-            }
-
             // 赋值
-            ptr_in_line[letter_counter] = (char) c;
+            buffer[letter_counter] = (char) c;
             letter_counter += 1;
+
+            if (letter_counter >= 16) {
+                if (string_extend(line, buffer, letter_counter, READ_LINE_NODE_LENGTH) != 0) {
+                    return -2;
+                }
+                letter_counter = 0;
+                memset(buffer, 0, sizeof(buffer));
+            }
+        }
+        if (string_extend(line, buffer, letter_counter, READ_LINE_NODE_LENGTH) != 0) {
+            return -2;
         }
     }
 
