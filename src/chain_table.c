@@ -508,6 +508,59 @@ int string_length(const ChainTableManager *string) {
 /**
  * @brief         获取字符串中指定位置的字符
  * @param string
+ * @param c
+ * @param index
+ * @return        -1 索引错误
+ */
+int string_char_get_with_error_code(const ChainTableManager *string, char *c, int index) {
+
+    int length;
+    ChainTableNode *node;
+
+    if (index >= 0) {
+        // index 为正, 正序循环
+        node = string->head;
+        while (node != string->tail) {
+            length = (int) (node->size / sizeof(char));
+            if (index < length) {
+                return ((char *) node->ptr)[index];
+            }
+            index -= length;
+            node = node->next;
+        }
+        length = (int) (node->size / sizeof(char));
+        if (index < length) {
+            *c = ((char *) node->ptr)[index];
+            return 0;
+        }
+    } else {
+        // index < 0, 反向循环
+        node = string->tail;
+        while (node != string->head) {
+            length = (int) (node->size / sizeof(char));
+            index += length;
+            if (index >= 0) {
+                // 找到了节点
+                *c = ((char *) node->ptr)[index];
+                return 0;
+            }
+            node = node->last;
+        }
+        length = (int) (node->size / sizeof(char));
+        index += length;
+        if (index >= 0) {
+            // 找到了节点
+            *c = ((char *) node->ptr)[index];
+            return 0;
+        }
+    }
+    return -1;
+}
+
+
+/**
+ * @brief         获取字符串中指定位置的字符
+ * @param string
  * @param index
  * @return        当获取失败时, 返回 \0
  */
@@ -518,19 +571,18 @@ char string_char_get(const ChainTableManager *string, int index) {
 
     if (index >= 0) {
         // index 为正, 正序循环
-        for (int node_index = 0; node_index < string->length; node_index++) {
-            chain_table_node_get(string, node_index, &node);
-            if (node == NULL) {
-                return '\0';
-            }
+        node = string->head;
+        while (node != string->tail) {
             length = (int) (node->size / sizeof(char));
-
             if (index < length) {
-                // 找到了节点
                 return ((char *) node->ptr)[index];
-            } else {
-                index -= length;
             }
+            index -= length;
+            node = node->next;
+        }
+        length = (int) (node->size / sizeof(char));
+        if (index < length) {
+            return ((char *) node->ptr)[index];
         }
     } else {
         // index < 0, 反向循环
@@ -551,6 +603,7 @@ char string_char_get(const ChainTableManager *string, int index) {
             return ((char *) node->ptr)[index];
         }
     }
+    // Return error char.
     return '\0';
 }
 

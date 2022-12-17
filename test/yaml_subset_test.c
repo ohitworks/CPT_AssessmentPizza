@@ -28,8 +28,11 @@ int main(void) {
     }
 
     for (int i = 1; i < 10; i++) {
+        printf("%d: %c\n", i-1, string_char_get(string, i-1));
         printf("%d: %c\n", -i, string_char_get(string, -i));
     }
+
+    printf("%d: %c\n", 63, string_char_get(string, 63));
 
 //    printf("%llu\n", strlen("12345"));
 //    printf("%d\n", (int) UINT32_MAX);
