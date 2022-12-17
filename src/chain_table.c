@@ -506,25 +506,51 @@ int string_length(const ChainTableManager *string) {
 }
 
 /**
- * @brief
+ * @brief         获取字符串中指定位置的字符
  * @param string
- * @param c
  * @param index
- * @return        -1 索引错误
+ * @return        当获取失败时, 返回 \0
  */
-int string_char_get(const ChainTableManager *string, char *c, int index) {
+char string_char_get(const ChainTableManager *string, int index) {
 
     int length;
+    ChainTableNode *node;
 
-    length = string_length(string);
+    if (index >= 0) {
+        // index 为正, 正序循环
+        for (int node_index = 0; node_index < string->length; node_index++) {
+            chain_table_node_get(string, node_index, &node);
+            if (node == NULL) {
+                return '\0';
+            }
+            length = (int) (node->size / sizeof(char));
 
-    if (index < 0) {
+            if (index < length) {
+                // 找到了节点
+                return ((char *) node->ptr)[index];
+            } else {
+                index -= length;
+            }
+        }
+    } else {
+        // index < 0, 反向循环
+        node = string->tail;
+        while (node != string->head) {
+            length = (int) (node->size / sizeof(char));
+            index += length;
+            if (index >= 0) {
+                // 找到了节点
+                return ((char *) node->ptr)[index];
+            }
+            node = node->last;
+        }
+        length = (int) (node->size / sizeof(char));
         index += length;
+        if (index >= 0) {
+            // 找到了节点
+            return ((char *) node->ptr)[index];
+        }
     }
-    if (length < index) {
-        return -1;
-    }
-
-    // TODO: 完成此函数
+    return '\0';
 }
 
