@@ -370,7 +370,7 @@ int chain_table_insert(ChainTableManager *manager, size_t element_size, bool is_
  *                    -1 : max_length < 名称长度
  *                    -2 : 获取节点失败
  */
-int string_read(ChainTableManager *string, char *dest, int max_length) {
+int string_read(const ChainTableManager *string, char *dest, int max_length) {
     int length = 0, letter_count = 0, index = 0;
     char *ptr;
     ChainTableNode *node;
@@ -403,6 +403,63 @@ int string_read(ChainTableManager *string, char *dest, int max_length) {
                 ptr = node->ptr;
                 continue;
             }
+        }
+    }
+    return -1;
+}
+
+/**
+ * @brief             获取字符串链表从第read_start开始的内容, 将其写入 disk 中
+ * @param string      字符串链表管理器, 即所有节点存储数据类型为字符串数组的链表
+ * @param dest        名称写入此
+ * @param max_length  disk 的最大长度
+ * @return            >0 : 名称长度
+ *                    -1 : max_length < 名称长度
+ *                    -2 : read_start > 字符串长度
+ */
+int string_read_with_start(const ChainTableManager *string, char *dest, int max_length, int read_start) {
+    int length = 0, letter_count = 0, size_for_write;
+    char *ptr;
+    ChainTableNode *node;
+
+    node = string->head;
+    while (1) {
+        if (node == NULL) {
+            return -2;
+        }
+        ptr = node->ptr;
+        length = (int) (node->size / sizeof(char));
+        if (ptr[length - 1] == '\0') {
+            length = (int) strlen(ptr);
+        }
+        if (read_start < length) {
+            // 从这里开始读取
+            break;
+        } else {
+            read_start -= length;
+            node = node->next;
+        }
+    }
+
+//    memset(dest, 0, max_length);
+    ptr = node->ptr;
+    // 特殊处理第一次写入位置和长度
+    ptr += read_start;
+    length -= read_start;
+    // 进入循环
+    while (letter_count < max_length) {
+        size_for_write = max_length - letter_count < length ? max_length - letter_count : length;
+        memcpy(&dest[letter_count], ptr, size_for_write);
+        letter_count += size_for_write;
+
+        node = node->next;
+        if (node == NULL) {
+            return 0;
+        }
+        ptr = node->ptr;
+        length = (int) (node->size / sizeof(char));
+        if (ptr[length - 1] == '\0') {
+            length = (int) strlen(ptr);
         }
     }
     return -1;
@@ -607,3 +664,15 @@ char string_char_get(const ChainTableManager *string, int index) {
     return '\0';
 }
 
+
+bool string_equal(const ChainTableManager *a, const ChainTableManager *b) {
+    int length_a, length_b, read_a, read_b;
+    char buffer[128];
+
+    read_a = string_read(a, buffer, 128);
+    read_b = string_read(b, buffer, 128);
+
+    if (read_a != read_b) {
+        return false;
+    }
+}

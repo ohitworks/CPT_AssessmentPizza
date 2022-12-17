@@ -44,7 +44,6 @@ int account_register(USERNAME_TYPE *username, char *password) {
  *                  密码错误返回 -2
  */
 int account_login(USERNAME_TYPE *username, char *password){
-    int file_exist;
     AccountUsernamePassword account;
 
     if (!file_is_exist(username)) {
@@ -70,7 +69,6 @@ int account_login(USERNAME_TYPE *username, char *password){
  *                  用户不存在返回 -1
  */
 int account_change_password(USERNAME_TYPE *username, char *password){
-    int file_exist;
     AccountUsernamePassword account;
 
     if (!file_is_exist(username)) {

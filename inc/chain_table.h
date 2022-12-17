@@ -51,7 +51,9 @@ int chain_table_append(ChainTableManager *manager, size_t element_size, bool is_
 
 int chain_table_insert(ChainTableManager *manager, size_t element_size, bool is_dynamic, int index);
 
-int string_read(ChainTableManager *string, char *dest, int max_length);
+int string_read(const ChainTableManager *string, char *dest, int max_length);
+
+int string_read_with_start(const ChainTableManager *string, char *dest, int max_length, int read_start);
 
 int string_extend(ChainTableManager *string, const char *source, int64_t source_length, uint16_t node_length);
 
@@ -60,5 +62,7 @@ int string_char_get_with_error_code(const ChainTableManager *string, char * c, i
 char string_char_get(const ChainTableManager *string, int index);
 
 int string_length(const ChainTableManager *string);
+
+bool string_equal(const ChainTableManager *a, const ChainTableManager *b);
 
 #endif //ASSESSMENT_PIZZA_CHAIN_TABLE_H

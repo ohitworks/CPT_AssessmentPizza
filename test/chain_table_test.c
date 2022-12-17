@@ -114,6 +114,11 @@ int main(void) {
     string_read(&string, buffer, 128);
     printf("%s\n", buffer);
 
+    // ---- test string_read_with_start ----
+    memset(buffer, 0, 128);
+    string_read_with_start(&string, buffer, 128, 29);
+    printf("--\n%s\n--\n", buffer);
+
     // ---- Try clear. ----
     chain_table_append(&manager, sizeof(char) * 10, false);
     memcpy(chain_table_get(&manager, 0), "ABC", 3);
