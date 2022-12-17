@@ -8,103 +8,18 @@
   **************************** AssessmentPizza: yaml.c ****************************
  */
 
+#include "file_io.h"
 #include "yaml_subset.h"
 #include "yaml_subset_cfg.h"
 
-#include <io.h>
-#include <stdio.h>
+#include <iso646.h>
 #include <string.h>
 
-
-#ifndef F_OK
-#define F_OK 0
-#endif
-
-#ifndef W_OK
-#define W_OK 2
-#endif
-
-#ifndef R_OK
-#define R_OK 4
-#endif
-
-#ifndef access
-#define access _access
-#endif
 
 
 static int read_static_yaml_struct(const ChainTableManager *string, Yaml *yaml, uint8_t retract_level);
 
-
-/**
- * @brief
- * @param path
- * @param manager  被写入的管理者, 应当未被初始化
- * @return         0  成功
- *                 -1 文件不存在或不可读
- *                 -2 字符串失败
- */
-int read_ascii_file_lines(const char *path, ChainTableManager *manager) {
-    int c, letter_counter;
-    char buffer[16];
-    bool file_not_end = true;
-    FILE *fp;
-    ChainTableManager *line;
-
-    // 初始化
-    chain_table_init(manager);
-
-    // ---- 判断和打开文件 ----
-    if (access(path, F_OK | R_OK) != 0) {
-        // 文件不存在或不可读
-        return -1;
-    }
-    fp = fopen(path, "r");
-
-    // ---- 读取文件 ----
-    while (file_not_end) {
-        // 建一个新行, line 是一个 "字符串"
-        chain_table_append(manager, sizeof(ChainTableManager), true);
-        line = chain_table_get(manager, -1);
-        chain_table_init(line);
-        letter_counter = 0;
-        while (true) {  // 读取一行
-            c = getc(fp);
-            // 检测是否结束
-            if (c == EOF) {
-                file_not_end = false;
-                break;
-            } else if (c == '\n') {
-                // LF
-                break;
-            } else if (c == '\r') {
-                // CR or CRLF
-                if (getc(fp) != '\n') {
-                    fp--;
-                }
-                break;
-            }
-            // 赋值
-            buffer[letter_counter] = (char) c;
-            letter_counter += 1;
-
-            if (letter_counter >= 16) {
-                if (string_extend(line, buffer, letter_counter, READ_LINE_NODE_LENGTH) != 0) {
-                    return -2;
-                }
-                letter_counter = 0;
-                memset(buffer, 0, sizeof(buffer));
-            }
-        }
-        if (string_extend(line, buffer, letter_counter, READ_LINE_NODE_LENGTH) != 0) {
-            return -2;
-        }
-    }
-
-    // ---- 收尾 ----
-    fclose(fp);
-    return 0;
-}
+static YAML_NODE_DATA_TYPE yaml_struct_check(const ChainTableManager *string, uint8_t retract_level);
 
 
 /**
@@ -136,10 +51,50 @@ void yaml_subset_free(Yaml *yaml) {
 }
 
 static int read_static_yaml_struct(const ChainTableManager *string, Yaml *yaml, uint8_t retract_level) {
-    char buffer[4];
+    char c;
+    int index;
     ChainTableNode *node;
 
+    index = retract_level * 4;
+    c = string_char_get(string, index);
+    if (c == '"') {
+        // 文本类型
+    } else if (48 <= c and c <= 57) {
+        // 说明是数字
+    } else if (c == '-') {
+        c = string_char_get(string, index + 1);
+        if (c == ' ') {
+            // 列表
+        } else if (48 <= c and c <= 57) {
+            // 数字
+        }
+    }
+    index += 1;
+
+
     return 0;
+}
+
+
+static YAML_NODE_DATA_TYPE yaml_struct_check(const ChainTableManager *string, uint8_t retract_level) {
+    char c;
+    retract_level *= 4;
+    c = string_char_get(string, retract_level);
+    if (c == '"') {
+        // 文本类型
+        return YAML_STRING;
+    } else if (48 <= c and c <= 57) {
+        // 说明是数字或小数
+        return YAML_INT;
+    } else if (c == '-') {
+        c = string_char_get(string, retract_level + 1);
+        if (c == ' ') {
+            // 列表
+            return YAML_LIST;
+        } else if (48 <= c and c <= 57) {
+            // 数字或小数
+        }
+    }
 }
 
 /**

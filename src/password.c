@@ -7,59 +7,10 @@
 */
 
 #include "password.h"
+#include "file_io.h"
 
-#include <io.h>
-#include <stdio.h>
 #include <string.h>
 
-
-#ifndef F_OK
-#define F_OK 0
-#endif
-
-#ifndef W_OK
-#define W_OK 2
-#endif
-
-#ifndef R_OK
-#define R_OK 4
-#endif
-
-#ifndef access
-#define access _access
-#endif
-
-
-int write_bin(char *file_path, const void *obj, size_t obj_size);
-
-int read_bin(char *file_path, void *obj, size_t obj_size);
-
-
-/**
-* @brief            Write an object to file.
-* @param file_path  The path of file.
-* @param obj        The object to write.
-* @param obj_size   The size of object.
-* @return           The return of file close function.
-*/
-int write_bin(char *file_path, const void *obj, size_t obj_size) {
-    FILE *fp = fopen(file_path, "wb");
-    fwrite(obj, 1, obj_size, fp);
-    return fclose(fp);
-}
-
-/**
-* @brief            Read bin from file and write it to a struct.
-* @param file_path  The path of file.
-* @param obj        The object to write.
-* @param obj_size   The size of object.
-* @return           The return of file close function.
-*/
-int read_bin(char *file_path, void *obj, size_t obj_size) {
-    FILE *fp = fopen(file_path, "rb");
-    fread(obj, 1, obj_size, fp);
-    return fclose(fp);
-}
 
 /**
  * @brief           注册账号
@@ -69,11 +20,9 @@ int read_bin(char *file_path, void *obj, size_t obj_size) {
  *                  用户已存在返回 -1
  */
 int account_register(USERNAME_TYPE *username, char *password) {
-    int file_exist;
     AccountUsernamePassword account;
 
-    file_exist = access(username, F_OK);
-    if (file_exist == 0) {
+    if (file_is_exist(username)) {
         // 文件已存在，说明不能注册
         return -1;
     }
@@ -98,8 +47,7 @@ int account_login(USERNAME_TYPE *username, char *password){
     int file_exist;
     AccountUsernamePassword account;
 
-    file_exist = access(username, F_OK);
-    if (file_exist != 0) {
+    if (!file_is_exist(username)) {
         // 文件不存在，说明用户不存在
         return -1;
     }
@@ -125,8 +73,7 @@ int account_change_password(USERNAME_TYPE *username, char *password){
     int file_exist;
     AccountUsernamePassword account;
 
-    file_exist = access(username, F_OK);
-    if (file_exist != 0) {
+    if (!file_is_exist(username)) {
         // 文件不存在，说明用户不存在
         return -1;
     }

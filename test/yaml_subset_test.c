@@ -4,9 +4,11 @@
   * @file
   * @author     oh it works
   * @date       2022-12-08
-  * @brief      测试 yaml 子集的读写  **************************** AssessmentPizza: yaml_subset_test.c ****************************
+  * @brief      测试 yaml 子集的读写
+  **************************** AssessmentPizza: yaml_subset_test.c ****************************
  */
 
+#include "file_io.h"
 #include "yaml_subset.h"
 
 #include <stdio.h>
@@ -18,7 +20,7 @@ int main(void) {
     ChainTableManager *string;
     char buffer[128];
 
-    read_ascii_file_lines("hello.txt", &lines);
+    read_ascii_file_lines("import this.txt", &lines);
 
     for (int i = 0; i < lines.length - 1; i++) {
         memset(buffer, 0, sizeof(buffer));
