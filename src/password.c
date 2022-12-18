@@ -83,3 +83,9 @@ int account_change_password(USERNAME_TYPE *username, char *password){
 
     return 0;
 }
+
+char *gen_id(){
+    int count;
+    char ID;
+
+}

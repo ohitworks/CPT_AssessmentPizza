@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.23)
+cmake_minimum_required(VERSION 3.21)
 project(AssessmentPizza)
 
 set(CMAKE_C_STANDARD 99)
@@ -9,7 +9,7 @@ set(ChainTable src/chain_table.c)
 set(FileIO ${ChainTable} src/file_io.c)
 
 add_executable(teamwork_week_1 ${FileIO}
-                               src/password.c)
+                               src/password.c src/gen_ID.c inc/gen_ID.h)
 add_executable(teamwork_week_2 src/chain_table.c test/chain_table_test.c)
 add_executable(teamwork_week_3_pizza ${ChainTable} ${FileIO}
                                      src/pizza.c inc/pizza.h test/pizza_test.c)

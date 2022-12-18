@@ -4,7 +4,7 @@
   * @file
   * @author     oh it works
   * @date       2022-12-18
-  * @brief      图形界面操作
+  * @brief      图形界面操作 Graphical interface Operation
   **************************** AssessmentPizza: user_interface_tools.c ****************************
  */
 
