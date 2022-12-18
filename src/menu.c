@@ -12,6 +12,7 @@
 #include "file_io.h"
 #include "chain_table.h"
 
+#include <iso646.h>
 #include <string.h>
 #include <stdlib.h>
 
@@ -102,4 +103,18 @@ int menu_save_to_file_no_update(const ChainTableManager *menu_pizzas, const char
     }
 
     return write_lines_to_file(&file, file_name);
+}
+
+
+int menu_get_pizza_price(const ChainTableManager *menu_pizzas, const Pizza * pizza) {
+    MenuPizza *menu;
+    for (int index=0; index < menu_pizzas->length; index++) {
+        menu = chain_table_get(menu_pizzas, index);
+        if (pizza->size == menu->pizza_size and
+            memcmp(pizza->type, menu->pizza_type, PIZZA_TYPE_NAME_MAX_LENGTH + 1) == 0) {
+            // 匹配到了
+            return menu->pizza_price;
+        }
+    }
+    return -1;
 }

@@ -11,6 +11,7 @@
 #include "user_interface_tools.h"
 
 #include <stdio.h>
+#include <stdlib.h>
 
 /**
 * @brief           Ask the user for choose from parameter `chooses`.
@@ -59,4 +60,13 @@ int ui_multiple_choice(char *chooses, size_t size, int mode) {
             return -2;
         }
     }
+}
+
+
+/**
+* @brief  Clear the screen.
+*/
+void screen_clear(void) {
+    system("cls");
+    fflush(stdin);
 }

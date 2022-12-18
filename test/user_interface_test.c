@@ -8,13 +8,17 @@
   **************************** AssessmentPizza: user_interface_test.c ****************************
  */
 
+#include "user_interface.h"
 #include "user_interface_tools.h"
 
 #include <stdio.h>
 
 
 
-int main (void) {
+int main(){
+
+    ChainTableManager menu;
+    ChainTableManager pizzas;
 
     return 0;
 }

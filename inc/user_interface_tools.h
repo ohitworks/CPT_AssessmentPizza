@@ -11,10 +11,9 @@
 #ifndef ASSESSMENT_PIZZA_USER_INTERFACE_TOOLS_H
 #define ASSESSMENT_PIZZA_USER_INTERFACE_TOOLS_H
 
-#include "chain_table.h"
-
 #include <stddef.h>
 
 int ui_multiple_choice(char *chooses, size_t size, int mode);
+void screen_clear(void);
 
 #endif //ASSESSMENT_PIZZA_USER_INTERFACE_TOOLS_H
