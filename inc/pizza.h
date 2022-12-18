@@ -27,5 +27,7 @@ int pizza_init(Pizza *pizza, const char *pizza_name, const char *pizza_type, int
 
 void pizza_free(Pizza * pizza);
 
+int pizza_save(Pizza * pizza, const char * file_name);
+
 
 #endif //ASSESSMENT_PIZZA_PIZZA_H

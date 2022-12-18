@@ -418,7 +418,7 @@ int string_read(const ChainTableManager *string, char *dest, int max_length) {
  *                    -2 : read_start > 字符串长度
  */
 int string_read_with_start(const ChainTableManager *string, char *dest, int max_length, int read_start) {
-    int length = 0, letter_count = 0, size_for_write;
+    int length, letter_count = 0, size_for_write;
     char *ptr;
     ChainTableNode *node;
 
@@ -454,7 +454,7 @@ int string_read_with_start(const ChainTableManager *string, char *dest, int max_
 
         node = node->next;
         if (node == NULL) {
-            return 0;
+            return letter_count;
         }
         ptr = node->ptr;
         length = (int) (node->size / sizeof(char));
@@ -666,13 +666,27 @@ char string_char_get(const ChainTableManager *string, int index) {
 
 
 bool string_equal(const ChainTableManager *a, const ChainTableManager *b) {
-    int length_a, length_b, read_a, read_b;
-    char buffer[128];
+    int times, read_a, read_b;
+    char buffer_a[128] = {0};
+    char buffer_b[128] = {0};
 
-    read_a = string_read(a, buffer, 128);
-    read_b = string_read(b, buffer, 128);
+    times = 0;
 
-    if (read_a != read_b) {
-        return false;
+    while (true) {
+        read_a = string_read_with_start(a, buffer_a, 128, times * 128);
+        read_b = string_read_with_start(b, buffer_b, 128, times * 128);
+
+        if (read_a != read_b) {
+            return false;
+        }
+        if (memcmp(buffer_a, buffer_b, 128) != 0) {
+            return false;
+        }
+        if (read_a == -2) {
+            return true;
+        }
+        times += 1;
+        memset(buffer_a, 0, 128);
+        memset(buffer_b, 0, 128);
     }
 }

@@ -15,7 +15,7 @@
 
 
 int main(void) {
-    ChainTableManager manager, string;
+    ChainTableManager manager, string, string_2;
     ChainTableManager *sub;
     int c = 0;
     char buffer[128] = {0};
@@ -118,6 +118,15 @@ int main(void) {
     memset(buffer, 0, 128);
     string_read_with_start(&string, buffer, 128, 29);
     printf("--\n%s\n--\n", buffer);
+
+    // ---- string compare ----
+    chain_table_init(&string_2);
+    string_extend(&string_2, "Hello Ivy. Glad to meet you!\nLet's go dinner, will you?", -1, 8);
+    memset(buffer, 0, 128);
+    string_read_with_start(&string, buffer, 128, 0);
+    printf("string_2: \n%s\n", buffer);
+
+    printf("---\ncmp: %d\n---\n", string_equal(&string, &string_2));
 
     // ---- Try clear. ----
     chain_table_append(&manager, sizeof(char) * 10, false);

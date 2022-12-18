@@ -9,6 +9,7 @@
  */
 
 #include "pizza.h"
+#include "file_io.h"
 
 #include <string.h>
 
@@ -112,7 +113,30 @@ int pizza_init(Pizza *pizza, const char *pizza_name, const char *pizza_type, int
  * @brief        释放 pizza 空间, 并将其置为0
  * @param pizza  待处理的实例
  */
-void pizza_free(Pizza * pizza) {
+void pizza_free(Pizza *pizza) {
     chain_table_clear(&pizza->name, RETURN_IF_DYNAMIC);
     memset(pizza, 0, sizeof(Pizza));
+}
+
+
+/**
+ * @brief
+ * @param pizza
+ * @param file_name
+ * @return
+ */
+int pizza_save(Pizza *pizza, const char *file_name) {
+    ChainTableManager file, pizza_names;
+    ChainTableManager *string;
+    char buffer[PIZZA_TYPE_NAME_MAX_LENGTH * 2];
+
+    chain_table_init(&file);
+    chain_table_init(&pizza_names);
+
+    if (read_ascii_file_lines(file_name, &file) == 0) {
+        for (int i = 0; i < file.length; i++) {
+            string = chain_table_get(&file, i);
+            string_read(string, buffer, PIZZA_TYPE_NAME_MAX_LENGTH * 2);
+        }
+    }
 }
