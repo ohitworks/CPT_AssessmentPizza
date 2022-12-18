@@ -538,12 +538,12 @@ int string_extend(ChainTableManager *string, const char *source, int64_t source_
 
 
 /**
- * @brief                向字符串后添加文本
- * @param string         字符串链表管理器
- * @param source         待添加的文本
- * @return               0  成功
- *                       -1 空间申请失败
- *                       -2 获取节点失败
+ * @brief         向字符串后添加文本
+ * @param string  字符串链表管理器
+ * @param source  待添加的文本
+ * @return        0  成功
+ *                -1 空间申请失败
+ *                -2 获取节点失败
  */
 int string_extend_string(ChainTableManager *string, const ChainTableManager *source) {
     ChainTableNode *string_node, *source_node;

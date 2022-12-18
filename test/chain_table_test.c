@@ -131,10 +131,12 @@ int main(void) {
     // ---- Test string_extend_string. ----
 //    chain_table_clear(&string, RETURN_IF_DYNAMIC);
     chain_table_clear(&string_2, RETURN_IF_DYNAMIC);
+    string_extend(&string_2, "String 2:", -1, 8);
+
     string_extend_string(&string_2, &string);
 
     memset(buffer, 0, 128);
-    string_read_with_start(&string, buffer, 128, 0);
+    string_read_with_start(&string_2, buffer, 128, 0);
     printf("---\n%s\n---\n", buffer);
 
     // ---- Try clear. ----
