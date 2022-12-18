@@ -7,6 +7,7 @@ include_directories(inc cfg)
 
 set(ChainTable src/chain_table.c)
 set(FileIO ${ChainTable} src/file_io.c)
+set(Menu ${FileIO} src/menu.c)
 
 add_executable(teamwork_week_1 ${FileIO}
                                src/password.c src/gen_ID.c inc/gen_ID.h)
@@ -22,4 +23,6 @@ add_executable(teamwork_week_4_file ${ChainTable}
 add_executable(teamwork_week_4_menu ${ChainTable} ${FileIO}
                                     src/menu.c test/menu_test.c)
 
-add_executable(teamwork_week_4_ui src/user_interface_tools.c test/user_interface_test.c)
+add_executable(teamwork_week_4_ui ${Menu}
+                                  src/user_interface_tools.c test/user_interface_test.c
+                                  src/user_interface.c)
