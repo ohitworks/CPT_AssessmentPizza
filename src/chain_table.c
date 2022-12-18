@@ -536,6 +536,118 @@ int string_extend(ChainTableManager *string, const char *source, int64_t source_
     return 0;
 }
 
+
+/**
+ * @brief                向字符串后添加文本
+ * @param string         字符串链表管理器
+ * @param source         待添加的文本
+ * @return               0  成功
+ *                       -1 空间申请失败
+ *                       -2 获取节点失败
+ */
+int string_extend_string(ChainTableManager *string, const ChainTableManager *source) {
+    ChainTableNode *string_node, *source_node;
+    char *source_ptr, *string_ptr;
+    int length, string_node_length, free_length, source_index;
+
+    source_index = 0;
+
+    // ---- 处理 source 的第一个 和 string 的最后一个节点
+    chain_table_node_get(source, source_index++, &source_node);
+    if (source_node == NULL) {
+        // 无需操作
+        return 0;
+    }
+    source_ptr = source_node->ptr;
+
+    length = (int) (source_node->size / sizeof(char));
+    if (source_ptr[length - 1] == '\0') {
+        length = (int) strlen(source_ptr);
+    }
+
+    // 处理 string 的最后一个节点
+    if (string->length > 0) {
+        // 节点不为 0, 取最后一个节点, 尝试写入
+        if (chain_table_node_get(string, -1, &string_node) != 0) {
+            return -2;
+        }
+        string_node_length = (int) (string_node->size / sizeof(char));
+        string_ptr = (char *) string_node->ptr;
+        if (string_ptr[string_node_length - 1] == '\0') {
+            // 说明未装满, 可以填入此节点
+            free_length = string_node_length - (int) strlen(string_ptr);
+            while (free_length > 0) {
+                if (free_length < length) {
+                    // 节点空余不足以填充第一个节点
+                    memcpy(&string_ptr[string_node_length - free_length], source_ptr, free_length);
+                    length -= free_length;
+                    if (chain_table_append(string, length * sizeof(char), false) != 0) {
+                        return -1;
+                    }
+                    string_ptr = chain_table_get(string, -1);
+                    if (string_ptr == NULL) {
+                        return -2;
+                    }
+                    memcpy(string_ptr, source_ptr + free_length, length);
+                    break;
+                } else if (length < free_length) {
+                    // 节点空余空间充足填充第一个节点
+                    memcpy(&string_ptr[string_node_length - free_length], source_ptr, length);
+                    // 填充完毕, 更新剩余空间
+                    free_length -= length;
+                    // 准备下一次填充
+                    chain_table_node_get(source, source_index++, &source_node);
+                    if (source_node == NULL) {
+                        return 0;
+                    }
+                    source_ptr = source_node->ptr;
+                    length = (int) (source_node->size / sizeof(char));
+                    if (source_ptr[length - 1] == '\0') {
+                        length = (int) strlen(source_ptr);
+                    }
+                } else {
+                    // 节点空余空间恰巧填充第一个节点
+                    memcpy(&string_ptr[string_node_length - free_length], source_ptr, length);
+                    // 正好结束循环
+                    break;
+                }
+            }
+        } else {
+            // 最后一个节点已装满, 直接向后添加
+            if (chain_table_append(string, length * sizeof(char), false) != 0) {
+                return -1;
+            }
+            string_ptr = chain_table_get(string, -1);
+            if (string_ptr == NULL) {
+                return -2;
+            }
+            memcpy(string_ptr, source_ptr, length);
+        }
+    }
+    // 处理结束, 向后复制直到结束
+    for (; source_index < source->length; source_index++) {
+        // 获取待添加节点
+        chain_table_node_get(source, source_index, &source_node);
+        if (source_node == NULL) {
+            // 无需操作
+            return 0;
+        }
+        source_ptr = source_node->ptr;
+        length = (int) (source_node->size / sizeof(char));
+        // 添加节点
+        if (chain_table_append(string, length * sizeof(char), false) != 0) {
+            return -1;
+        }
+        string_ptr = chain_table_get(string, -1);
+        if (string_ptr == NULL) {
+            return -2;
+        }
+        // 写入
+        memcpy(string_ptr, source_ptr, length);
+    }
+    return 0;
+}
+
 /**
  * @brief         返回字符串长度
  * @param string  被处理的字符串

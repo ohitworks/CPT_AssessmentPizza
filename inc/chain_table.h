@@ -57,6 +57,8 @@ int string_read_with_start(const ChainTableManager *string, char *dest, int max_
 
 int string_extend(ChainTableManager *string, const char *source, int64_t source_length, uint16_t node_length);
 
+int string_extend_string(ChainTableManager *string, const ChainTableManager *source);
+
 int string_char_get_with_error_code(const ChainTableManager *string, char * c, int index);
 
 char string_char_get(const ChainTableManager *string, int index);
