@@ -22,6 +22,8 @@ int main (void) {
 
     printf("name: %s\n", name);
 
+    pizza_save(&pizza, "pizzas.cfg");
+
     pizza_free(&pizza);
 
     return 0;

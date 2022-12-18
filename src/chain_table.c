@@ -557,21 +557,20 @@ int string_extend_string(ChainTableManager *string, const ChainTableManager *sou
     source_index = 0;
 
     // ---- 处理 source 的第一个 和 string 的最后一个节点
-    chain_table_node_get(source, source_index++, &source_node);
-    if (source_node == NULL) {
-        // 无需操作
-        return 0;
-    }
-    source_ptr = source_node->ptr;
-
-    length = (int) (source_node->size / sizeof(char));
-    if (source_ptr[length - 1] == '\0') {
-        length = (int) strlen(source_ptr);
-    }
-
-    // 处理 string 的最后一个节点
     if (string->length > 0) {
-        // 节点不为 0, 取最后一个节点, 尝试写入
+        // string的 节点不为 0, 取最后一个节点, 尝试写入
+        // 获取 source 的第一个节点
+        chain_table_node_get(source, source_index++, &source_node);
+        if (source_node == NULL) {
+            // 无需操作
+            return 0;
+        }
+        source_ptr = source_node->ptr;
+
+        length = (int) (source_node->size / sizeof(char));
+        if (source_ptr[length - 1] == '\0') {
+            length = (int) strlen(source_ptr);
+        }
         if (chain_table_node_get(string, -1, &string_node) != 0) {
             return -2;
         }

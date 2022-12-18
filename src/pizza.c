@@ -14,6 +14,7 @@
 #include <iso646.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 
 /**
@@ -82,30 +83,7 @@ int pizza_init(Pizza *pizza, const char *pizza_name, const char *pizza_type, int
     pizza->size = pizza_size;
 
     // ---- 写入名称 ----
-    // 添加节点
-    if (chain_table_append(&pizza->name, sizeof(PIZZA_NAME_TYPE) * PIZZA_NAME_NODE_SIZE, 0) != 0) {
-        return -1;
-    }
-    name = chain_table_get(&pizza->name, -1);
-    // 循环写入名称
-    while (*pizza_name != '\0') {
-        // 名称未结束
-        if (letter_count < PIZZA_NAME_NODE_SIZE) {
-            name[letter_count] = *pizza_name;
-
-            letter_count += 1;
-            pizza_name++;
-        } else {
-            // 需要添加节点
-            if (chain_table_append(&pizza->name, sizeof(PIZZA_NAME_TYPE) * PIZZA_NAME_NODE_SIZE, 0) != 0) {
-                // 节点添加失败
-                chain_table_clear(&pizza->name, RETURN_IF_DYNAMIC);  // 清空已分配的内存
-                return -1;
-            }
-            name = chain_table_get(&pizza->name, -1);
-            letter_count = 0;
-        }
-    }
+    string_extend(&pizza->name, pizza_name, -1, PIZZA_NAME_NODE_SIZE);
 
     return 0;
 }
@@ -137,10 +115,12 @@ int pizza_save(Pizza *pizza, const char *file_name) {
 
 
     read_return = read_ascii_file_lines(file_name, &file);
+
     if (read_return == 0) {
         // 文件存在, 读取顺利
         for (i = 0; i < file.length; i++) {
             string = chain_table_get(&file, i);
+            memset(buffer, 0, sizeof(buffer));
             string_read(string, buffer, PIZZA_TYPE_NAME_MAX_LENGTH * 2);
             if (strcmp(buffer, "[pizza]") == 0) {
                 // pizza name here
@@ -170,18 +150,22 @@ int pizza_save(Pizza *pizza, const char *file_name) {
         // 添加标头
         chain_table_append(&file, sizeof(ChainTableManager), true);
         string = chain_table_get(&file, -1);
+        chain_table_init(string);
         string_extend(string, "[pizza]", 7, 7);
         // 添加名称
         chain_table_append(&file, sizeof(ChainTableManager), true);
         string = chain_table_get(&file, -1);
+        chain_table_init(string);
         string_extend_string(string, &pizza->name);
         // 添加类型
         chain_table_append(&file, sizeof(ChainTableManager), true);
         string = chain_table_get(&file, -1);
+        chain_table_init(string);
         string_extend(string, pizza->type, -1, 8);
         // 添加大小
         chain_table_append(&file, sizeof(ChainTableManager), true);
         string = chain_table_get(&file, -1);
+        chain_table_init(string);
         memset(buffer, 0, sizeof(buffer));
         itoa(pizza->size, buffer, 10);
         string_extend(string, buffer, -1, 8);
