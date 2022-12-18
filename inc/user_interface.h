@@ -10,6 +10,6 @@
 
 Pizza * ui_welcome_menu(ChainTableManager *pizzas);
 
-int ui_show_pizza(const ChainTableManager *menu, Pizza const *pizza);
+int ui_show_pizza(ChainTableManager *menu, Pizza const *pizza);
 
 #endif //USER_INTERFACE_H

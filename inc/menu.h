@@ -22,10 +22,12 @@ typedef struct {
     int number;
 } MenuPizza;
 
-int menu_lead_from_file(ChainTableManager *menu_pizzas, const char *file_name);
+int menu_load_from_file(ChainTableManager *menu_pizzas, const char *file_name);
 
 int menu_save_to_file_no_update(const ChainTableManager *menu_pizzas, const char *file_name);
 
 int menu_get_pizza_price(const ChainTableManager *menu_pizzas, const Pizza *pizza);
+
+MenuPizza * menu_get_pizza_from_info(const ChainTableManager *menu_pizzas, const Pizza * pizza);
 
 #endif //ASSESSMENT_PIZZA_MENU_H

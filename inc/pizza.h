@@ -29,5 +29,8 @@ void pizza_free(Pizza * pizza);
 
 int pizza_save(Pizza * pizza, const char * file_name);
 
+int pizza_load_from_file(ChainTableManager * pizzas, const char * file_name);
+
+int pizza_free_pizza_array(ChainTableManager *pizzas);
 
 #endif //ASSESSMENT_PIZZA_PIZZA_H

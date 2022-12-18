@@ -11,6 +11,7 @@
 #include "pizza.h"
 
 #include <stdio.h>
+#include <string.h>
 
 int main (void) {
     Pizza pizza;
@@ -23,6 +24,17 @@ int main (void) {
     printf("name: %s\n", name);
 
     pizza_save(&pizza, "pizzas.cfg");
+
+    ChainTableManager pizzas;
+    pizza_load_from_file(&pizzas, "pizzas.cfg");
+
+    for (int i=0; i < pizzas.length; i++) {
+
+        memset(name, 0, sizeof(name));
+        pizza_name_get(chain_table_get(&pizzas, i), name, 16);
+
+        printf("name: %s\n", name);
+    }
 
     pizza_free(&pizza);
 

@@ -34,6 +34,34 @@ int chain_table_init(ChainTableManager *manager) {
 }
 
 /**
+ * @brief          不检查, 直接清空链表管理器的所有链表
+ * @param manager  待清空的链表管理器
+ * @return         0  顺利清空
+ */
+void chain_table_clear_directly(ChainTableManager *manager) {
+    ChainTableNode *ptr;
+    ChainTableNode *to_del;
+
+    if (manager->length == 0) {
+        return;
+    }
+
+    ptr = manager->tail->last;
+    to_del = manager->tail;
+
+    while (ptr != NULL) {
+        free(to_del);
+        to_del = ptr;
+        ptr = ptr->last;
+    }
+    free(to_del);
+
+    memset(manager, 0, sizeof(ChainTableManager));
+    manager->head = NULL;
+    manager->tail = NULL;
+}
+
+/**
  * @brief          清空链表管理器的所有链表
  * @param manager  待清空的链表管理器
  * @return         0  顺利清空
@@ -43,7 +71,6 @@ int chain_table_clear(ChainTableManager *manager, ChainTableFreeModes mode) {
 
     int ret;
     ChainTableNode *ptr;
-    ChainTableNode *to_del;
 
     if (manager->length == 0) {
         return 0;
@@ -82,19 +109,7 @@ int chain_table_clear(ChainTableManager *manager, ChainTableFreeModes mode) {
     }
 
     // ---- Clear ----
-    ptr = manager->tail->last;
-    to_del = manager->tail;
-
-    while (ptr != NULL) {
-        free(to_del);
-        to_del = ptr;
-        ptr = ptr->last;
-    }
-    free(to_del);
-
-    memset(manager, 0, sizeof(ChainTableManager));
-    manager->head = NULL;
-    manager->tail = NULL;
+    chain_table_clear_directly(manager);
 
     return 0;
 }

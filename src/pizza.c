@@ -25,35 +25,7 @@
  *                    -1 : max_length < 名称长度
  */
 int pizza_name_get(Pizza *pizza, PIZZA_NAME_TYPE *dest, int max_length) {
-    int length = 0, letter_count = 0, index = 0;
-    PIZZA_NAME_TYPE *ptr = chain_table_get(&pizza->name, 0);
-
-    while (length < max_length) {
-        // dest 未写满
-        if (letter_count++ < PIZZA_NAME_NODE_SIZE) {
-            // 不需要切换名称链表指针
-
-            // 将内容写入 disk
-            *(dest + length) = *ptr;
-            if (*ptr == '\0') {
-                return length;
-            }
-
-            ptr++;
-            length += 1;
-        } else {
-            // 需要切换链表指针
-            letter_count = 0;
-            ptr = chain_table_get(&pizza->name, ++index);
-            if (ptr == NULL) {
-                *(dest + length) = '\0';
-                return length;
-            } else {
-                continue;
-            }
-        }
-    }
-    return -1;
+    return string_read(&pizza->name, dest, max_length);
 }
 
 
@@ -170,4 +142,68 @@ int pizza_save(Pizza *pizza, const char *file_name) {
         string_extend(string, buffer, -1, 8);
     }
     return write_lines_to_file(&file, file_name);
+}
+
+/**
+ * @brief            从文件加载 pizza 列表
+ * @param pizzas     待写入的链表, 被视为未初始化的链表管理器, 将添加 Pizza 类型的成员
+ * @param file_name  配置文件名
+ * @return           0  成功
+ *                   -1 文件读取失败
+ */
+int pizza_load_from_file(ChainTableManager *pizzas, const char *file_name) {
+    ChainTableManager file;
+    ChainTableManager *string;
+    Pizza *pizza;
+    char *ptr;
+    char buffer[128];
+
+    chain_table_init(pizzas);
+
+    if(read_ascii_file_lines(file_name, &file) != 0) {
+        return -1;
+    }
+
+    for (int i = 0; i < file.length; i++) {
+        string = chain_table_get(&file, i);
+        memset(buffer, 0, sizeof(buffer));
+        string_read(string, buffer, 128);
+        if (strcmp(buffer, "[pizza]") == 0) {
+            // 找到了一个 pizza 成员
+            // 新建
+            chain_table_append(pizzas, sizeof(Pizza), true);
+            pizza = chain_table_get(pizzas, -1);
+            // 写入名称
+            i += 1;
+            string = chain_table_get(&file, i);
+            string_extend_string(&pizza->name, string);
+            // 写入类型
+            i += 1;
+            string = chain_table_get(&file, i);
+            memset(buffer, 0, sizeof(buffer));
+            string_read(string, buffer, PIZZA_TYPE_NAME_MAX_LENGTH);
+            memcpy(pizza->type, buffer, PIZZA_TYPE_NAME_MAX_LENGTH);
+            // 写入大小
+            i += 1;
+            string = chain_table_get(&file, i);
+            memset(buffer, 0, sizeof(buffer));
+            string_read(string, buffer, PIZZA_TYPE_NAME_MAX_LENGTH);
+            pizza->size = (int) strtol(buffer, &ptr, 10);
+        }
+    }
+    return 0;
+}
+
+int pizza_free_pizza_array(ChainTableManager *pizzas) {
+    Pizza * pizza;
+    ChainTableNode *node;
+    int index;
+
+    for (index = 0; index < pizzas->length; index++) {
+        chain_table_node_get(pizzas, index, &node);
+        pizza = node->ptr;
+        pizza_free(pizza);
+    }
+    chain_table_clear_directly(pizzas);
+    return 0;
 }

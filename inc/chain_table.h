@@ -41,6 +41,8 @@ int chain_table_init(ChainTableManager *manager);
 
 int chain_table_clear(ChainTableManager *manager, ChainTableFreeModes mode);
 
+void chain_table_clear_directly(ChainTableManager *manager);
+
 int chain_table_remove(ChainTableManager *manager, ChainTableFreeModes mode, int index);
 
 int chain_table_node_get(const ChainTableManager *manager, int index, ChainTableNode **node);

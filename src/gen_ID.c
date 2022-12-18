@@ -10,6 +10,8 @@
 
 #include "gen_ID.h"
 
+#include <iso646.h>
+
 char *gen_ID(){
     count++;
     char ID = ' ';
@@ -34,7 +36,7 @@ char *gen_ID(){
 
 char int_to_char(int object){
     char target = ' ';
-    if (10 <= object <= 99){
+    if (10 <= object and object <= 99){
         target = (char)object;
     }else{
         target = '0' + (char)object;

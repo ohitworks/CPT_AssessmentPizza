@@ -35,7 +35,7 @@ int main(void) {
     chain_table_clear(&mps, RETURN_IF_DYNAMIC);
 
     // load
-    menu_lead_from_file(&mps, "menu.cfg");
+    menu_load_from_file(&mps, "menu.cfg");
     for (int i=0; i < mps.length; i++) {
         mp = chain_table_get(&mps, i);
         printf("Menu [%2d]: type [%s], size [%d], price [%d]\n",

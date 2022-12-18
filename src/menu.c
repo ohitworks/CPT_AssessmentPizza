@@ -23,7 +23,7 @@
  * @param file_name
  * @return
  */
-int menu_lead_from_file(ChainTableManager *menu_pizzas, const char *file_name) {
+int menu_load_from_file(ChainTableManager *menu_pizzas, const char *file_name) {
     ChainTableManager file;
     ChainTableManager *line;
     MenuPizza *menu_pizza;
@@ -117,4 +117,18 @@ int menu_get_pizza_price(const ChainTableManager *menu_pizzas, const Pizza * piz
         }
     }
     return -1;
+}
+
+
+MenuPizza * menu_get_pizza_from_info(const ChainTableManager *menu_pizzas, const Pizza * pizza) {
+    MenuPizza *menu;
+    for (int index=0; index < menu_pizzas->length; index++) {
+        menu = chain_table_get(menu_pizzas, index);
+        if (pizza->size == menu->pizza_size and
+            memcmp(pizza->type, menu->pizza_type, PIZZA_TYPE_NAME_MAX_LENGTH + 1) == 0) {
+            // 匹配到了
+            return menu;
+        }
+    }
+    return NULL;
 }
