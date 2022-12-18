@@ -128,6 +128,15 @@ int main(void) {
 
     printf("---\ncmp: %d\n---\n", string_equal(&string, &string_2));
 
+    // ---- Test string_extend_string. ----
+//    chain_table_clear(&string, RETURN_IF_DYNAMIC);
+    chain_table_clear(&string_2, RETURN_IF_DYNAMIC);
+    string_extend_string(&string_2, &string);
+
+    memset(buffer, 0, 128);
+    string_read_with_start(&string, buffer, 128, 0);
+    printf("---\n%s\n---\n", buffer);
+
     // ---- Try clear. ----
     chain_table_append(&manager, sizeof(char) * 10, false);
     memcpy(chain_table_get(&manager, 0), "ABC", 3);
@@ -135,7 +144,7 @@ int main(void) {
     chain_table_append(&manager, sizeof(ChainTableManager), true);
     memcpy(chain_table_get(&manager, 1), &string, sizeof(ChainTableManager));
 //    printf("%d\n", chain_table_clear(&string, RETURN_IF_DYNAMIC));
-    printf("%d\n", chain_table_clear(&manager, FREE_AS_MANAGER));
+    printf("Clear+FREE_AS_MANAGER: %d\n", chain_table_clear(&manager, FREE_AS_MANAGER));
     chain_table_init(&string);
 
     return 0;
