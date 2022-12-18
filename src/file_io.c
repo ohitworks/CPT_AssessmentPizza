@@ -113,8 +113,8 @@ int read_ascii_file_lines(const char *path, ChainTableManager *manager) {
  */
 int write_lines_to_file(const ChainTableManager *string_array, const char *file_name) {
     FILE *fp;
+    char buffer[128];
     int line_number, read_start;
-    char buffer[128] = {0};
     ChainTableManager *string;
 
     fp = fopen(file_name, "w");
@@ -128,14 +128,16 @@ int write_lines_to_file(const ChainTableManager *string_array, const char *file_
         read_start = 0;
         while (1) {
             // 循环将每行字符串的内容写入文件
+            memset(buffer, 0, sizeof(buffer));
             string_read_with_start(string, buffer, 127, read_start);
             read_start += fputs(buffer, fp);
             if (buffer[126] == '\0') {
                 // 循环结束, 写入换行符
-                fputs(WRITE_LINES_END_LINE_BREAK_CHARACTER, fp);
+                if (line_number != string_array->length - 1) {
+                    fputs(WRITE_LINES_END_LINE_BREAK_CHARACTER, fp);
+                }
                 break;
             }
-            memset(buffer, 0, sizeof(buffer));
         }
     }
     return fclose(fp);
