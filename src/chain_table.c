@@ -28,6 +28,8 @@ int chain_table_node_create(ChainTableNode **node, size_t size, bool is_dynamic)
  */
 int chain_table_init(ChainTableManager *manager) {
     memset(manager, 0, sizeof(ChainTableManager));
+    manager->head = NULL;
+    manager->tail = NULL;
     return 0;
 }
 
@@ -91,6 +93,8 @@ int chain_table_clear(ChainTableManager *manager, ChainTableFreeModes mode) {
     free(to_del);
 
     memset(manager, 0, sizeof(ChainTableManager));
+    manager->head = NULL;
+    manager->tail = NULL;
 
     return 0;
 }
@@ -242,7 +246,7 @@ int chain_table_node_get(const ChainTableManager *manager, int index, ChainTable
  * @return         获取失败返回 NULL, 成功返回指定元素对应内容的指针
  * @warning        不要试图释放指针空间
  */
-void *chain_table_get(ChainTableManager *manager, int index) {
+void *chain_table_get(const ChainTableManager *manager, int index) {
     ChainTableNode *node = NULL;
     if (chain_table_node_get(manager, index, &node) != 0) {
         return NULL;

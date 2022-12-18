@@ -45,7 +45,7 @@ int chain_table_remove(ChainTableManager *manager, ChainTableFreeModes mode, int
 
 int chain_table_node_get(const ChainTableManager *manager, int index, ChainTableNode **node);
 
-void *chain_table_get(ChainTableManager *manager, int index);
+void *chain_table_get(const ChainTableManager *manager, int index);
 
 int chain_table_append(ChainTableManager *manager, size_t element_size, bool is_dynamic);
 

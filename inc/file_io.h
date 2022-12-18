@@ -15,6 +15,8 @@
 
 int read_ascii_file_lines(const char *path, ChainTableManager *manager);
 
+int write_lines_to_file(const ChainTableManager *string_array, const char *file_name);
+
 int write_bin(char *file_path, const void *obj, size_t obj_size);
 
 int read_bin(char *file_path, void *obj, size_t obj_size);

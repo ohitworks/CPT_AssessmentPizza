@@ -11,7 +11,9 @@
 #include "pizza.h"
 #include "file_io.h"
 
+#include <iso646.h>
 #include <string.h>
+#include <stdlib.h>
 
 
 /**
@@ -120,23 +122,69 @@ void pizza_free(Pizza *pizza) {
 
 
 /**
- * @brief
+ * @brief            写入或更新 pizza 配置文件
  * @param pizza
  * @param file_name
- * @return
+ * @return           0  成功
+ *                   -1 文件读写失败
  */
 int pizza_save(Pizza *pizza, const char *file_name) {
-    ChainTableManager file, pizza_names;
+    ChainTableManager file;
     ChainTableManager *string;
+    int i;
+    int read_return, pizza_index = -1;
     char buffer[PIZZA_TYPE_NAME_MAX_LENGTH * 2];
 
-    chain_table_init(&file);
-    chain_table_init(&pizza_names);
 
-    if (read_ascii_file_lines(file_name, &file) == 0) {
-        for (int i = 0; i < file.length; i++) {
+    read_return = read_ascii_file_lines(file_name, &file);
+    if (read_return == 0) {
+        // 文件存在, 读取顺利
+        for (i = 0; i < file.length; i++) {
             string = chain_table_get(&file, i);
             string_read(string, buffer, PIZZA_TYPE_NAME_MAX_LENGTH * 2);
+            if (strcmp(buffer, "[pizza]") == 0) {
+                // pizza name here
+                if (string_equal(&pizza->name, chain_table_get(&file, i + 1))) {
+                    pizza_index = i;
+                    break;
+                }
+                // pizza 有三个成员, 因此向下三行可以跳到成员末尾
+                i += 3;
+            }
         }
     }
+    if (pizza_index != -1) {
+        // 修改参数
+        // 写入类型
+        string = chain_table_get(&file, pizza_index + 2);
+        chain_table_clear(string, RETURN_IF_DYNAMIC);
+        string_extend(string, pizza->type, -1, 8);
+        // 写入大小
+        string = chain_table_get(&file, pizza_index + 3);
+        memset(buffer, 0, sizeof(buffer));
+        itoa(pizza->size, buffer, 10);
+        chain_table_clear(string, RETURN_IF_DYNAMIC);
+        string_extend(string, buffer, -1, 8);
+    } else {
+        // 文件读取失败, 或 向文末添加文本
+        // 添加标头
+        chain_table_append(&file, sizeof(ChainTableManager), true);
+        string = chain_table_get(&file, -1);
+        string_extend(string, "[pizza]", 7, 7);
+        // 添加名称
+        chain_table_append(&file, sizeof(ChainTableManager), true);
+        string = chain_table_get(&file, -1);
+        string_extend_string(string, &pizza->name);
+        // 添加类型
+        chain_table_append(&file, sizeof(ChainTableManager), true);
+        string = chain_table_get(&file, -1);
+        string_extend(string, pizza->type, -1, 8);
+        // 添加大小
+        chain_table_append(&file, sizeof(ChainTableManager), true);
+        string = chain_table_get(&file, -1);
+        memset(buffer, 0, sizeof(buffer));
+        itoa(pizza->size, buffer, 10);
+        string_extend(string, buffer, -1, 8);
+    }
+    return write_lines_to_file(&file, file_name);
 }

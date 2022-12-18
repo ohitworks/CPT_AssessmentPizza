@@ -8,7 +8,6 @@
   **************************** AssessmentPizza: file_io.c ****************************
  */
 
-#include "password.h"
 #include "file_io.h"
 #include "file_io_cfg.h"
 
@@ -104,6 +103,45 @@ int read_ascii_file_lines(const char *path, ChainTableManager *manager) {
     return 0;
 }
 
+
+/**
+ * @brief               将字符串数组按照每个字符串一行, 写入文件
+ * @param string_array
+ * @param file_name
+ * @return              0  成功
+ *                      -1 文件写入失败
+ */
+int write_lines_to_file(const ChainTableManager *string_array, const char *file_name) {
+    FILE *fp;
+    int line_number, read_start;
+    char buffer[128] = {0};
+    ChainTableManager *string;
+
+    fp = fopen(file_name, "w");
+    if (fp == NULL) {
+        return -1;
+    }
+
+    for (line_number = 0; line_number < string_array->length; line_number++) {
+        // 迭代每一行的文本
+        string = chain_table_get(string_array, line_number);
+        read_start = 0;
+        while (1) {
+            // 循环将每行字符串的内容写入文件
+            string_read_with_start(string, buffer, 127, read_start);
+            read_start += fputs(buffer, fp);
+            if (buffer[126] == '\0') {
+                // 循环结束, 写入换行符
+                fputs(WRITE_LINES_END_LINE_BREAK_CHARACTER, fp);
+                break;
+            }
+            memset(buffer, 0, sizeof(buffer));
+        }
+    }
+    return fclose(fp);
+}
+
+
 /**
 * @brief            Write an object to file.
 * @param file_path  The path of file.
@@ -130,6 +168,6 @@ int read_bin(char *file_path, void *obj, size_t obj_size) {
     return fclose(fp);
 }
 
-bool file_is_exist(char * file_name) {
+bool file_is_exist(char *file_name) {
     return access(file_name, F_OK) == 0;
 }
