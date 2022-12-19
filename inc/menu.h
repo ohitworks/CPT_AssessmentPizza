@@ -26,8 +26,14 @@ int menu_load_from_file(ChainTableManager *menu_pizzas, const char *file_name);
 
 int menu_save_to_file_no_update(const ChainTableManager *menu_pizzas, const char *file_name);
 
+int menu_save_to_file_remove_all_menu_data(const ChainTableManager *menu_pizzas, const char *file_name);
+
 int menu_get_pizza_price(const ChainTableManager *menu_pizzas, const Pizza *pizza);
 
-MenuPizza * menu_get_pizza_from_info(const ChainTableManager *menu_pizzas, const Pizza * pizza);
+MenuPizza *menu_get_pizza_from_info(const ChainTableManager *menu_pizzas, const Pizza *pizza);
+
+void menu_write_data_to_string_array(const ChainTableManager *menu_pizzas, ChainTableManager *string_array);
+
+void menu_remove_all_data_from_string_array(ChainTableManager *string_array);
 
 #endif //ASSESSMENT_PIZZA_MENU_H

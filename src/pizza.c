@@ -11,7 +11,6 @@
 #include "pizza.h"
 #include "file_io.h"
 
-#include <iso646.h>
 #include <string.h>
 #include <stdlib.h>
 
@@ -40,8 +39,6 @@ int pizza_name_get(Pizza *pizza, PIZZA_NAME_TYPE *dest, int max_length) {
  *                    -2 名称太长
  */
 int pizza_init(Pizza *pizza, const char *pizza_name, const char *pizza_type, int pizza_size) {
-    PIZZA_NAME_TYPE *name;
-    int letter_count = 0;
 
     memset(pizza, 0, sizeof(Pizza));
     chain_table_init(&pizza->name);
@@ -141,7 +138,11 @@ int pizza_save(Pizza *pizza, const char *file_name) {
         itoa(pizza->size, buffer, 10);
         string_extend(string, buffer, -1, 8);
     }
-    return write_lines_to_file(&file, file_name);
+    read_return = write_lines_to_file(&file, file_name);
+
+    chain_table_clear(&file, FREE_AS_MANAGER);
+
+    return read_return;
 }
 
 /**
@@ -191,6 +192,9 @@ int pizza_load_from_file(ChainTableManager *pizzas, const char *file_name) {
             pizza->size = (int) strtol(buffer, &ptr, 10);
         }
     }
+
+    chain_table_clear(&file, FREE_AS_MANAGER);
+
     return 0;
 }
 
