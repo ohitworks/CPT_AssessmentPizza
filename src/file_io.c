@@ -43,7 +43,7 @@
  */
 int read_ascii_file_lines(const char *path, ChainTableManager *manager) {
     int c, letter_counter;
-    char buffer[16];
+    char buffer[16] = {0};
     bool file_not_end = true;
     FILE *fp;
     ChainTableManager *line;
@@ -99,6 +99,12 @@ int read_ascii_file_lines(const char *path, ChainTableManager *manager) {
     }
 
     // ---- 收尾 ----
+    chain_table_append(manager, sizeof(ChainTableManager), true);
+    line = chain_table_get(manager, -1);
+    chain_table_init(line);
+    if (string_extend(line, buffer, letter_counter, READ_LINE_NODE_LENGTH) != 0) {
+        return -2;
+    }
     fclose(fp);
     return 0;
 }
