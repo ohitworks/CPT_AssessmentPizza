@@ -29,12 +29,12 @@ char gen_ID(){
     ID_type->ID_min = int_to_string(tmp_ptr->tm_min);
     ID_type->ID_sec = int_to_string(tmp_ptr->tm_sec);
 
-    strcpy(str_id, ID_type->ID_year);
-    strcpy(str_id, ID_type->ID_mon);
-    strcpy(str_id, ID_type->ID_day);
-    strcpy(str_id, ID_type->ID_hour);
-    strcpy(str_id, ID_type->ID_min);
-    strcpy(str_id, ID_type->ID_sec);
+    strcat(str_id, ID_type->ID_year);
+    strcat(str_id, ID_type->ID_mon);
+    strcat(str_id, ID_type->ID_day);
+    strcat(str_id, ID_type->ID_hour);
+    strcat(str_id, ID_type->ID_min);
+    strcat(str_id, ID_type->ID_sec);
 
     return *str_id;
 }
