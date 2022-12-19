@@ -17,14 +17,6 @@ int main (void) {
     Pizza pizza;
     PIZZA_NAME_TYPE name[16] = {0};
 
-    pizza_init(&pizza, "name 1234", "type 0", 10);
-
-    pizza_name_get(&pizza, name, 16);
-
-    printf("name: %s\n", name);
-
-    pizza_save(&pizza, "pizzas.cfg");
-
     ChainTableManager pizzas;
     pizza_load_from_file(&pizzas, "pizzas.cfg");
 

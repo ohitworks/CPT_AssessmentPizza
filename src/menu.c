@@ -148,7 +148,7 @@ int menu_save_to_file_remove_all_menu_data(const ChainTableManager *menu_pizzas,
         return -1;
     }
 
-    menu_remove_all_data_from_string_array(&file);
+    menu_remove_menus_from_string_array(&file);
     menu_write_data_to_string_array(menu_pizzas, &menu_data);
 
     for (int index = 0; index < menu_data.length; index++) {
@@ -186,18 +186,20 @@ MenuPizza *menu_get_pizza_from_info(const ChainTableManager *menu_pizzas, const 
 }
 
 
-void menu_remove_all_data_from_string_array(ChainTableManager *string_array) {
+void menu_remove_menus_from_string_array(ChainTableManager *string_array) {
     ChainTableManager *string;
     char buffer[12];
     int i;
 
     for (int index = 0; index < string_array->length; index++) {
         string = chain_table_get(string_array, index);
+        memset(buffer, 0, sizeof(buffer));
         string_read(string, buffer, 12);
         if (memcmp(buffer, "[menu pizza]", 12) == 0) {
             for (i = 0; i < 4; i++) {
                 chain_table_remove(string_array, FREE_AS_MANAGER, index);
             }
+            index -= 1;
         }
     }
 }

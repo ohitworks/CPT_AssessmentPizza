@@ -34,6 +34,6 @@ MenuPizza *menu_get_pizza_from_info(const ChainTableManager *menu_pizzas, const 
 
 void menu_write_data_to_string_array(const ChainTableManager *menu_pizzas, ChainTableManager *string_array);
 
-void menu_remove_all_data_from_string_array(ChainTableManager *string_array);
+void menu_remove_menus_from_string_array(ChainTableManager *string_array);
 
 #endif //ASSESSMENT_PIZZA_MENU_H
