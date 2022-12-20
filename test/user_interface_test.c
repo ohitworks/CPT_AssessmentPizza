@@ -9,11 +9,11 @@
  */
 
 #include "pizza.h"
+#include "password.h"
 #include "user_interface.h"
 #include "user_interface_tools.h"
 
 #include <stdio.h>
-#include <stdlib.h>
 
 
 int main() {
@@ -23,7 +23,9 @@ int main() {
 
     Pizza *pizza;
 
-    char buffer[6] = {0};
+    account_register("Hello return -1.", "1234567809");
+    account_change_password("Hello return -1.", "password 123");
+    account_register("Hello return -2.", "password 123");
 
     menu_load_from_file(&menu, "menu.cfg");
     pizza_load_from_file(&pizzas, "pizzas.cfg");

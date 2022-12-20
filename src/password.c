@@ -12,6 +12,7 @@
 
 #include <string.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 
 void password_hash(const char *password, char disk[]) {
@@ -21,6 +22,8 @@ void password_hash(const char *password, char disk[]) {
         hash = 33 * hash + (int) password[i];
         if (hash >= (INT_MAX - 256) / 33) {
             itoa(hash, disk + strlen(disk), 16);
+            hash = 0;
+            printf("%llu\n", strlen(disk));
         }
     }
 }
@@ -47,8 +50,6 @@ int account_in(const ChainTableManager *file, USERNAME_TYPE *userid) {
             ret = index + 1;
             break;
         }
-
-        index += 1;
     }
 
     return ret;
@@ -70,6 +71,7 @@ int account_register(USERNAME_TYPE *userid, char *password) {
     read_ascii_file_lines(ACCOUNT_INFO_FILE_PATH, &file);
 
     if (account_in(&file, userid) != 0) {
+        // 用户已存在
         return -1;
     }
 
@@ -84,13 +86,12 @@ int account_register(USERNAME_TYPE *userid, char *password) {
     string = chain_table_get(&file, -1);
     chain_table_init(string);
     password_hash(password, password_char);
-    string_extend(string, password, -1, 22);
+    string_extend(string, password_char, -1, 22);
 
-    // 写入换行符
+    // 写入空节点, 用于换行
     chain_table_append(&file, sizeof(ChainTableManager), true);
     string = chain_table_get(&file, -1);
     chain_table_init(string);
-    string_extend(string, "\n", 1, 1);
 
     write_lines_to_file(&file, ACCOUNT_INFO_FILE_PATH);
 
@@ -161,6 +162,9 @@ int account_change_password(USERNAME_TYPE *userid, char *password) {
     chain_table_clear(string, FREE_AS_MANAGER);
     chain_table_init(string);
     string_extend(string, password_hashed, -1, 22);
+
+    write_lines_to_file(&file, ACCOUNT_INFO_FILE_PATH);
+    chain_table_clear(&file, FREE_AS_MANAGER);
 
     return 0;
 }
