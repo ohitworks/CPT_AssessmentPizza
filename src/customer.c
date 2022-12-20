@@ -12,6 +12,8 @@
 
 #include <string.h>
 #include <stdlib.h>
+#include <process.h>
+#include <sys/timeb.h>
 
 
 void password_hash(const char *password, char disk[]) {
@@ -201,8 +203,42 @@ int account_get_username(const USERNAME_TYPE *userid, ChainTableManager *usernam
     return 0;
 }
 
-char *gen_id() {
-    int count;
-    char ID;
+
+void gen_id(char *write_space) {
+    char buffer[8] = {0};
+    volatile int length, write_length, keeper;  // 哪个变量招谁惹谁了?! 神奇的原因解决问题!
+    struct timeb time;
+    uint32_t mul = 1;
+
+    memset(write_space, 0, PASSWORD_LENGTH_MAX);
+
+    ftime(&time);
+    itoa(((int) (time.time % 10000)) * 1000 + time.millitm, write_space, 16);
+    length = (int) strlen(write_space);
+
+    if (length >= PASSWORD_LENGTH_MAX) {
+        return;
+    }
+
+    itoa(getpid(), buffer, 10);
+    write_length = PASSWORD_LENGTH_MAX - length;
+    if (write_length <= 9) {
+        keeper = 1;
+        for (int i = 0; i < write_length; i++) {}
+        keeper *= 10;
+    } else {
+        keeper = INT32_MAX;
+    }
+    for (int i = 0; buffer[i] != '\0'; i++) {
+        if (i % 5 == 0) {
+            ftime(&time);
+        }
+        mul = (mul * 31 + buffer[i] + (time.millitm + i) % 10);
+        mul %= keeper;
+    }
+    memset(buffer, 'a', sizeof(buffer));
+    itoa((int) mul, buffer, 10);
+
+    memcpy(write_space + length, buffer, write_length);
 
 }

@@ -14,7 +14,7 @@ set(Password ${FileIO} src/customer.c)
 set(Log ${FileIO} src/order_logger.c)
 
 add_executable(teamwork_week_1 ${FileIO}
-        src/customer.c src/gen_ID.c inc/gen_ID.h)
+                               src/customer.c test/customer_test.c)
 
 add_executable(teamwork_week_2 src/chain_table.c test/chain_table_test.c)
 
