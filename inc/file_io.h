@@ -23,4 +23,6 @@ int read_bin(char *file_path, void *obj, size_t obj_size);
 
 bool file_is_exist(char * file_name);
 
+int write_lines_to_file_with_mode(const ChainTableManager *string_array, const char *file_name, const char *mode);
+
 #endif //ASSESSMENT_PIZZA_FILE_IO_H

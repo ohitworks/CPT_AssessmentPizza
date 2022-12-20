@@ -33,6 +33,39 @@
 #endif
 
 
+int write_lines_to_file_with_mode(const ChainTableManager *string_array, const char *file_name, const char *mode) {
+    FILE *fp;
+    char buffer[128];
+    int line_number, read_start;
+    ChainTableManager *string;
+
+    fp = fopen(file_name, mode);
+    if (fp == NULL) {
+        return -1;
+    }
+
+    for (line_number = 0; line_number < string_array->length; line_number++) {
+        // 迭代每一行的文本
+        string = chain_table_get(string_array, line_number);
+        read_start = 0;
+        while (1) {
+            // 循环将每行字符串的内容写入文件
+            memset(buffer, 0, sizeof(buffer));
+            string_read_with_start(string, buffer, 127, read_start);
+            read_start += fputs(buffer, fp);
+            if (buffer[126] == '\0') {
+                // 循环结束, 写入换行符
+                if (line_number != string_array->length - 1) {
+                    fputs(WRITE_LINES_END_LINE_BREAK_CHARACTER, fp);
+                }
+                break;
+            }
+        }
+    }
+    return fclose(fp);
+}
+
+
 /**
  * @brief
  * @param path
@@ -118,35 +151,7 @@ int read_ascii_file_lines(const char *path, ChainTableManager *manager) {
  *                      -1 文件写入失败
  */
 int write_lines_to_file(const ChainTableManager *string_array, const char *file_name) {
-    FILE *fp;
-    char buffer[128];
-    int line_number, read_start;
-    ChainTableManager *string;
-
-    fp = fopen(file_name, "w");
-    if (fp == NULL) {
-        return -1;
-    }
-
-    for (line_number = 0; line_number < string_array->length; line_number++) {
-        // 迭代每一行的文本
-        string = chain_table_get(string_array, line_number);
-        read_start = 0;
-        while (1) {
-            // 循环将每行字符串的内容写入文件
-            memset(buffer, 0, sizeof(buffer));
-            string_read_with_start(string, buffer, 127, read_start);
-            read_start += fputs(buffer, fp);
-            if (buffer[126] == '\0') {
-                // 循环结束, 写入换行符
-                if (line_number != string_array->length - 1) {
-                    fputs(WRITE_LINES_END_LINE_BREAK_CHARACTER, fp);
-                }
-                break;
-            }
-        }
-    }
-    return fclose(fp);
+    return write_lines_to_file_with_mode(string_array, file_name, "w");
 }
 
 
