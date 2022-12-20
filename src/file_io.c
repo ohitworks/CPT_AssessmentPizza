@@ -69,12 +69,12 @@ int write_lines_to_file_with_mode(const ChainTableManager *string_array, const c
 /**
  * @brief
  * @param path
- * @param manager  被写入的管理者, 应当未被初始化
+ * @param string_array  被写入的管理者, 应当未被初始化
  * @return         0  成功
  *                 -1 文件不存在或不可读
  *                 -2 字符串失败
  */
-int read_ascii_file_lines(const char *path, ChainTableManager *manager) {
+int read_ascii_file_lines(const char *path, ChainTableManager *string_array) {
     int c, letter_counter;
     char buffer[16] = {0};
     bool file_not_end = true;
@@ -82,7 +82,7 @@ int read_ascii_file_lines(const char *path, ChainTableManager *manager) {
     ChainTableManager *line;
 
     // 初始化
-    chain_table_init(manager);
+    chain_table_init(string_array);
 
     // ---- 判断和打开文件 ----
     if (access(path, F_OK | R_OK) != 0) {
@@ -94,8 +94,8 @@ int read_ascii_file_lines(const char *path, ChainTableManager *manager) {
     // ---- 读取文件 ----
     while (file_not_end) {
         // 建一个新行, line 是一个 "字符串"
-        chain_table_append(manager, sizeof(ChainTableManager), true);
-        line = chain_table_get(manager, -1);
+        chain_table_append(string_array, sizeof(ChainTableManager), true);
+        line = chain_table_get(string_array, -1);
         chain_table_init(line);
         letter_counter = 0;
         while (true) {  // 读取一行
@@ -132,8 +132,8 @@ int read_ascii_file_lines(const char *path, ChainTableManager *manager) {
     }
 
     // ---- 收尾 ----
-    chain_table_append(manager, sizeof(ChainTableManager), true);
-    line = chain_table_get(manager, -1);
+    chain_table_append(string_array, sizeof(ChainTableManager), true);
+    line = chain_table_get(string_array, -1);
     chain_table_init(line);
     if (string_extend(line, buffer, letter_counter, READ_LINE_NODE_LENGTH) != 0) {
         return -2;

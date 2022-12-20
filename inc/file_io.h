@@ -13,7 +13,7 @@
 
 #include "chain_table.h"
 
-int read_ascii_file_lines(const char *path, ChainTableManager *manager);
+int read_ascii_file_lines(const char *path, ChainTableManager *string_array);
 
 int write_lines_to_file(const ChainTableManager *string_array, const char *file_name);
 

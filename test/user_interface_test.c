@@ -13,15 +13,17 @@
 #include "user_interface_tools.h"
 
 #include <stdio.h>
+#include <stdlib.h>
 
 
-
-int main(){
+int main() {
 
     ChainTableManager menu;
     ChainTableManager pizzas;
 
-    Pizza * pizza;
+    Pizza *pizza;
+
+    char buffer[6] = {0};
 
     menu_load_from_file(&menu, "menu.cfg");
     pizza_load_from_file(&pizzas, "pizzas.cfg");
