@@ -17,6 +17,11 @@
 #include <stdlib.h>
 
 
+#ifndef itoa
+#define itoa _itoa
+#endif
+
+
 /**
  * @brief              从文件加载菜单数组
  * @param menu_pizzas  被视为未初始化的链表

@@ -17,6 +17,10 @@
 #include <string.h>
 #include <stdlib.h>
 
+#ifndef itoa
+#define itoa _itoa
+#endif
+
 
 int write_log(const ChainTableManager *name, const ChainTableManager *menu_pizzas, const ChainTableManager *pizzas,
               const char *path) {

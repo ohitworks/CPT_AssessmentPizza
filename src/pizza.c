@@ -15,6 +15,12 @@
 #include <stdlib.h>
 
 
+#ifndef itoa
+#define itoa _itoa
+#endif
+
+
+
 /**
  * @brief             获取 pizza 的名称, 将其写入 disk 中
  * @param pizza       待处理的 Pizza
