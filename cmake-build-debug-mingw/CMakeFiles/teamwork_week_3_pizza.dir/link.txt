@@ -1,0 +1,3 @@
+"D:\Download\AppGallery\Study\COMPUTER\Computer Language\CLion 2022.3\bin\cmake\win\bin\cmake.exe" -E rm -f CMakeFiles\teamwork_week_3_pizza.dir/objects.a
+D:\Download\AppGallery\Study\COMPUTER\Computer_Language\mingw64\bin\ar.exe qc CMakeFiles\teamwork_week_3_pizza.dir/objects.a @CMakeFiles\teamwork_week_3_pizza.dir\objects1.rsp
+D:\Download\AppGallery\Study\COMPUTER\Computer_Language\mingw64\bin\x86_64-w64-mingw32-gcc.exe -g -Wl,--whole-archive CMakeFiles\teamwork_week_3_pizza.dir/objects.a -Wl,--no-whole-archive -o teamwork_week_3_pizza.exe -Wl,--out-implib,libteamwork_week_3_pizza.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\teamwork_week_3_pizza.dir\linklibs.rsp

@@ -1,0 +1,123 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.21"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "AssessmentPizza",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "teamwork_week_1::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-teamwork_week_1-Debug-fb0686400fec8f1eb2fb.json",
+					"name" : "teamwork_week_1",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "teamwork_week_2::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-teamwork_week_2-Debug-e799dc83534192bed1df.json",
+					"name" : "teamwork_week_2",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "teamwork_week_3_pizza::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-teamwork_week_3_pizza-Debug-9fe976bc1e2cead0ba9e.json",
+					"name" : "teamwork_week_3_pizza",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "teamwork_week_3_yaml::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-teamwork_week_3_yaml-Debug-1a41f12b97aab05f492c.json",
+					"name" : "teamwork_week_3_yaml",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "teamwork_week_4_file::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-teamwork_week_4_file-Debug-62b027ae2dd86d90bd4f.json",
+					"name" : "teamwork_week_4_file",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "teamwork_week_4_menu::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-teamwork_week_4_menu-Debug-8409baa2a5789ca626ee.json",
+					"name" : "teamwork_week_4_menu",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "teamwork_week_4_ui::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-teamwork_week_4_ui-Debug-9dd61b91cf05e2f97e2d.json",
+					"name" : "teamwork_week_4_ui",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "teamwork_week_5_gen_id::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-teamwork_week_5_gen_id-Debug-6615e9dfed094e5c9d21.json",
+					"name" : "teamwork_week_5_gen_id",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw",
+		"source" : "D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 4
+	}
+}

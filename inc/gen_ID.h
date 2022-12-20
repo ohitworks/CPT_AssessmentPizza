@@ -1,6 +1,6 @@
 /**
   **************************** AssessmentPizza: gen_ID.h ****************************
-  * Created by Miiiaao on 18/12/2022.
+  * Created by Miiiaao on 15/12/2022.
   *
   * @file       gen_ID.h
   * @brief      
@@ -13,10 +13,16 @@
 
 #include "time.h"
 
-int count = 0;
+#define PASSWORD_LENGTH_MAX 15 //
 
-char *gen_id();
-char int_to_char(int object);
+
+void gen_id_init();
+
+char gen_id(char ID[PASSWORD_LENGTH_MAX]);
+
+void gen_random_string(char * dest);
+
+
 
 struct Type{
     char ID_mon;

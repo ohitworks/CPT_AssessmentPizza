@@ -1,6 +1,6 @@
 /**
   **************************** AssessmentPizza: gen_ID.c ****************************
-  * Created by Miiiaao on 18/12/2022.
+  * Created by Miiiaao on 15/12/2022.
   *
   * @file       gen_ID.c
   * @brief      
@@ -8,48 +8,58 @@
   **************************** AssessmentPizza: gen_ID.c ****************************
  */
 
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <time.h>
 
 #include "gen_ID.h"
+#include "chain_table.h"
 
-char gen_ID(){
-    count++;
-    char *str_id = "Account generation error\n";
-    time_t tmpcal_ptr;
-    struct  tm *tmp_ptr = NULL;
-    struct  Type *ID_type = NULL;
+void gen_id_init (){
+    ChainTableManager string_id;
 
-    time(&tmpcal_ptr);
+    chain_table_init(&string_id);
 
-    tmp_ptr = localtime(&tmpcal_ptr);
+    chain_table_append(&string_id, sizeof(char) * 16, 1);
 
-    ID_type->ID_year = int_to_string(tmp_ptr->tm_year);
-    ID_type->ID_mon = int_to_string(tmp_ptr->tm_mon);
-    ID_type->ID_day = int_to_string(tmp_ptr->tm_mday);
-    ID_type->ID_hour = int_to_string(tmp_ptr->tm_hour);
-    ID_type->ID_min = int_to_string(tmp_ptr->tm_min);
-    ID_type->ID_sec = int_to_string(tmp_ptr->tm_sec);
-
-    strcat(str_id, ID_type->ID_year);
-    strcat(str_id, ID_type->ID_mon);
-    strcat(str_id, ID_type->ID_day);
-    strcat(str_id, ID_type->ID_hour);
-    strcat(str_id, ID_type->ID_min);
-    strcat(str_id, ID_type->ID_sec);
-
-    return *str_id;
+    return;
 }
 
-char *int_to_string(int object){
-    char *target, *media_1, *media_2 = "0";
-    if (10 <= object <= 99){
-        itoa(object, target,10);
-    }else if(0 < object <= 9){
-        itoa(object, media_1,10);
-        strcat(target, media_2);
-        strcat(target, media_1);
-    }else{
-        itoa(object, target,10);
+char gen_id(char ID[PASSWORD_LENGTH_MAX]){
+//    char ID[PASSWORD_LENGTH_MAX] = {0};
+    ChainTableManager *sub_string_id;
+    char *str;
+
+    chain_table_init(&sub_string_id);
+
+    chain_table_append(&sub_string_id, sizeof(char) *16, 0);
+
+    gen_random_string(str);
+
+    int i;
+    for (i = 0; i <= PASSWORD_LENGTH_MAX; i++){
+        ID[i] = str[i];
     }
 
-    return *target;
+
+    printf("%s\n", ID);
+
+    return ID[PASSWORD_LENGTH_MAX];
+}
+
+void gen_random_string(char * dest){
+    const unsigned char allchar[63] = "0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    unsigned int i, randNo;
+    unsigned char str[PASSWORD_LENGTH_MAX + 1] = { };
+
+    srand((unsigned int)time(NULL));
+
+    for (i = 0; i < PASSWORD_LENGTH_MAX; i++){
+        randNo = rand() % 62;
+        *dest = allchar[randNo];
+        dest++;
+    }
+
+    *dest = '\0';
 }

@@ -1,0 +1,4 @@
+"D:\Download\AppGallery\Study\COMPUTER\Computer Language\CLion 2022.3\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -DCMAKE_C_COMPILER=D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/x86_64-w64-mingw32-gcc.exe -DCMAKE_CXX_COMPILER=D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/x86_64-w64-mingw32-g++.exe -G "CodeBlocks - MinGW Makefiles" -S D:\Miao\S1\CPT109\CPT109_Assessment_3\CPT_AssessmentPizza -B D:\Miao\S1\CPT109\CPT109_Assessment_3\CPT_AssessmentPizza\cmake-build-debug-mingw
+-- Configuring done
+-- Generating done
+-- Build files have been written to: D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw

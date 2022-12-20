@@ -11,7 +11,7 @@ set(Menu ${FileIO} src/menu.c)
 set(Pizza ${FileIO} src/pizza.c)
 
 add_executable(teamwork_week_1 ${FileIO}
-                               src/password.c src/gen_ID.c inc/gen_ID.h)
+                               src/password.c inc/password.h)
 
 add_executable(teamwork_week_2 src/chain_table.c test/chain_table_test.c)
 
@@ -30,3 +30,6 @@ add_executable(teamwork_week_4_menu ${ChainTable} ${FileIO}
 add_executable(teamwork_week_4_ui ${Menu} ${Pizza}
                                   src/user_interface_tools.c test/user_interface_test.c
                                   src/user_interface.c)
+
+add_executable(teamwork_week_5_gen_id ${ChainTable} ${FileIO}
+                                      src/gen_ID.c test/gen_ID_test.c)

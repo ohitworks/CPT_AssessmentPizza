@@ -1,0 +1,10 @@
+D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/CMakeFiles/teamwork_week_1.dir
+D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/CMakeFiles/teamwork_week_2.dir
+D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/CMakeFiles/teamwork_week_3_pizza.dir
+D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/CMakeFiles/teamwork_week_3_yaml.dir
+D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/CMakeFiles/teamwork_week_4_file.dir
+D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/CMakeFiles/teamwork_week_4_menu.dir
+D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/CMakeFiles/teamwork_week_4_ui.dir
+D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/CMakeFiles/teamwork_week_5_gen_id.dir
+D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/CMakeFiles/edit_cache.dir
+D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/CMakeFiles/rebuild_cache.dir

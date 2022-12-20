@@ -1,0 +1,482 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="AssessmentPizza"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="teamwork_week_1">
+				<Option output="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/teamwork_week_1.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/inc"/>
+					<Add directory="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cfg"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/backward"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/../../../../x86_64-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 teamwork_week_1"/>
+					<CompileFile command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="teamwork_week_1/fast">
+				<Option output="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/teamwork_week_1.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/inc"/>
+					<Add directory="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cfg"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/backward"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/../../../../x86_64-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 teamwork_week_1/fast"/>
+					<CompileFile command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="teamwork_week_2">
+				<Option output="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/teamwork_week_2.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/inc"/>
+					<Add directory="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cfg"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/backward"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/../../../../x86_64-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 teamwork_week_2"/>
+					<CompileFile command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="teamwork_week_2/fast">
+				<Option output="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/teamwork_week_2.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/inc"/>
+					<Add directory="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cfg"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/backward"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/../../../../x86_64-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 teamwork_week_2/fast"/>
+					<CompileFile command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="teamwork_week_3_pizza">
+				<Option output="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/teamwork_week_3_pizza.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/inc"/>
+					<Add directory="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cfg"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/backward"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/../../../../x86_64-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 teamwork_week_3_pizza"/>
+					<CompileFile command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="teamwork_week_3_pizza/fast">
+				<Option output="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/teamwork_week_3_pizza.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/inc"/>
+					<Add directory="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cfg"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/backward"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/../../../../x86_64-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 teamwork_week_3_pizza/fast"/>
+					<CompileFile command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="teamwork_week_3_yaml">
+				<Option output="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/teamwork_week_3_yaml.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/inc"/>
+					<Add directory="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cfg"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/backward"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/../../../../x86_64-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 teamwork_week_3_yaml"/>
+					<CompileFile command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="teamwork_week_3_yaml/fast">
+				<Option output="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/teamwork_week_3_yaml.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/inc"/>
+					<Add directory="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cfg"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/backward"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/../../../../x86_64-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 teamwork_week_3_yaml/fast"/>
+					<CompileFile command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="teamwork_week_4_file">
+				<Option output="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/teamwork_week_4_file.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/inc"/>
+					<Add directory="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cfg"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/backward"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/../../../../x86_64-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 teamwork_week_4_file"/>
+					<CompileFile command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="teamwork_week_4_file/fast">
+				<Option output="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/teamwork_week_4_file.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/inc"/>
+					<Add directory="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cfg"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/backward"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/../../../../x86_64-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 teamwork_week_4_file/fast"/>
+					<CompileFile command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="teamwork_week_4_menu">
+				<Option output="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/teamwork_week_4_menu.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/inc"/>
+					<Add directory="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cfg"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/backward"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/../../../../x86_64-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 teamwork_week_4_menu"/>
+					<CompileFile command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="teamwork_week_4_menu/fast">
+				<Option output="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/teamwork_week_4_menu.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/inc"/>
+					<Add directory="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cfg"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/backward"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/../../../../x86_64-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 teamwork_week_4_menu/fast"/>
+					<CompileFile command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="teamwork_week_4_ui">
+				<Option output="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/teamwork_week_4_ui.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/inc"/>
+					<Add directory="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cfg"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/backward"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/../../../../x86_64-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 teamwork_week_4_ui"/>
+					<CompileFile command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="teamwork_week_4_ui/fast">
+				<Option output="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/teamwork_week_4_ui.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/inc"/>
+					<Add directory="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cfg"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/backward"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/../../../../x86_64-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 teamwork_week_4_ui/fast"/>
+					<CompileFile command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="teamwork_week_5_gen_id">
+				<Option output="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/teamwork_week_5_gen_id.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/inc"/>
+					<Add directory="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cfg"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/backward"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/../../../../x86_64-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 teamwork_week_5_gen_id"/>
+					<CompileFile command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="teamwork_week_5_gen_id/fast">
+				<Option output="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/teamwork_week_5_gen_id.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/inc"/>
+					<Add directory="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cfg"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/backward"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed"/>
+					<Add directory="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/../../../../x86_64-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 teamwork_week_5_gen_id/fast"/>
+					<CompileFile command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/Download/AppGallery/Study/COMPUTER/Computer_Language/mingw64/bin/mingw32-make.exe -f &quot;D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/inc/password.h">
+			<Option target="teamwork_week_1"/>
+		</Unit>
+		<Unit filename="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/inc/pizza.h">
+			<Option target="teamwork_week_3_pizza"/>
+			<Option target="teamwork_week_3_yaml"/>
+		</Unit>
+		<Unit filename="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/src/chain_table.c">
+			<Option target="teamwork_week_1"/>
+			<Option target="teamwork_week_2"/>
+			<Option target="teamwork_week_3_pizza"/>
+			<Option target="teamwork_week_3_yaml"/>
+			<Option target="teamwork_week_4_file"/>
+			<Option target="teamwork_week_4_menu"/>
+			<Option target="teamwork_week_4_ui"/>
+			<Option target="teamwork_week_5_gen_id"/>
+		</Unit>
+		<Unit filename="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/src/file_io.c">
+			<Option target="teamwork_week_1"/>
+			<Option target="teamwork_week_3_pizza"/>
+			<Option target="teamwork_week_4_file"/>
+			<Option target="teamwork_week_4_menu"/>
+			<Option target="teamwork_week_4_ui"/>
+			<Option target="teamwork_week_5_gen_id"/>
+		</Unit>
+		<Unit filename="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/src/gen_ID.c">
+			<Option target="teamwork_week_5_gen_id"/>
+		</Unit>
+		<Unit filename="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/src/menu.c">
+			<Option target="teamwork_week_4_menu"/>
+			<Option target="teamwork_week_4_ui"/>
+		</Unit>
+		<Unit filename="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/src/password.c">
+			<Option target="teamwork_week_1"/>
+		</Unit>
+		<Unit filename="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/src/pizza.c">
+			<Option target="teamwork_week_3_pizza"/>
+			<Option target="teamwork_week_4_ui"/>
+		</Unit>
+		<Unit filename="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/src/user_interface.c">
+			<Option target="teamwork_week_4_ui"/>
+		</Unit>
+		<Unit filename="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/src/user_interface_tools.c">
+			<Option target="teamwork_week_4_ui"/>
+		</Unit>
+		<Unit filename="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/src/yaml_subset.c">
+			<Option target="teamwork_week_3_yaml"/>
+		</Unit>
+		<Unit filename="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/test/chain_table_test.c">
+			<Option target="teamwork_week_2"/>
+		</Unit>
+		<Unit filename="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/test/file_io_test.c">
+			<Option target="teamwork_week_4_file"/>
+		</Unit>
+		<Unit filename="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/test/gen_ID_test.c">
+			<Option target="teamwork_week_5_gen_id"/>
+		</Unit>
+		<Unit filename="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/test/menu_test.c">
+			<Option target="teamwork_week_4_menu"/>
+		</Unit>
+		<Unit filename="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/test/pizza_test.c">
+			<Option target="teamwork_week_3_pizza"/>
+		</Unit>
+		<Unit filename="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/test/user_interface_test.c">
+			<Option target="teamwork_week_4_ui"/>
+		</Unit>
+		<Unit filename="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/test/yaml_subset_test.c">
+			<Option target="teamwork_week_3_yaml"/>
+		</Unit>
+		<Unit filename="D:/Miao/S1/CPT109/CPT109_Assessment_3/CPT_AssessmentPizza/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
