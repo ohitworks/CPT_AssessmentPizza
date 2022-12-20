@@ -22,6 +22,6 @@ int account_change_password(USERNAME_TYPE *userid, char *password);
 
 int account_in(const ChainTableManager *file, const USERNAME_TYPE *userid);
 
-ChainTableManager * account_get_username(const USERNAME_TYPE *userid);
+int account_get_username(const USERNAME_TYPE *userid, ChainTableManager *username);
 
 #endif //TEST_PASSWORD_H

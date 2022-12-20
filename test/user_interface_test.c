@@ -49,7 +49,10 @@ int main() {
         printf("---\n update %d\n---\n", ui_show_pizza(&menu, pizza));
     }
 
-    write_log(account_get_username(user_id), &menu, &pizzas, "log.cfg");
+    chain_table_clear(&username, RETURN_IF_DYNAMIC);
+    account_get_username(user_id, &username);
+    write_log(&username, &menu, &pizzas, "log.cfg");
+    chain_table_clear(&username, RETURN_IF_DYNAMIC);
 
     return 0;
 }

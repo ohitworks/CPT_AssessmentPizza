@@ -176,27 +176,29 @@ int account_change_password(USERNAME_TYPE *userid, char *password) {
 
 /**
  * @brief           修改密码
- * @param userid    用户名
- * @return          成功返回用户名字符串
- *                  用户不存在返回 NULL
+ * @param userid    用户 ID
+ * @param username  用户名写入位置, 将被视为未初始化节点
+ * @return          成功返回 0
+ *                  用户不存在返回 -1
  */
-ChainTableManager * account_get_username(const USERNAME_TYPE *userid) {
+int account_get_username(const USERNAME_TYPE *userid, ChainTableManager *username) {
     ChainTableManager file;
-    ChainTableManager * username;
     int password_index;
+
+    chain_table_init(username);
 
     read_ascii_file_lines(ACCOUNT_INFO_FILE_PATH, &file);
     password_index = account_in(&file, userid);
     if (password_index == 0) {
         // 用户不存在
-        return NULL;
+        return -1;
     }
 
-    username = chain_table_get(&file, password_index + 1);
+    string_extend_string(username, chain_table_get(&file, password_index + 1));
 
     chain_table_clear(&file, FREE_AS_MANAGER);
 
-    return username;
+    return 0;
 }
 
 char *gen_id() {
