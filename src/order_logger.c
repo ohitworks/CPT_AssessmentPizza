@@ -23,9 +23,9 @@ int write_log(const ChainTableManager *name, const ChainTableManager *menu_pizza
     ChainTableManager file_append;
     ChainTableManager *string;
     Pizza *pizza;
-    MenuPizza * menu;
+    MenuPizza *menu;
     char buffer[3];
-    int ret;
+    int ret = 0, is_empty = 1;
 
     chain_table_init(&file_append);
 
@@ -51,6 +51,8 @@ int write_log(const ChainTableManager *name, const ChainTableManager *menu_pizza
             string = chain_table_get(&file_append, -1);
             chain_table_init(string);
             string_extend(string, buffer, -1, 2);
+
+            is_empty = 0;
         }
     }
 
@@ -59,7 +61,9 @@ int write_log(const ChainTableManager *name, const ChainTableManager *menu_pizza
     chain_table_init(string);
     string_extend(string, "\n", -1, 2);
 
-    ret = write_lines_to_file_with_mode(&file_append, path, "a");
+    if (is_empty) {
+        ret = write_lines_to_file_with_mode(&file_append, path, "a");
+    }
 
     chain_table_clear(&file_append, FREE_AS_MANAGER);
 
