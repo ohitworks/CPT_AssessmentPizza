@@ -16,7 +16,7 @@
 #define PASSWORD_LENGTH_MIN 8
 #define PASSWORD_LENGTH_MAX 16
 
-#define ACCOUNT_INFO_FILE_PATH "accounts.cfg"
+#define ACCOUNT_INFO_FILE_PATH "accounts.txt"
 
 typedef char USERNAME_TYPE;
 
