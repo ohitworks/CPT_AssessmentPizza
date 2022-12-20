@@ -132,12 +132,12 @@ int read_ascii_file_lines(const char *path, ChainTableManager *string_array) {
     }
 
     // ---- 收尾 ----
-    chain_table_append(string_array, sizeof(ChainTableManager), true);
-    line = chain_table_get(string_array, -1);
-    chain_table_init(line);
-    if (string_extend(line, buffer, letter_counter, READ_LINE_NODE_LENGTH) != 0) {
-        return -2;
-    }
+//    chain_table_append(string_array, sizeof(ChainTableManager), true);
+//    line = chain_table_get(string_array, -1);
+//    chain_table_init(line);
+//    if (string_extend(line, buffer, letter_counter, READ_LINE_NODE_LENGTH) != 0) {
+//        return -2;
+//    }
     fclose(fp);
     return 0;
 }

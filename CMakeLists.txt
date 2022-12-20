@@ -10,10 +10,10 @@ set(FileIO ${ChainTable} src/file_io.c)
 set(Menu ${FileIO} src/menu.c)
 set(Pizza ${FileIO} src/pizza.c)
 set(UI ${Menu} ${Pizza} src/user_interface_tools.c src/user_interface.c)
-set(Password ${FileIO} src/password.c)
+set(Password ${FileIO} src/customer.c)
 
 add_executable(teamwork_week_1 ${FileIO}
-                               src/password.c src/gen_ID.c inc/gen_ID.h)
+        src/customer.c src/gen_ID.c inc/gen_ID.h)
 
 add_executable(teamwork_week_2 src/chain_table.c test/chain_table_test.c)
 

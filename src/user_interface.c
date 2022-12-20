@@ -1,6 +1,6 @@
 #include "menu.h"
 #include "pizza.h"
-#include "password.h"
+#include "customer.h"
 #include "pizza_cfg.h"
 #include "account_cfg.h"
 #include "user_interface.h"
@@ -140,6 +140,13 @@ int ui_show_pizza(ChainTableManager *menu, Pizza const *pizza) {
     }
 }
 
+
+/**
+ *
+ * @param user_id  待写入的字符串数组, 长度应当为 (PASSWORD_LENGTH_MAX * 2), 执行完成后写入登录的用户ID
+ * @return         0  登录成功
+ *                 -1 用户取消登录
+ */
 int ui_login_page(char *user_id) {
     int length, login;
     char password[PASSWORD_LENGTH_MAX * 2];
@@ -155,6 +162,7 @@ int ui_login_page(char *user_id) {
         while (1) {
             printf("* User ID, q for exit:  ");
             memset(user_id, 0, PASSWORD_LENGTH_MAX * 2);
+            fflush(stdin);
             scanf("%[^\n]", user_id);
             length = (int) strlen(user_id);
             if (length == PASSWORD_LENGTH_MAX) {
@@ -169,17 +177,19 @@ int ui_login_page(char *user_id) {
         while (1) {
             printf("Input password: ");
             memset(password, 0, PASSWORD_LENGTH_MAX * 2);
+            fflush(stdin);
             scanf("%[^\n]", password);
             length = (int) strlen(password);
-            if (length == PASSWORD_LENGTH_MAX) {
+            if (length <= PASSWORD_LENGTH_MAX and length >= PASSWORD_LENGTH_MIN) {
                 break;
             }
-            printf("Unexpect length, need %d, get %d.\n", PASSWORD_LENGTH_MAX, length);
+            printf("Unexpect length, get %d.\n", length);
             printf("Input password again...\n");
         }
 
         login = account_login(user_id, password);
         if (login == 0) {
+            printf("Login success! Hello~\n");
             return 0;
         }
 

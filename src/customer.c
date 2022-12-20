@@ -7,12 +7,11 @@
 */
 
 #include "file_io.h"
-#include "password.h"
+#include "customer.h"
 #include "chain_table.h"
 
 #include <string.h>
 #include <stdlib.h>
-#include <stdio.h>
 
 
 void password_hash(const char *password, char disk[]) {
@@ -23,7 +22,6 @@ void password_hash(const char *password, char disk[]) {
         if (hash >= (INT_MAX - 256) / 33) {
             itoa(hash, disk + strlen(disk), 16);
             hash = 0;
-            printf("%llu\n", strlen(disk));
         }
     }
 }
@@ -40,7 +38,7 @@ int account_in(const ChainTableManager *file, USERNAME_TYPE *userid) {
     int ret = 0;
     char buffer[PASSWORD_LENGTH_MAX];
 
-    for (int index = 0; index < file->length; index += 2) {
+    for (int index = 0; index < file->length; index += 4) {
         string = chain_table_get(file, index);
 
         memset(buffer, 0, PASSWORD_LENGTH_MAX);
@@ -63,7 +61,7 @@ int account_in(const ChainTableManager *file, USERNAME_TYPE *userid) {
  * @return          注册成功返回 0
  *                  用户已存在返回 -1
  */
-int account_register(USERNAME_TYPE *userid, char *password) {
+int account_register(USERNAME_TYPE *userid, char *password, const ChainTableManager *username) {
     ChainTableManager file;
     ChainTableManager *string;
     char password_char[22] = {0};
@@ -87,6 +85,12 @@ int account_register(USERNAME_TYPE *userid, char *password) {
     chain_table_init(string);
     password_hash(password, password_char);
     string_extend(string, password_char, -1, 22);
+
+    // 写入用户名
+    chain_table_append(&file, sizeof(ChainTableManager), true);
+    string = chain_table_get(&file, -1);
+    chain_table_init(string);
+    string_extend_string(string, username);
 
     // 写入空节点, 用于换行
     chain_table_append(&file, sizeof(ChainTableManager), true);

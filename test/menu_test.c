@@ -53,9 +53,9 @@ int main(void) {
 
     read_ascii_file_lines("pizzas.cfg", &lines);
 
-    menu_remove_menus_from_string_array(&lines);
+//    menu_remove_menus_from_string_array(&lines);
 
-    for (int i = 0; i < lines.length - 1; i++) {
+    for (int i = 0; i < lines.length; i++) {
         memset(buffer, 0, sizeof(buffer));
         string = chain_table_get(&lines, i);
         string_read(string, buffer, 128);
