@@ -614,8 +614,7 @@ int string_extend_string(ChainTableManager *string, const ChainTableManager *sou
                     // 填充完毕, 更新剩余空间
                     free_length -= length;
                     // 准备下一次填充
-                    chain_table_node_get(source, source_index++, &source_node);
-                    if (source_node == NULL) {
+                    if (chain_table_node_get(source, source_index++, &source_node) == -1) {
                         return 0;
                     }
                     source_ptr = source_node->ptr;
