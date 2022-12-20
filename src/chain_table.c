@@ -382,7 +382,7 @@ int chain_table_insert(ChainTableManager *manager, size_t element_size, bool is_
 
 /**
  * @brief             获取字符串链表的内容, 将其写入 disk 中
- * @param string      字符串链表管理器, 即所有节点存储数据类型为字符串数组的链表
+ * @param string      字符串链表管理器, 即所有节点存储数据类型为字符数组的链表
  * @param dest        名称写入此
  * @param max_length  disk 的最大长度
  * @return            >0 : 名称长度
@@ -428,7 +428,7 @@ int string_read(const ChainTableManager *string, char *dest, int max_length) {
 }
 
 /**
- * @brief             获取字符串链表从第read_start开始的内容, 将其写入 disk 中
+ * @brief             获取字符串链表从第read_start+1开始的内容, 将其写入 disk 中
  * @param string      字符串链表管理器, 即所有节点存储数据类型为字符串数组的链表
  * @param dest        名称写入此
  * @param max_length  disk 的最大长度

@@ -16,7 +16,6 @@
 
 int main(void) {
     ChainTableManager manager, string, string_2;
-    ChainTableManager *sub;
     int c = 0;
     char buffer[128] = {0};
     char *ptr;
@@ -53,53 +52,6 @@ int main(void) {
     printf("%s %s\n",
            (char *) chain_table_get(&manager, 0),
            (char *) chain_table_get(&manager, 1));
-
-    chain_table_clear(&manager, FREE_AS_MANAGER);
-
-//    while (true) {
-//        printf("a        : add a string\n");
-//        printf("b[a-z][.]: add the text letter on the string\n");
-//        printf("c[a-z]   : add the text letter on the string\n");
-//        switch (getchar()) {
-//            case 'a':
-//                // add a string
-//                chain_table_append(&manager, sizeof(ChainTableManager), true);
-//                sub = chain_table_get(&manager, 0);
-//                chain_table_init(sub);
-//                chain_table_append(sub, 16, false);
-//                printf("string added\n");
-//            case '\n':
-//                continue;
-//            case 'b':
-//                sub = chain_table_get(&manager, 0);
-//                if (sub == NULL) {
-//                    printf("-- Index Error --\n");
-//                    getchar();
-//                    continue;
-//                }
-//                ptr = chain_table_get(sub, 0);
-//                printf("%s\n", ptr);
-//                if (strlen(ptr) < 16) {
-//                    ptr[strlen(ptr)] = (char) getchar();
-//                } else {
-//                    getchar();
-//                    printf("-- do nothing --\n");
-//                }
-//            case 'c':
-//                sub = chain_table_get(&manager, getchar() - 'a');
-//                if (sub == NULL) {
-//                    printf("-- Index Error --\n");
-//                    getchar();
-//                    continue;
-//                }
-//                chain_table_append(sub, sizeof(ChainTableManager), false);
-//                printf("added\n");
-//            default:
-//                break;
-//            case 'q':
-//                return 0;
-//        }
-//    }
 
     chain_table_clear(&manager, FREE_AS_MANAGER);
 

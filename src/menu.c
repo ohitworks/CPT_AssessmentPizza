@@ -134,8 +134,7 @@ int menu_get_pizza_price(const ChainTableManager *menu_pizzas, const Pizza *pizz
  * @param menu_pizzas
  * @param file_name
  * @return             0  成功
- *                     -1 文件读取失败
- *                     -2 文件写入失败
+ *                     -1 文件写入失败
  */
 int menu_save_to_file_remove_all_menu_data(const ChainTableManager *menu_pizzas, const char *file_name) {
     ChainTableManager file, menu_data;
@@ -144,9 +143,7 @@ int menu_save_to_file_remove_all_menu_data(const ChainTableManager *menu_pizzas,
     int ret;
 
     chain_table_init(&file);
-    if (read_ascii_file_lines(file_name, &file) != 0) {
-        return -1;
-    }
+    read_ascii_file_lines(file_name, &file);
 
     menu_remove_menus_from_string_array(&file);
     menu_write_data_to_string_array(menu_pizzas, &menu_data);
@@ -165,7 +162,7 @@ int menu_save_to_file_remove_all_menu_data(const ChainTableManager *menu_pizzas,
     chain_table_clear(&menu_data, FREE_AS_MANAGER);
 
     if (ret != 0) {
-        ret = -2;
+        ret = -1;
     }
 
     return ret;
