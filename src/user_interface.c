@@ -1,12 +1,44 @@
 #include "menu.h"
 #include "pizza.h"
+#include "password.h"
 #include "pizza_cfg.h"
+#include "account_cfg.h"
 #include "user_interface.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <iso646.h>
 #include <string.h>
+
+
+int read_from_stdin(ChainTableManager *string) {
+    char c;
+    char buffer[22] = {0};
+    int buffer_write;
+    int length;
+
+    length = 0;
+    buffer_write = 0;
+    while (1) {
+        fflush(stdin);
+        c = (char) getchar();
+        if (c != '\n') {
+            length += 1;
+            buffer[buffer_write++] = c;
+        }
+        if (buffer_write == 22) {
+            buffer_write = 0;
+            string_extend(string, buffer, 22, 22);
+            memset(buffer, 0, sizeof(buffer));
+        }
+        if (c == '\n') {
+            string_extend(string, buffer, 22, 22);
+            break;
+        }
+    }
+
+    return length;
+}
 
 
 /**
@@ -108,6 +140,52 @@ int ui_show_pizza(ChainTableManager *menu, Pizza const *pizza) {
     }
 }
 
+int ui_login_page(char *user_id) {
+    int length, login;
+    char password[PASSWORD_LENGTH_MAX * 2];
+
+    printf("*****************************************\n");
+    printf("*                Log in                 *\n");
+    printf("*****************************************\n");
+    printf("*                                       *\n");
+    printf("*                                       *\n");
+
+    while (1) {
+
+        while (1) {
+            printf("* User ID, q for exit:  ");
+            memset(user_id, 0, PASSWORD_LENGTH_MAX * 2);
+            scanf("%[^\n]", user_id);
+            length = (int) strlen(user_id);
+            if (length == PASSWORD_LENGTH_MAX) {
+                break;
+            } else if (length == 1 and user_id[0] == 'q') {
+                return -1;
+            }
+            printf("Unexpect length, need %d, get %d.\n", PASSWORD_LENGTH_MAX, length);
+            printf("Input user ID again...\n");
+        }
+
+        while (1) {
+            printf("Input password: ");
+            memset(password, 0, PASSWORD_LENGTH_MAX * 2);
+            scanf("%[^\n]", password);
+            length = (int) strlen(password);
+            if (length == PASSWORD_LENGTH_MAX) {
+                break;
+            }
+            printf("Unexpect length, need %d, get %d.\n", PASSWORD_LENGTH_MAX, length);
+            printf("Input password again...\n");
+        }
+
+        login = account_login(user_id, password);
+        if (login == 0) {
+            return 0;
+        }
+
+        printf("Wrong ID or password.\n");
+    }
+}
 
 /**
  * @brief   顾客下单用的菜单
