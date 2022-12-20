@@ -9,53 +9,67 @@
  */
 
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
 #include <time.h>
+#include <string.h>
 
 #include "gen_ID.h"
 #include "chain_table.h"
+#include "file_io.h"
 
-void gen_id_init (){
-    ChainTableManager string_id;
+char gen_id(char ID[ACCOUNT_LENGTH_MAX]){
+    int success_gen_id = 0, i;
+    ChainTableManager string_id, lines;
+    ChainTableManager *sub_string_id, *string;
+    char *str, *buffer;
 
     chain_table_init(&string_id);
-
     chain_table_append(&string_id, sizeof(char) * 16, 1);
 
-    return;
-}
-
-char gen_id(char ID[PASSWORD_LENGTH_MAX]){
-//    char ID[PASSWORD_LENGTH_MAX] = {0};
-    ChainTableManager *sub_string_id;
-    char *str;
-
+    sub_string_id = chain_table_get(&string_id, 0);
     chain_table_init(&sub_string_id);
-
     chain_table_append(&sub_string_id, sizeof(char) *16, 0);
 
-    gen_random_string(str);
+    read_ascii_file_lines(ACCOUNT_FILE_PATH, &lines);
 
-    int i;
-    for (i = 0; i <= PASSWORD_LENGTH_MAX; i++){
-        ID[i] = str[i];
+    while (success_gen_id == 0){
+        gen_random_string(str);
+
+        for (i = 0; i < lines.length - 1; i++){
+            memset(buffer, 0 , strlen(buffer));
+            string = chain_table_get(&lines, i);
+            string_read(string, buffer, );
+            printf("line[%2d]: %s\n", i + 1, buffer);
+
+            if (strcmp(buffer, str) == 0){
+                continue;
+            }
+        }
+
+        chain_table_node_get(&lines, 0, )
+
+        write_lines_to_file(ACCOUNT_FILE_PATH, &lines);
+
+        for (i = 0; i <= ACCOUNT_LENGTH_MAX; i++){
+            ID[i] = str[i];
+        }
+
+//    printf("%s\n", ID);
+        success_gen_id = 1;
     }
 
 
-    printf("%s\n", ID);
-
-    return ID[PASSWORD_LENGTH_MAX];
+    return ID[ACCOUNT_LENGTH_MAX];
 }
 
 void gen_random_string(char * dest){
     const unsigned char allchar[63] = "0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
     unsigned int i, randNo;
-    unsigned char str[PASSWORD_LENGTH_MAX + 1] = { };
+    unsigned char str[ACCOUNT_LENGTH_MAX + 1] = { };
 
     srand((unsigned int)time(NULL));
 
-    for (i = 0; i < PASSWORD_LENGTH_MAX; i++){
+    for (i = 0; i < ACCOUNT_LENGTH_MAX; i++){
         randNo = rand() % 62;
         *dest = allchar[randNo];
         dest++;

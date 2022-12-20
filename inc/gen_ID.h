@@ -13,22 +13,11 @@
 
 #include "time.h"
 
-#define PASSWORD_LENGTH_MAX 15 //
+#define ACCOUNT_LENGTH_MAX 15
+#define ACCOUNT_FILE_PATH "gen_account.txt"
 
-
-void gen_id_init();
-
-char gen_id(char ID[PASSWORD_LENGTH_MAX]);
+char gen_id(char ID[ACCOUNT_LENGTH_MAX]);
 
 void gen_random_string(char * dest);
 
-
-
-struct Type{
-    char ID_mon;
-    char ID_day;
-    char ID_hour;
-    char ID_min;
-    char ID_sec;
-};
 #endif //ASSESSMENTPIZZA_GEN_ID_H
