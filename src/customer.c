@@ -33,7 +33,7 @@ void password_hash(const char *password, char disk[]) {
  * @param userid
  * @return        用户名对应的密码所在索引
  */
-int account_in(const ChainTableManager *file, USERNAME_TYPE *userid) {
+int account_in(const ChainTableManager *file, const USERNAME_TYPE *userid) {
     ChainTableManager *string;
     int ret = 0;
     char buffer[PASSWORD_LENGTH_MAX];
@@ -171,6 +171,32 @@ int account_change_password(USERNAME_TYPE *userid, char *password) {
     chain_table_clear(&file, FREE_AS_MANAGER);
 
     return 0;
+}
+
+
+/**
+ * @brief           修改密码
+ * @param userid    用户名
+ * @return          成功返回用户名字符串
+ *                  用户不存在返回 NULL
+ */
+ChainTableManager * account_get_username(const USERNAME_TYPE *userid) {
+    ChainTableManager file;
+    ChainTableManager * username;
+    int password_index;
+
+    read_ascii_file_lines(ACCOUNT_INFO_FILE_PATH, &file);
+    password_index = account_in(&file, userid);
+    if (password_index == 0) {
+        // 用户不存在
+        return NULL;
+    }
+
+    username = chain_table_get(&file, password_index + 1);
+
+    chain_table_clear(&file, FREE_AS_MANAGER);
+
+    return username;
 }
 
 char *gen_id() {

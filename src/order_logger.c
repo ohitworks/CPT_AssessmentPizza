@@ -57,7 +57,7 @@ int write_log(const ChainTableManager *name, const ChainTableManager *menu_pizza
     chain_table_append(&file_append, sizeof(ChainTableManager), true);
     string = chain_table_get(&file_append, -1);
     chain_table_init(string);
-    string_extend(string, "\n", -1, 2);
+    string_extend(string, "\n\n", -1, 2);
 
     ret = write_lines_to_file_with_mode(&file_append, path, "a");
 

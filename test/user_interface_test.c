@@ -37,7 +37,9 @@ int main() {
     menu_load_from_file(&menu, "pizzas.cfg");
     pizza_load_from_file(&pizzas, "pizzas.cfg");
 
-    ui_login_page(user_id);
+    if (ui_login_page(user_id) != 0){
+        return 0;
+    }
 
     while (1) {
         pizza = ui_welcome_menu(&pizzas);
@@ -47,6 +49,7 @@ int main() {
         printf("---\n update %d\n---\n", ui_show_pizza(&menu, pizza));
     }
 
+    write_log(account_get_username(user_id), &menu, &pizzas, "log.cfg");
 
     return 0;
 }

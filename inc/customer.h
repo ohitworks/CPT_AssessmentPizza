@@ -20,7 +20,8 @@ int account_register(USERNAME_TYPE *userid, char *password, const ChainTableMana
 
 int account_change_password(USERNAME_TYPE *userid, char *password);
 
-int account_in(const ChainTableManager *file, USERNAME_TYPE *userid);
+int account_in(const ChainTableManager *file, const USERNAME_TYPE *userid);
 
+ChainTableManager * account_get_username(const USERNAME_TYPE *userid);
 
 #endif //TEST_PASSWORD_H

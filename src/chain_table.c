@@ -575,8 +575,7 @@ int string_extend_string(ChainTableManager *string, const ChainTableManager *sou
     if (string->length > 0) {
         // string的 节点不为 0, 取最后一个节点, 尝试写入
         // 获取 source 的第一个节点
-        chain_table_node_get(source, source_index++, &source_node);
-        if (source_node == NULL) {
+        if (chain_table_node_get(source, source_index++, &source_node) == -1) {
             // 无需操作
             return 0;
         }
