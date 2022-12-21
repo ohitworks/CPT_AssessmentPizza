@@ -60,16 +60,11 @@ int main() {
     while (1) {
         pizza = ui_welcome_menu(&pizzas);
         if (pizza == NULL) {
+            printf("pizza null\n");
             break;
         }
         printf("---\n update %d\n---\n", ui_show_pizza(&menu, pizza));
     }
-
-    read_from_stdin(&username);
-
-    string_read(&username, buffer, 128);
-
-    printf("%s\n", buffer);
 
     chain_table_clear(&username, RETURN_IF_DYNAMIC);
     account_get_username(user_id, &username);
