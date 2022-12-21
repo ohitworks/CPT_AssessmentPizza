@@ -23,7 +23,7 @@ typedef struct {
 
 int pizza_name_get(Pizza *pizza, char *dest, int max_length);
 
-int pizza_init(Pizza *pizza, const char *pizza_name, const char *pizza_type, int pizza_size);
+int pizza_init(Pizza *pizza, const ChainTableManager *pizza_name, const char *pizza_type, int pizza_size);
 
 void pizza_free(Pizza * pizza);
 
@@ -32,5 +32,7 @@ int pizza_save(Pizza * pizza, const char * file_name);
 int pizza_load_from_file(ChainTableManager * pizzas, const char * file_name);
 
 int pizza_free_pizza_array(ChainTableManager *pizzas);
+
+int pizza_remove_from_file(const Pizza * pizza, const char * file_name);
 
 #endif //ASSESSMENT_PIZZA_PIZZA_H

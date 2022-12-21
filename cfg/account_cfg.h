@@ -18,6 +18,8 @@
 
 #define ACCOUNT_INFO_FILE_PATH "accounts.txt"
 
+#define SUPERUSER_DEFINE_PASSWORD "good morning"
+
 typedef char USERNAME_TYPE;
 
 #endif //TEST_ACCOUNT_CFG_H

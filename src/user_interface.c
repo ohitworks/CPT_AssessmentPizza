@@ -4,6 +4,7 @@
 #include "customer.h"
 #include "pizza_cfg.h"
 #include "account_cfg.h"
+#include "main_config.h"
 #include "user_interface.h"
 
 #include <stdio.h>
@@ -12,6 +13,11 @@
 #include <string.h>
 
 
+/**
+ *
+ * @param string
+ * @return        string length
+ */
 int read_from_stdin(ChainTableManager *string) {
     char c;
     char buffer[22] = {0};
@@ -133,11 +139,11 @@ int ui_customer_register(char *userid_write_space) {
     } while (account_register(userid_write_space, buffer, &username) == -1);
 
     memset(buffer, 0, sizeof(buffer));
-    length = string_read(&username, buffer, 128-1);
+    length = string_read(&username, buffer, 128 - 1);
     printf("Register success! Hello %s", buffer);
     while (length == -1) {
         memset(buffer, 0, sizeof(buffer));
-        length = string_read(&username, buffer, 128-1);
+        length = string_read(&username, buffer, 128 - 1);
         printf("%s", buffer);
     }
     printf("\nYour ID is [%s] please remember this.\n", userid_write_space);
@@ -217,7 +223,7 @@ int ui_show_pizza(ChainTableManager *menu, Pizza const *pizza) {
     printf("*                                       \n");
     printf("*  price: %d\n", menu_pizza->pizza_price);
     printf("*                   ----                \n");
-    printf("*  Your order number: %2d                \n", menu_pizza->number);
+    printf("*  Your order number: %2d               \n", menu_pizza->number);
     printf("*                   ----                \n");
     printf("*                                  :)   \n");
     printf("****************************************\n");
@@ -299,6 +305,212 @@ int ui_login_page(char *user_id) {
 
         printf("Wrong ID or password.\n");
     }
+}
+
+
+int ui_add_menu(ChainTableManager *pizzas) {
+    Pizza *pizza;
+    MenuPizza menu_pizza;
+    ChainTableManager menu_pizzas, names_for_edit;
+    ChainTableManager *string;
+    int index;
+    char buffer[128];
+    char *c;
+
+    chain_table_init(&names_for_edit);
+    menu_load_from_file(&menu_pizzas, MENU_SAVE_PATH);
+
+    // 获取待添加的名称
+    for (int i = 0; i < pizzas->length; i++) {
+        pizza = chain_table_get(pizzas, i);
+        if (menu_get_pizza_from_info(&menu_pizzas, pizza) == NULL) {
+            // 找到一个没有写入菜单的 pizza
+            chain_table_append(&names_for_edit, sizeof(ChainTableManager), true);
+            string = chain_table_get(&names_for_edit, -1);
+            string_extend_string(string, &pizza->name);
+        }
+    }
+
+    // 打印所有可添加的名称
+    printf("Choose the pizza's name to add:\n");
+    for (int i = 0; i < names_for_edit.length; i++) {
+        string = chain_table_get(&names_for_edit, i);
+        printf("* %2d  )", i + 1);
+        string_print(string);
+        printf("\n");
+    }
+
+    // 获取输入
+    printf("Input name index:");
+    while (1) {
+        memset(buffer, 0, sizeof(buffer));
+        fflush(stdin);
+        scanf("%[^\n]", buffer);
+
+        index = (int) strtol(buffer, &c, 10);
+        if (*c == '\0' and index > 0 and index <= names_for_edit.length) {
+            break;
+        }
+        printf("Input again please:");
+    }
+
+    string = chain_table_get(&names_for_edit, index - 1);
+    for (index = 0; index < pizzas->length; index++) {
+        pizza = chain_table_get(pizzas, index);
+        if (string_equal(&pizza->name, string)) {
+            break;
+        }
+    }
+
+    // 获取定价
+    printf("Input price:");
+    while (1) {
+        memset(buffer, 0, sizeof(buffer));
+        fflush(stdin);
+        scanf("%[^\n]", buffer);
+
+        index = (int) strtol(buffer, &c, 10);
+        if (*c == '\0' and index > 0 and index <= names_for_edit.length) {
+            break;
+        }
+        printf("Input again please:");
+    }
+
+    memset(&menu_pizza, 0, sizeof(menu_pizza));
+    menu_pizza.pizza_price = index;
+    menu_pizza.pizza_size = pizza->size;
+    memcpy(menu_pizza.pizza_type, pizza->type, PIZZA_TYPE_NAME_MAX_LENGTH);
+
+    chain_table_append(&menu_pizzas, sizeof(MenuPizza), false);
+    memcpy((MenuPizza *) chain_table_get(&menu_pizzas, -1), &menu_pizza, sizeof(MenuPizza));
+
+    menu_save_to_file_remove_all_menu_data(&menu_pizzas, MENU_SAVE_PATH);
+
+    chain_table_clear(&menu_pizzas, FREE_AS_MANAGER);
+    chain_table_clear(&names_for_edit, FREE_AS_MANAGER);
+
+    return 0;
+}
+
+int ui_remove_menu(void) {
+    ChainTableManager menu_pizzas;
+    MenuPizza *menu_pizza;
+    int index;
+    char buffer[PIZZA_TYPE_NAME_MAX_LENGTH + 1];
+    char *c;
+
+    menu_load_from_file(&menu_pizzas, MENU_SAVE_PATH);
+    for (index = 0; index < menu_pizzas.length; index++) {
+        menu_pizza = chain_table_get(&menu_pizzas, index);
+        memset(buffer, 0, sizeof(buffer));
+        memcpy(buffer, menu_pizza->pizza_type, PIZZA_TYPE_NAME_MAX_LENGTH);
+        printf("* * * *  menu %d  * * * *\n", index + 1);
+        printf("Type %s\n", buffer);
+        printf("Size %d\n", menu_pizza->pizza_size);
+        printf("Price %d\n", menu_pizza->pizza_price);
+    }
+
+    // 获取输入
+    printf("Input name index:");
+    while (1) {
+        memset(buffer, 0, sizeof(buffer));
+        fflush(stdin);
+        scanf("%[^\n]", buffer);
+
+        index = (int) strtol(buffer, &c, 10);
+        if (*c == '\0' and index > 0 and index <= menu_pizzas.length) {
+            break;
+        }
+        printf("Input again please:");
+    }
+
+    chain_table_remove(&menu_pizzas, FREE_AS_MANAGER, index - 1);
+    menu_save_to_file_remove_all_menu_data(&menu_pizzas, MENU_SAVE_PATH);
+
+    chain_table_clear(&menu_pizzas, FREE_AS_MANAGER);
+
+    return 0;
+}
+
+int ui_add_pizza(void) {
+    ChainTableManager pizza_name;
+    Pizza pizza;
+    int length, pizza_size;
+    char buffer[128];
+    char pizza_type[PIZZA_TYPE_NAME_MAX_LENGTH + 1];
+    char *c;
+
+    printf("Input pizza name:");
+    fflush(stdin);
+    read_from_stdin(&pizza_name);
+
+    printf("Input pizza type:");
+    while (1) {
+        fflush(stdin);
+        memset(pizza_type, 0, sizeof(pizza_type));
+        scanf("%[^\n]", buffer);
+        length = (int) strlen(pizza_type);
+        if (length > 0 and length <= PIZZA_TYPE_NAME_MAX_LENGTH) {
+            break;
+        }
+        printf("Input again please:");
+    }
+
+    printf("Input pizza size:");
+    while (1) {
+        fflush(stdin);
+        memset(buffer, 0, sizeof(buffer));
+        fflush(stdin);
+        scanf("%[^\n]", buffer);
+
+        pizza_size = (int) strtol(buffer, &c, 10);
+        if (*c == '\0') {
+            break;
+        }
+        printf("Input again please:");
+    }
+
+    pizza_init(&pizza, &pizza_name, pizza_type, pizza_size);
+    pizza_save(&pizza, PIZZA_SAVE_PATH);
+    chain_table_clear(&pizza_name, FREE_AS_MANAGER);
+    return 0;
+}
+
+int ui_remove_pizza(void) {
+    ChainTableManager pizzas;
+    Pizza *pizza;
+    int index;
+    char buffer[PIZZA_TYPE_NAME_MAX_LENGTH + 1];
+    char *c;
+
+    pizza_load_from_file(&pizzas, PIZZA_SAVE_PATH);
+
+    for (int i = 0; i < pizzas.length; i++) {
+        pizza = chain_table_get(&pizzas, i);
+        printf("- %2d )", i + 1);
+        string_print(&pizza->name);
+        printf("\n");
+    }
+
+    // 获取输入
+    printf("Input name index:");
+    while (1) {
+        memset(buffer, 0, sizeof(buffer));
+        fflush(stdin);
+        scanf("%[^\n]", buffer);
+
+        index = (int) strtol(buffer, &c, 10);
+        if (*c == '\0' and index > 0 and index <= pizzas.length) {
+            break;
+        }
+        printf("Input again please:");
+    }
+
+    pizza = chain_table_get(&pizzas, index - 1);
+    pizza_remove_from_file(pizza, PIZZA_SAVE_PATH);
+
+    pizza_free_pizza_array(&pizzas);
+    return 0;
 }
 
 /**

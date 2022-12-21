@@ -44,7 +44,7 @@ int pizza_name_get(Pizza *pizza, PIZZA_NAME_TYPE *dest, int max_length) {
  *                    -1 内存获取失败
  *                    -2 名称太长
  */
-int pizza_init(Pizza *pizza, const char *pizza_name, const char *pizza_type, int pizza_size) {
+int pizza_init(Pizza *pizza, const ChainTableManager *pizza_name, const char *pizza_type, int pizza_size) {
 
     memset(pizza, 0, sizeof(Pizza));
     chain_table_init(&pizza->name);
@@ -57,7 +57,7 @@ int pizza_init(Pizza *pizza, const char *pizza_name, const char *pizza_type, int
     pizza->size = pizza_size;
 
     // ---- 写入名称 ----
-    string_extend(&pizza->name, pizza_name, -1, PIZZA_NAME_NODE_SIZE);
+    string_extend_string(&pizza->name, pizza_name);
 
     return 0;
 }
@@ -215,5 +215,41 @@ int pizza_free_pizza_array(ChainTableManager *pizzas) {
         pizza_free(pizza);
     }
     chain_table_clear_directly(pizzas);
+    return 0;
+}
+
+
+int pizza_remove_from_file(const Pizza * pizza, const char * file_name) {
+    ChainTableManager file;
+    ChainTableManager *string;
+    int i;
+    int read_return, pizza_index = -1;
+    char buffer[PIZZA_TYPE_NAME_MAX_LENGTH * 2];
+
+
+    read_return = read_ascii_file_lines(file_name, &file);
+    if (read_return == 0) {
+        // 文件存在, 读取顺利
+        for (i = 0; i < file.length; i++) {
+            string = chain_table_get(&file, i);
+            memset(buffer, 0, sizeof(buffer));
+            string_read(string, buffer, PIZZA_TYPE_NAME_MAX_LENGTH * 2);
+            if (strcmp(buffer, "[pizza]") == 0) {
+                // pizza name here
+                if (string_equal(&pizza->name, chain_table_get(&file, i + 1))) {
+                    pizza_index = i;
+                    break;
+                }
+                // pizza 有三个成员, 因此向下三行可以跳到成员末尾
+                i += 3;
+            }
+        }
+        for (i=0; i < 4; i++) {
+            chain_table_remove(&file, FREE_AS_MANAGER, pizza_index);
+        }
+        write_lines_to_file(&file, file_name);
+    }
+
+    chain_table_clear(&file, FREE_AS_MANAGER);
     return 0;
 }

@@ -20,4 +20,12 @@ int read_from_stdin(ChainTableManager *string);
 
 int ui_customer_register(char *userid_write_space);
 
+int ui_add_pizza(void);
+
+int ui_add_menu(ChainTableManager * pizzas);
+
+int ui_remove_menu(void);
+
+int ui_remove_pizza(void);
+
 #endif //USER_INTERFACE_H

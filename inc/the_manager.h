@@ -11,6 +11,6 @@
 #ifndef ASSESSMENT_PIZZA_THE_MANAGER_H
 #define ASSESSMENT_PIZZA_THE_MANAGER_H
 
-int manager_
+int manager_login(char * password);
 
 #endif //ASSESSMENT_PIZZA_THE_MANAGER_H
