@@ -14,4 +14,10 @@ int ui_show_pizza(ChainTableManager *menu, Pizza const *pizza);
 
 int ui_login_page(char * user_id);
 
+int ui_choose_role(void);
+
+int read_from_stdin(ChainTableManager *string);
+
+int ui_customer_register(char *userid_write_space);
+
 #endif //USER_INTERFACE_H

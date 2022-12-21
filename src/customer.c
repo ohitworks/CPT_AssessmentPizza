@@ -10,7 +10,6 @@
 #include "customer.h"
 #include "chain_table.h"
 
-#include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <process.h>
@@ -225,7 +224,9 @@ void gen_id(char *write_space) {
     memset(write_space, 0, PASSWORD_LENGTH_MAX);
 
     GetSystemTime(&sys_time);
-    itoa(sys_time.wSecond* 1000 + sys_time.wMilliseconds, write_space, 16);
+    itoa(sys_time.wMonth * 32 + sys_time.wDay, write_space, 32);
+    length = (int) strlen(write_space);
+    itoa(sys_time.wSecond * 1000 + sys_time.wMilliseconds, write_space + length, 16);
     length = (int) strlen(write_space);
 
     if (length >= PASSWORD_LENGTH_MAX) {
@@ -242,16 +243,20 @@ void gen_id(char *write_space) {
         keeper = INT32_MAX;
     }
     for (int i = 0; buffer[i] != '\0'; i++) {
+        if (i % 10) {
+            Sleep(100);
+        }
         if (i % 5 == 0) {
             // FIXME: vs 上无法获取毫秒级时间戳
             GetSystemTime(&sys_time);
 //            printf("%d-%d\n", sys_time.wSecond, sys_time.wMilliseconds);
         }
-        mul = (mul * 31 + buffer[i] + (sys_time.wMilliseconds + i) % 10);
+        mul = (mul * 313 + buffer[i] + (sys_time.wMilliseconds + i) % 10);
         mul %= keeper;
     }
-    memset(buffer, 'a', sizeof(buffer));
+    memset(buffer, 'A', sizeof(buffer));
     itoa((int) mul, buffer, 10);
+    buffer[strlen(buffer)] = buffer[0];
 
     memcpy(write_space + length, buffer, write_length);
 

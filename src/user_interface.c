@@ -1,5 +1,6 @@
 #include "menu.h"
 #include "pizza.h"
+#include "file_io.h"
 #include "customer.h"
 #include "pizza_cfg.h"
 #include "account_cfg.h"
@@ -19,8 +20,9 @@ int read_from_stdin(ChainTableManager *string) {
 
     length = 0;
     buffer_write = 0;
+    chain_table_init(string);
+    fflush(stdin);
     while (1) {
-        fflush(stdin);
         c = (char) getchar();
         if (c != '\n') {
             length += 1;
@@ -83,6 +85,108 @@ Pizza *ui_welcome_menu(ChainTableManager *pizzas) {
 
         return pizza;
     }
+}
+
+
+/**
+ *
+ * @return
+ */
+int ui_customer_register(char *userid_write_space) {
+    ChainTableManager username;
+    char buffer[128] = {0};
+    int length;
+
+    printf("*****************************************\n");
+    printf("*          Customer Register:           *\n");
+    printf("*****************************************\n");
+    printf("*                                       *\n");
+    printf("*                                       *\n");
+
+    while (1) {
+        printf("input your username:");
+        fflush(stdin);
+        length = read_from_stdin(&username);
+        if (length >= USERNAME_LENGTH_MIN) {
+            break;
+        }
+        printf("Name too short ... Please input again...\n");
+        chain_table_clear(&username, RETURN_IF_DYNAMIC);
+    }
+    while (1) {
+        printf("\nInput password:");
+        memset(buffer, 0, sizeof(buffer));
+        fflush(stdin);
+        scanf("%[^\n]", buffer);
+
+        length = (int) strlen(buffer);
+
+        if (length <= PASSWORD_LENGTH_MAX and length >= PASSWORD_LENGTH_MIN) {
+            break;
+        }
+        printf("Password too long or too short ... Please input again...\n");
+    }
+
+
+    do {
+        gen_id(userid_write_space);
+    } while (account_register(userid_write_space, buffer, &username) == -1);
+
+    memset(buffer, 0, sizeof(buffer));
+    length = string_read(&username, buffer, 128-1);
+    printf("Register success! Hello %s", buffer);
+    while (length == -1) {
+        memset(buffer, 0, sizeof(buffer));
+        length = string_read(&username, buffer, 128-1);
+        printf("%s", buffer);
+    }
+    printf("\nYour ID is [%s] please remember this.\n", userid_write_space);
+
+    return 0;
+}
+
+
+/**
+ *
+ * @return  0 退出程序
+ *          1 顾客注册
+ *          2 顾客登录
+ *          3 管理员登录
+ */
+int ui_choose_role(void) {
+    char buffer[128] = {0};
+
+    printf("*****************************************\n");
+    printf("*          Choose your role.            *\n");
+    printf("*****************************************\n");
+    printf("*                                       *\n");
+    printf("*                                       *\n");
+    printf("* 1)  Customer Register                 *\n");
+    printf("*                                       *\n");
+    printf("* 2)  Customer Login                    *\n");
+    printf("*                                       *\n");
+    printf("* 3)  Manager Login                     *\n");
+    printf("*                                       *\n");
+    printf("*                                 :)    *\n");
+    printf("*****************************************\n");
+
+    while (1) {
+        printf("input the number to choose, b for exit:");
+        memset(buffer, 0, sizeof(buffer));
+        fflush(stdin);
+        scanf("%[^\n]", buffer);
+
+        if (buffer[1] == '\0') {
+            if (buffer[0] == '1' or buffer[0] == '2' or buffer[0] == '3') {
+                break;
+            } else {
+                return 0;
+            }
+        }
+        printf("Error ... Please input again...\n");
+    }
+
+    return (int) buffer[0] - 48;
 }
 
 

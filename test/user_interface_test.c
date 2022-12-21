@@ -25,6 +25,7 @@ int main() {
     Pizza *pizza;
 
     char user_id[PASSWORD_LENGTH_MAX * 2];
+    char buffer[128] = {0};
 
     chain_table_init(&username);
     string_extend(&username, "user", -1, 6);
@@ -37,8 +38,23 @@ int main() {
     menu_load_from_file(&menu, "pizzas.cfg");
     pizza_load_from_file(&pizzas, "pizzas.cfg");
 
-    if (ui_login_page(user_id) != 0){
-        return 0;
+    switch (ui_choose_role()) {
+        case 0:
+        default:
+            return 0;
+        case 1:
+            screen_clear();
+            user_id[PASSWORD_LENGTH_MAX] = '\0';
+            ui_customer_register(user_id);
+            break;
+        case 2:
+            screen_clear();
+            if (ui_login_page(user_id) != 0){
+                return 0;
+            }
+            break;
+        case 3:
+            // TODO
     }
 
     while (1) {
@@ -48,6 +64,12 @@ int main() {
         }
         printf("---\n update %d\n---\n", ui_show_pizza(&menu, pizza));
     }
+
+    read_from_stdin(&username);
+
+    string_read(&username, buffer, 128);
+
+    printf("%s\n", buffer);
 
     chain_table_clear(&username, RETURN_IF_DYNAMIC);
     account_get_username(user_id, &username);
