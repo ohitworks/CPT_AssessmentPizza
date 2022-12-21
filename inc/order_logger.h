@@ -13,7 +13,10 @@
 
 #include "chain_table.h"
 
-int write_log(const ChainTableManager * name, const ChainTableManager * menu_pizzas, const ChainTableManager * pizzas, const char * path);
+int write_log(const ChainTableManager *username, const ChainTableManager *menu_pizzas, const ChainTableManager *pizzas,
+              const char *path);
+
+int show_log(const ChainTableManager *username, const char *log_path);
 
 
 #endif //ASSESSMENT_PIZZA_ORDER_LOGGER_H

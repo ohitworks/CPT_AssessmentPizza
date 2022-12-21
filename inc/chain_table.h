@@ -69,4 +69,6 @@ int string_length(const ChainTableManager *string);
 
 bool string_equal(const ChainTableManager *a, const ChainTableManager *b);
 
+void string_print(ChainTableManager * string);
+
 #endif //ASSESSMENT_PIZZA_CHAIN_TABLE_H

@@ -18,21 +18,23 @@ Pizza *pizza_ui;
 ChainTableManager pizzas, menu_pizzas, name;
 
 int main() {
-    pizza_load_from_file(&pizzas, "pizzas.cfg");
-    menu_load_from_file(&menu_pizzas, "pizzas.cfg");
-
+//    pizza_load_from_file(&pizzas, "pizzas.cfg");
+//    menu_load_from_file(&menu_pizzas, "pizzas.cfg");
+//
     chain_table_init(&name);
-    string_extend(&name, "Y", 1, 2);
+    string_extend(&name, "UN", -1, 2);
+//
+//    while (1) {
+//        pizza_ui = ui_welcome_menu(&pizzas);
+//        if (pizza_ui == NULL) {
+//            break;
+//        }
+//        ui_show_pizza(&menu_pizzas, pizza_ui);
+//    }
+//
+//    write_log(&name, &menu_pizzas, &pizzas, "log.cfg");
 
-    while (1) {
-        pizza_ui = ui_welcome_menu(&pizzas);
-        if (pizza_ui == NULL) {
-            break;
-        }
-        ui_show_pizza(&menu_pizzas, pizza_ui);
-    }
-
-    write_log(&name, &menu_pizzas, &pizzas, "log.cfg");
+    show_log(&name, "log.cfg");
 
     return 0;
 }

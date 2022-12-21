@@ -49,12 +49,13 @@ int main() {
             break;
         case 2:
             screen_clear();
-            if (ui_login_page(user_id) != 0){
+            if (ui_login_page(user_id) != 0) {
                 return 0;
             }
             break;
         case 3:
             // TODO
+            break;
     }
 
     while (1) {

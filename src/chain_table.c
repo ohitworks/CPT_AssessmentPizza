@@ -10,6 +10,7 @@
 
 #include "chain_table.h"
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <iso646.h>
@@ -816,5 +817,22 @@ bool string_equal(const ChainTableManager *a, const ChainTableManager *b) {
         times += 1;
         memset(buffer_a, 0, 128);
         memset(buffer_b, 0, 128);
+    }
+}
+
+
+void string_print(ChainTableManager * string) {
+    char buffer[128];
+    int start_pass=0, time_count = 1;
+
+    while (1) {
+        memset(buffer, 0, sizeof(buffer));
+        start_pass = string_read_with_start(string, buffer, 128, start_pass);
+        printf("%s", buffer);
+        if (start_pass == -1) {
+            start_pass = 128 * time_count++;
+        } else {
+            break;
+        }
     }
 }

@@ -13,6 +13,7 @@
 #include "pizza.h"
 #include "file_io.h"
 
+#include <stdio.h>
 #include <iso646.h>
 #include <string.h>
 #include <stdlib.h>
@@ -22,7 +23,7 @@
 #endif
 
 
-int write_log(const ChainTableManager *name, const ChainTableManager *menu_pizzas, const ChainTableManager *pizzas,
+int write_log(const ChainTableManager *username, const ChainTableManager *menu_pizzas, const ChainTableManager *pizzas,
               const char *path) {
     ChainTableManager file_append;
     ChainTableManager *string;
@@ -37,7 +38,7 @@ int write_log(const ChainTableManager *name, const ChainTableManager *menu_pizza
     string = chain_table_get(&file_append, -1);
     chain_table_init(string);
     string_extend(string, "[", 1, 12);
-    string_extend_string(string, name);
+    string_extend_string(string, username);
     string_extend(string, "]", 1, 2);
 
     for (int index = 0; index < pizzas->length; index++) {
@@ -72,4 +73,31 @@ int write_log(const ChainTableManager *name, const ChainTableManager *menu_pizza
     chain_table_clear(&file_append, FREE_AS_MANAGER);
 
     return ret;
+}
+
+
+int show_log(const ChainTableManager *username, const char *log_path) {
+    ChainTableManager file, name_key;
+    ChainTableManager *string;
+
+    chain_table_init(&name_key);
+    string_extend(&name_key, "[", 1, 10);
+    string_extend_string(&name_key, username);
+    string_extend(&name_key, "]", 1, 1);
+
+    read_ascii_file_lines(log_path, &file);
+
+    for (int index = 0; index < file.length; index++) {
+        string = chain_table_get(&file, index);
+        if (string_equal(string, &name_key)) {
+            do {
+                string_print(string);
+                printf("\n");
+                index += 1;
+                string = chain_table_get(&file, index);
+            } while (string->length > 0);
+        }
+    }
+
+    return 0;
 }
