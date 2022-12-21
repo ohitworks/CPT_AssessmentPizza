@@ -48,7 +48,7 @@ int account_in(const ChainTableManager *file, const USERNAME_TYPE *userid) {
     int ret = 0;
     char buffer[PASSWORD_LENGTH_MAX];
 
-    for (int index = 0; index < file->length; index += 4) {
+    for (int index = 0; index < file->length; index += 5) {
         string = chain_table_get(file, index);
 
         memset(buffer, 0, PASSWORD_LENGTH_MAX);
@@ -101,6 +101,12 @@ int account_register(USERNAME_TYPE *userid, char *password, const ChainTableMana
     string = chain_table_get(&file, -1);
     chain_table_init(string);
     string_extend_string(string, username);
+
+    // 写入用户余额
+    chain_table_append(&file, sizeof(ChainTableManager), true);
+    string = chain_table_get(&file, -1);
+    chain_table_init(string);
+    string_extend(string, "0", 1, 1);
 
     // 写入空节点, 用于换行
     chain_table_append(&file, sizeof(ChainTableManager), true);
@@ -209,6 +215,61 @@ int account_get_username(const USERNAME_TYPE *userid, ChainTableManager *usernam
     chain_table_clear(&file, FREE_AS_MANAGER);
 
     return 0;
+}
+
+
+int account_get_balance(const char *userid) {
+    ChainTableManager file;
+    ChainTableManager *string;
+    int password_index, balance;
+    char buffer[32];
+    char *c;
+
+    read_ascii_file_lines(ACCOUNT_INFO_FILE_PATH, &file);
+    password_index = account_in(&file, userid);
+    if (password_index == 0) {
+        // 用户不存在
+        return -1;
+    }
+
+    memset(buffer, 0, sizeof(buffer));
+    string = chain_table_get(&file, password_index + 1);
+    string_read(string, buffer, 128);
+    balance = (int) strtol(buffer, &c, 10);
+
+    chain_table_clear(&file, FREE_AS_MANAGER);
+
+    return balance;
+}
+
+
+int account_change_balance(const char *userid, int balance) {
+    ChainTableManager file;
+    ChainTableManager *string;
+    int index;
+    char buffer[32] = {0};
+
+    read_ascii_file_lines(ACCOUNT_INFO_FILE_PATH, &file);
+    index = account_in(&file, userid);
+    if (index == 0) {
+        // 用户不存在
+        return -1;
+    }
+    index += 1;
+
+    chain_table_remove(&file, FREE_AS_MANAGER, index);
+
+    itoa(balance, buffer, 10);
+    chain_table_insert(&file, sizeof(ChainTableManager), true, index);
+    string = chain_table_get(&file, index);
+    chain_table_init(string);
+    string_extend(string, buffer, -1, 1);
+
+    write_lines_to_file(&file, ACCOUNT_INFO_FILE_PATH);
+
+    chain_table_clear(&file, FREE_AS_MANAGER);
+
+    return balance;
 }
 
 

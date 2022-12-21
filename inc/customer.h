@@ -25,6 +25,10 @@ int account_in(const ChainTableManager *file, const USERNAME_TYPE *userid);
 
 int account_get_username(const USERNAME_TYPE *userid, ChainTableManager *username);
 
+int account_change_balance(const char *userid, int balance);
+
+int account_get_balance(const char *userid);
+
 void gen_id(char *write_space);
 
 #endif //TEST_PASSWORD_H
