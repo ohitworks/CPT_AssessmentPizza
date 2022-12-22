@@ -205,3 +205,18 @@ void menu_remove_menus_from_string_array(ChainTableManager *string_array) {
         }
     }
 }
+
+
+int menu_get_charge(ChainTableManager *menus) {
+    int ret = 0;
+    MenuPizza *menu;
+
+    for (int index = 0; index < menus->length; index ++) {
+        menu = chain_table_get(menus, index);
+        if (menu->number > 0) {
+            ret += menu->pizza_price * menu->number;
+        }
+    }
+
+    return ret;
+}

@@ -40,4 +40,6 @@ void menu_write_data_to_string_array(const ChainTableManager *menu_pizzas, Chain
 
 void menu_remove_menus_from_string_array(ChainTableManager *string_array);
 
+int menu_get_charge(ChainTableManager *menus);
+
 #endif //ASSESSMENT_PIZZA_MENU_H

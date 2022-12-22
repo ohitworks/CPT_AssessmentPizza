@@ -292,6 +292,7 @@ int ui_order_menu(const char *userid) {
 
     chain_table_init(&username);
     account_get_username(userid, &username);
+    account_change_balance(userid, account_get_balance(userid) + menu_get_charge(&menu));
     write_log(&username, &menu, &pizzas, LOG_SAVE_PATH);
 
     pizza_free_pizza_array(&pizzas);
