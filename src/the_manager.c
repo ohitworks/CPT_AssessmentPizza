@@ -26,7 +26,7 @@ int manager_login(char * password) {
     if (ret == -1) {
         chain_table_init(&name);
         string_extend(&name, "su", -1, 12);
-        account_register("Superuser", SUPERUSER_DEFINE_PASSWORD, &name);
+        account_register("Superuser", SUPERUSER_DEFINE_PASSWORD, &name, NULL);
 
         ret = account_login("Superuser", password);
     }

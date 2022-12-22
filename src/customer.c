@@ -48,7 +48,7 @@ int account_in(const ChainTableManager *file, const USERNAME_TYPE *userid) {
     int ret = 0;
     char buffer[PASSWORD_LENGTH_MAX];
 
-    for (int index = 0; index < file->length; index += 5) {
+    for (int index = 0; index < file->length; index += 6) {
         string = chain_table_get(file, index);
 
         memset(buffer, 0, PASSWORD_LENGTH_MAX);
@@ -71,7 +71,7 @@ int account_in(const ChainTableManager *file, const USERNAME_TYPE *userid) {
  * @return          注册成功返回 0
  *                  用户已存在返回 -1
  */
-int account_register(USERNAME_TYPE *userid, char *password, const ChainTableManager *username) {
+int account_register(USERNAME_TYPE *userid, char *password, const ChainTableManager *username, const char *tel) {
     ChainTableManager file;
     ChainTableManager *string;
     char password_char[22] = {0};
@@ -107,6 +107,12 @@ int account_register(USERNAME_TYPE *userid, char *password, const ChainTableMana
     string = chain_table_get(&file, -1);
     chain_table_init(string);
     string_extend(string, "0", 1, 1);
+
+    // 写入电话号码
+    chain_table_append(&file, sizeof(ChainTableManager), true);
+    string = chain_table_get(&file, -1);
+    string_extend(string, tel, -1, 8);
+    chain_table_init(string);;
 
     // 写入空节点, 用于换行
     chain_table_append(&file, sizeof(ChainTableManager), true);

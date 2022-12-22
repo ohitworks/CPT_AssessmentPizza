@@ -103,6 +103,7 @@ Pizza *ui_welcome_menu(ChainTableManager *pizzas) {
 int ui_customer_register(char *userid_write_space) {
     ChainTableManager username;
     char buffer[128] = {0};
+    char tel[128] = {0};
     int length;
 
     printf("*****************************************\n");
@@ -135,10 +136,14 @@ int ui_customer_register(char *userid_write_space) {
         printf("Password too long or too short ... Please input again...\n");
     }
 
+    printf("Input phone number:");
+    memset(tel, 0, sizeof(tel));
+    fflush(stdin);
+    scanf("%[^\n]", tel);
 
     do {
         gen_id(userid_write_space);
-    } while (account_register(userid_write_space, buffer, &username) == -1);
+    } while (account_register(userid_write_space, buffer, &username, tel) == -1);
 
     memset(buffer, 0, sizeof(buffer));
     length = string_read(&username, buffer, 128 - 1);
@@ -344,7 +349,7 @@ int ui_show_all_customers(void) {
     string_extend(&superuser_id, "Superuser", -1, 16);
 
     read_ascii_file_lines(ACCOUNT_INFO_FILE_PATH, &file);
-    for (int index = 0; index < file.length; index+=5) {
+    for (int index = 0; index < file.length; index += 6) {
         string = chain_table_get(&file, index);
         if (string_equal(string, &superuser_id)) {
             continue;
@@ -361,7 +366,7 @@ int ui_show_all_customers(void) {
     return 0;
 }
 
-int ui_edit_customers(const char * userid) {
+int ui_edit_customers(const char *userid) {
     ChainTableManager file;
     ChainTableManager *string;
     int index, choose;
@@ -388,8 +393,8 @@ int ui_edit_customers(const char * userid) {
     printf("*                                 :)    *\n");
     printf("*****************************************\n");
 
-        printf("input the number to choose, b for exit:");
-        choose = ui_multiple_choice("123b", 3, 1);
+    printf("input the number to choose, b for exit:");
+    choose = ui_multiple_choice("123b", 3, 1);
 
     if (choose == 0) {
         ui_rename_customer(userid);
@@ -406,7 +411,7 @@ int ui_edit_customers(const char * userid) {
 }
 
 
-int ui_show_customer_info(const char * userid) {
+int ui_show_customer_info(const char *userid) {
     ChainTableManager file;
     ChainTableManager *string;
     int index;
@@ -432,6 +437,11 @@ int ui_show_customer_info(const char * userid) {
 
         string = chain_table_get(&file, index + 2);
         printf("User balance-:");
+        string_print(string);
+        printf("\n");
+
+        string = chain_table_get(&file, index + 3);
+        printf("User phone number-:");
         string_print(string);
         printf("\n");
     }

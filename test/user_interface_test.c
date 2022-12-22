@@ -30,10 +30,10 @@ int main() {
 
     chain_table_init(&username);
     string_extend(&username, "user", -1, 6);
-    account_register("Hello return -1.", "1234567809", &username);
+    account_register("Hello return -1.", "1234567809", &username, NULL);
 
     string_extend(&username, "++", -1, 6);
-    account_register("Hello return -2.", "password 123", &username);
+    account_register("Hello return -2.", "password 123", &username, NULL);
 //    account_change_password("Hello return -2.", "1234567809");
 
     menu_load_from_file(&menu, "pizzas.cfg");
