@@ -3,9 +3,10 @@
 #include "file_io.h"
 #include "customer.h"
 #include "pizza_cfg.h"
-#include "account_cfg.h"
 #include "the_manager.h"
 #include "main_config.h"
+#include "account_cfg.h"
+#include "order_logger.h"
 #include "user_interface.h"
 #include "user_interface_tools.h"
 
@@ -55,7 +56,7 @@ int read_from_stdin(ChainTableManager *string) {
  * @brief   顾客下单用的菜单
  * @return  NULL 返回上一步
  */
-Pizza *ui_welcome_menu(ChainTableManager *pizzas) {
+Pizza *ui_order_one_menu(ChainTableManager *pizzas) {
     int index;
     char *ptr;
     char buffer[PIZZA_TYPE_NAME_MAX_LENGTH * 2];
@@ -74,7 +75,7 @@ Pizza *ui_welcome_menu(ChainTableManager *pizzas) {
     printf("*                                 :)    \n");
     printf("****************************************\n");
     while (1) {
-        printf("input the number of pizza, b for back: ");
+        printf("input the number of pizza, b for order: ");
 
         // 获取输入
         memset(buffer, 0, sizeof(buffer));
@@ -240,6 +241,91 @@ int ui_manager_main(void) {
 
         if (buffer[1] == '\0') {
             if ('1' <= buffer[0] and buffer[0] <= '9') {
+                break;
+            } else {
+                return 0;
+            }
+        }
+        printf("Error ... Please input again...\n");
+    }
+
+    return (int) (buffer[0] - '0');
+}
+
+
+int ui_customer_functions(int key, const char *userid) {
+    ChainTableManager username;
+
+    if (key == 1) {
+        // order
+        ui_order_menu(userid);
+    } else if (key == 2) {
+        // See history.
+        chain_table_init(&username);
+        account_get_username(userid, &username);
+        show_log(&username, LOG_SAVE_PATH);
+    } else if (key == 3) {
+        // Recharge.
+        ui_recharge(userid);
+    }
+
+    return 0;
+}
+
+
+int ui_order_menu(const char *userid) {
+    ChainTableManager pizzas, menu, username;
+    Pizza *pizza;
+
+    pizza_load_from_file(&pizzas, PIZZA_SAVE_PATH);
+    menu_load_from_file(&menu, MENU_SAVE_PATH);
+
+    while (1) {
+        pizza = ui_order_one_menu(&pizzas);
+        if (pizza == NULL) {
+            break;
+        }
+    }
+
+    chain_table_init(&username);
+    account_get_username(userid, &username);
+    write_log(&username, &menu, &pizzas, LOG_SAVE_PATH);
+
+    pizza_free_pizza_array(&pizzas);
+    chain_table_clear(&menu, FREE_AS_MANAGER);
+    chain_table_clear(&username, FREE_AS_MANAGER);
+    return 0;
+}
+
+
+int ui_customer_main(const char *userid) {
+    char buffer[128] = {0};
+
+//    read_ascii_file_lines(ACCOUNT_INFO_FILE_PATH, &file);
+
+    ui_show_customer_info(userid);
+
+    printf("****************************************\n");
+    printf("*                Hello                 *\n");
+    printf("****************************************\n");
+    printf("*                                      *\n");
+    printf("* 1) Order                             *\n");
+    printf("*                                      *\n");
+    printf("* 2) See history                       *\n");
+    printf("*                                      *\n");
+    printf("* 3) Recharge                          *\n");
+    printf("*                                      *\n");
+    printf("*                                 :)   *\n");
+    printf("****************************************\n");
+
+    while (1) {
+        printf("Input the number to choose, b for exit:");
+        memset(buffer, 0, sizeof(buffer));
+        fflush(stdin);
+        scanf("%[^\n]", buffer);
+
+        if (buffer[1] == '\0') {
+            if ('1' <= buffer[0] and buffer[0] <= '3') {
                 break;
             } else {
                 return 0;

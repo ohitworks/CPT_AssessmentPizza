@@ -8,7 +8,6 @@
   **************************** AssessmentPizza: user_interface_test.c ****************************
  */
 
-#include "pizza.h"
 #include "customer.h"
 #include "order_logger.h"
 #include "user_interface.h"
@@ -18,13 +17,9 @@
 
 
 int main() {
-
-    ChainTableManager menu;
-    ChainTableManager pizzas;
     ChainTableManager username;
-    Pizza *pizza;
 
-    char user_id[PASSWORD_LENGTH_MAX * 2];
+    char userid[PASSWORD_LENGTH_MAX * 2];
     int key;
 
     chain_table_init(&username);
@@ -35,8 +30,7 @@ int main() {
     account_register("Hello return -2.", "password 123", &username, "654321");
 //    account_change_password("Hello return -2.", "1234567809");
 
-    menu_load_from_file(&menu, "pizzas.cfg");
-    pizza_load_from_file(&pizzas, "pizzas.cfg");
+    chain_table_clear(&username, RETURN_IF_DYNAMIC);
 
     switch (ui_choose_role()) {
         case 0:
@@ -44,12 +38,12 @@ int main() {
             return 0;
         case 1:
             screen_clear();
-            user_id[PASSWORD_LENGTH_MAX] = '\0';
-            ui_customer_register(user_id);
+            userid[PASSWORD_LENGTH_MAX] = '\0';
+            ui_customer_register(userid);
             break;
         case 2:
             screen_clear();
-            if (ui_login_page(user_id) != 0) {
+            if (ui_login_page(userid) != 0) {
                 return 0;
             }
             break;
@@ -62,19 +56,11 @@ int main() {
             return 0;
     }
 
-    while (1) {
-        pizza = ui_welcome_menu(&pizzas);
-        if (pizza == NULL) {
-            printf("`pizza null\n");
-            break;
-        }
-        printf("---\n update %d\n---\n", ui_show_pizza(&menu, pizza));
-    }
+    do {
+        key = ui_customer_main(userid);
+        ui_customer_functions(key, userid);
+    } while (key);
 
-    chain_table_clear(&username, RETURN_IF_DYNAMIC);
-    account_get_username(user_id, &username);
-    write_log(&username, &menu, &pizzas, "log.cfg");
-    chain_table_clear(&username, RETURN_IF_DYNAMIC);
 
     return 0;
 }

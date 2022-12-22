@@ -25,7 +25,7 @@ int main() {
     string_extend(&name, "UN", -1, 2);
 //
 //    while (1) {
-//        pizza_ui = ui_welcome_menu(&pizzas);
+//        pizza_ui = ui_order_one_menu(&pizzas);
 //        if (pizza_ui == NULL) {
 //            break;
 //        }

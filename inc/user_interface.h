@@ -8,7 +8,7 @@
 #include "menu.h"
 
 
-Pizza * ui_welcome_menu(ChainTableManager *pizzas);
+Pizza * ui_order_one_menu(ChainTableManager *pizzas);
 
 int ui_show_pizza(ChainTableManager *menu, Pizza const *pizza);
 
@@ -45,5 +45,11 @@ int ui_edit_customers(const char * userid);
 int ui_recharge(const char *userid);
 
 int ui_reset_password(const char *userid);
+
+int ui_order_menu(const char *userid);
+
+int ui_customer_functions(int key, const char *userid);
+
+int ui_customer_main(const char *userid);
 
 #endif //USER_INTERFACE_H
