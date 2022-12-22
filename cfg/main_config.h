@@ -13,5 +13,6 @@
 
 #define PIZZA_SAVE_PATH "PizzaMenu.cfg"
 #define MENU_SAVE_PATH "PizzaMenu.cfg"
+#define LOG_SAVE_PATH "log.cfg"
 
 #endif //ASSESSMENT_PIZZA_MAIN_CONFIG_H

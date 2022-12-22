@@ -28,4 +28,10 @@ int ui_remove_menu(void);
 
 int ui_remove_pizza(void);
 
+int ui_manager_login(void);
+
+int ui_manager_main(void);
+
+int ui_manage_functions(int key);
+
 #endif //USER_INTERFACE_H

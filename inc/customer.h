@@ -1,8 +1,8 @@
 /**
   **************************** test: password.h ****************************
-  * Created by Juntong on 2022/11/29.
+  * Created by oh-it-works on 2022/11/29.
   * @file
-  * @author     Juntong
+  * @author     oh it works
   * @date       2022-11-29
   * @brief      **BriefHere**
   **************************** test: password.h ****************************
@@ -24,6 +24,8 @@ int account_change_password(USERNAME_TYPE *userid, char *password);
 int account_in(const ChainTableManager *file, const USERNAME_TYPE *userid);
 
 int account_get_username(const USERNAME_TYPE *userid, ChainTableManager *username);
+
+int account_rename(const char *userid, ChainTableManager *username);
 
 int account_change_balance(const char *userid, int balance);
 

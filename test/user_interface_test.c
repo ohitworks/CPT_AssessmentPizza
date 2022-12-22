@@ -26,6 +26,7 @@ int main() {
 
     char user_id[PASSWORD_LENGTH_MAX * 2];
     char buffer[128] = {0};
+    int key;
 
     chain_table_init(&username);
     string_extend(&username, "user", -1, 6);
@@ -54,8 +55,12 @@ int main() {
             }
             break;
         case 3:
-            // TODO
-            break;
+            ui_manager_login();
+            do {
+                key = ui_manager_main();
+                ui_manage_functions(key);
+            } while (key);
+            return 0;
     }
 
     while (1) {

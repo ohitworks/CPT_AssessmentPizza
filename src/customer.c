@@ -191,6 +191,37 @@ int account_change_password(USERNAME_TYPE *userid, char *password) {
 
 
 /**
+ * @brief           更新用户名
+ * @param userid
+ * @param username
+ * @return
+ */
+int account_rename(const char *userid, ChainTableManager *username) {
+    ChainTableManager file;
+    ChainTableManager *string;
+    int password_index;
+
+    read_ascii_file_lines(ACCOUNT_INFO_FILE_PATH, &file);
+    password_index = account_in(&file, userid);
+    if (password_index == 0) {
+        // 用户不存在
+        return -1;
+    }
+
+    // 更新密码
+    string = chain_table_get(&file, password_index + 1);
+    chain_table_clear(string, FREE_AS_MANAGER);
+    chain_table_init(string);
+    string_extend_string(string, username);
+
+    write_lines_to_file(&file, ACCOUNT_INFO_FILE_PATH);
+    chain_table_clear(&file, FREE_AS_MANAGER);
+
+    return 0;
+}
+
+
+/**
  * @brief           修改密码
  * @param userid    用户 ID
  * @param username  用户名写入位置, 将被视为未初始化节点
@@ -233,7 +264,7 @@ int account_get_balance(const char *userid) {
     }
 
     memset(buffer, 0, sizeof(buffer));
-    string = chain_table_get(&file, password_index + 1);
+    string = chain_table_get(&file, password_index + 2);
     string_read(string, buffer, 128);
     balance = (int) strtol(buffer, &c, 10);
 
@@ -255,7 +286,7 @@ int account_change_balance(const char *userid, int balance) {
         // 用户不存在
         return -1;
     }
-    index += 1;
+    index += 2;
 
     chain_table_remove(&file, FREE_AS_MANAGER, index);
 

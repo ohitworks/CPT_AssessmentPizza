@@ -196,6 +196,91 @@ int ui_choose_role(void) {
     return (int) buffer[0] - 48;
 }
 
+
+int ui_manager_main(void) {
+    char buffer[128] = {0};
+
+    printf("****************************************\n");
+    printf("*                Manager               *\n");
+    printf("****************************************\n");
+    printf("*                                      *\n");
+    printf("*                                      *\n");
+    printf("* 1) Show orders log                   *\n");
+    printf("*                                      *\n");
+    printf("* 2) Add new pizza                     *\n");
+    printf("*                                      *\n");
+    printf("* 3) Remove exist pizza                *\n");
+    printf("*                                      *\n");
+    printf("* 4) Add new menu                      *\n");
+    printf("*                                      *\n");
+    printf("* 5) Remove exist menu                 *\n");
+    printf("*                                      *\n");
+    printf("*                                 :)   *\n");
+    printf("****************************************\n");
+
+    while (1) {
+        printf("Input the number to choose, b for exit:");
+        memset(buffer, 0, sizeof(buffer));
+        fflush(stdin);
+        scanf("%[^\n]", buffer);
+
+        if (buffer[1] == '\0') {
+            if (buffer[0] == '1' or buffer[0] == '2' or buffer[0] == '3' or buffer[0] == '4' or buffer[0] == '5') {
+                break;
+            } else {
+                return 0;
+            }
+        }
+        printf("Error ... Please input again...\n");
+    }
+
+    return (int) (buffer[0] - '0');
+}
+
+
+int ui_manage_functions(int key) {
+    ChainTableManager chain_table;
+    ChainTableManager *string;
+
+
+    if (key == 1) {
+        // 打印历史记录
+        read_ascii_file_lines(LOG_SAVE_PATH, &chain_table);
+
+        for (int i = 0; i < chain_table.length - 1; i++) {
+            string = chain_table_get(&chain_table, i);
+            printf("line[%2d]: ", i + 1);
+            string_print(string);
+            printf("\n");
+        }
+        chain_table_clear(&chain_table, FREE_AS_MANAGER);
+    } else if (key == 2) {
+        // 添加新 pizza
+        ui_add_pizza();
+    } else if (key == 3) {
+        // 删除 pizza
+        ui_remove_pizza();
+    } else if (key == 4) {
+        // 添加 菜单
+        pizza_load_from_file(&chain_table, PIZZA_SAVE_PATH);
+        ui_add_menu(&chain_table);
+        pizza_free_pizza_array(&chain_table);
+    } else if (key == 5) {
+        // 删除 菜单
+        ui_remove_menu();
+    }
+    return 0;
+}
+
+
+int ui_rename_customer(const char * userid) {
+    ChainTableManager username;
+
+    chain_table_clear(&username, FREE_AS_MANAGER);
+    return 0;
+}
+
+
 int ui_manager_login(void) {
     int length;
     char password[PASSWORD_LENGTH_MAX * 2];
