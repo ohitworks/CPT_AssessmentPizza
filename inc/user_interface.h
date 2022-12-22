@@ -10,7 +10,7 @@
 
 Pizza * ui_order_one_menu(ChainTableManager *pizzas);
 
-int ui_show_pizza(ChainTableManager *menu, Pizza const *pizza);
+int ui_order_pizza(ChainTableManager *menu, Pizza const *pizza);
 
 int ui_login_page(char * userid);
 

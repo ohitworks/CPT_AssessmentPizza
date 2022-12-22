@@ -29,7 +29,7 @@ int main() {
 //        if (pizza_ui == NULL) {
 //            break;
 //        }
-//        ui_show_pizza(&menu_pizzas, pizza_ui);
+//        ui_order_pizza(&menu_pizzas, pizza_ui);
 //    }
 //
 //    write_log(&name, &menu_pizzas, &pizzas, "log.cfg");

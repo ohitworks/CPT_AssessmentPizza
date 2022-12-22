@@ -256,6 +256,7 @@ int ui_manager_main(void) {
 int ui_customer_functions(int key, const char *userid) {
     ChainTableManager username;
 
+    screen_clear();
     if (key == 1) {
         // order
         ui_order_menu(userid);
@@ -285,6 +286,7 @@ int ui_order_menu(const char *userid) {
         if (pizza == NULL) {
             break;
         }
+        ui_order_pizza(&menu, pizza);
     }
 
     chain_table_init(&username);
@@ -344,7 +346,7 @@ int ui_manage_functions(int key) {
     char userid[32];
     int length;
 
-
+    screen_clear();
     if (key == 1) {
         // 打印历史记录
         read_ascii_file_lines(LOG_SAVE_PATH, &chain_table);
@@ -507,27 +509,27 @@ int ui_show_customer_info(const char *userid) {
     index = account_in(&file, userid);
     if (index > 0) {
         string = chain_table_get(&file, index - 1);
-        printf("User ID-:");
+        printf("User ID :");
         string_print(string);
         printf("\n");
 
         string = chain_table_get(&file, index);
-        printf("User hashed password-:");
+        printf("User hashed password :");
         string_print(string);
         printf("\n");
 
         string = chain_table_get(&file, index + 1);
-        printf("User name-:");
+        printf("User name :");
         string_print(string);
         printf("\n");
 
         string = chain_table_get(&file, index + 2);
-        printf("User balance-:");
+        printf("User balance :");
         string_print(string);
         printf("\n");
 
         string = chain_table_get(&file, index + 3);
-        printf("User phone number-:");
+        printf("User phone number :");
         string_print(string);
         printf("\n");
     }
@@ -578,7 +580,7 @@ int ui_manager_login(void) {
  * @return       数量变更, 将修改 menu 上对应的节点
  * @warning      程序不检查输入
  */
-int ui_show_pizza(ChainTableManager *menu, Pizza const *pizza) {
+int ui_order_pizza(ChainTableManager *menu, Pizza const *pizza) {
     char *ptr;
     char buffer[128] = {0};
     int number_update;
@@ -750,6 +752,11 @@ int ui_add_menu(ChainTableManager *pizzas) {
         }
     }
 
+    if (names_for_edit.length == 0) {
+        // Nothing to do.
+        return 0;
+    }
+
     // 打印所有可添加的名称
     printf("Choose the pizza's name to add:\n");
     for (int i = 0; i < names_for_edit.length; i++) {
@@ -789,7 +796,7 @@ int ui_add_menu(ChainTableManager *pizzas) {
         scanf("%[^\n]", buffer);
 
         index = (int) strtol(buffer, &c, 10);
-        if (*c == '\0' and index > 0 and index <= names_for_edit.length) {
+        if (*c == '\0' and index > 0) {
             break;
         }
         printf("Input again please:");
@@ -867,7 +874,7 @@ int ui_add_pizza(void) {
     while (1) {
         fflush(stdin);
         memset(pizza_type, 0, sizeof(pizza_type));
-        scanf("%[^\n]", buffer);
+        scanf("%[^\n]", pizza_type);
         length = (int) strlen(pizza_type);
         if (length > 0 and length <= PIZZA_TYPE_NAME_MAX_LENGTH) {
             break;
