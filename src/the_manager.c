@@ -12,6 +12,11 @@
 #include "the_manager.h"
 #include "chain_table.h"
 
+/**
+ *
+ * @param password
+ * @return          0 登陆成功
+ */
 int manager_login(char * password) {
     int ret;
     ChainTableManager name;

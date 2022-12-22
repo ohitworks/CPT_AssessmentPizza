@@ -13,6 +13,7 @@ set(UI ${Menu} ${Pizza} src/user_interface_tools.c src/user_interface.c)
 set(Password ${FileIO} src/customer.c)
 set(Log ${FileIO} src/order_logger.c)
 set(Customer ${FileIO} src/customer.c)
+set(Manager ${FileIO} src/the_manager.c test/the_manager_test.c)
 
 add_executable(teamwork_week_1 ${FileIO}
                                src/customer.c test/customer_test.c)
@@ -34,7 +35,7 @@ add_executable(teamwork_week_4_menu ${ChainTable} ${FileIO}
 add_executable(teamwork_week_4_logger ${ChainTable} ${FileIO} ${UI} ${Customer}
                                       src/order_logger.c test/order_logger_test.c)
 
-add_executable(teamwork_week_4_ui ${Menu} ${Pizza} ${Password} ${Log}
+add_executable(teamwork_week_4_ui ${Menu} ${Pizza} ${Password} ${Log} ${Manager}
                                   src/user_interface_tools.c test/user_interface_test.c
                                   src/user_interface.c)
 

@@ -4,6 +4,7 @@
 #include "customer.h"
 #include "pizza_cfg.h"
 #include "account_cfg.h"
+#include "the_manager.h"
 #include "main_config.h"
 #include "user_interface.h"
 
@@ -193,6 +194,39 @@ int ui_choose_role(void) {
     }
 
     return (int) buffer[0] - 48;
+}
+
+int ui_manager_login(void) {
+    int length;
+    char password[PASSWORD_LENGTH_MAX * 2];
+
+    printf("*****************************************\n");
+    printf("*             Manager in                *\n");
+    printf("*****************************************\n");
+    printf("*                                       *\n");
+    printf("*                                       *\n");
+
+    while (1) {
+        while (1) {
+            printf("Input password: ");
+            memset(password, 0, PASSWORD_LENGTH_MAX * 2);
+            fflush(stdin);
+            scanf("%[^\n]", password);
+            length = (int) strlen(password);
+            if (length <= PASSWORD_LENGTH_MAX and length >= PASSWORD_LENGTH_MIN) {
+                break;
+            }
+            printf("Unexpect length, get %d.\n", length);
+            printf("Input password again...\n");
+        }
+
+        if (manager_login(password) == 0) {
+            break;
+        }
+        printf("Password not matched.\n");
+    }
+
+    return 0;
 }
 
 
