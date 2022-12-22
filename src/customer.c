@@ -162,7 +162,7 @@ int account_login(USERNAME_TYPE *userid, char *password) {
  * @return          修改成功返回 0
  *                  用户不存在返回 -1
  */
-int account_change_password(USERNAME_TYPE *userid, char *password) {
+int account_change_password(const char *userid, char *password) {
     ChainTableManager file;
     ChainTableManager *string;
     int password_index;

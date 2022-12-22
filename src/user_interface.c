@@ -7,6 +7,7 @@
 #include "the_manager.h"
 #include "main_config.h"
 #include "user_interface.h"
+#include "user_interface_tools.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -215,6 +216,10 @@ int ui_manager_main(void) {
     printf("*                                      *\n");
     printf("* 5) Remove exist menu                 *\n");
     printf("*                                      *\n");
+    printf("* 6) Show all customers                *\n");
+    printf("*                                      *\n");
+    printf("* 7) Edit customer                     *\n");
+    printf("*                                      *\n");
     printf("*                                 :)   *\n");
     printf("****************************************\n");
 
@@ -225,7 +230,7 @@ int ui_manager_main(void) {
         scanf("%[^\n]", buffer);
 
         if (buffer[1] == '\0') {
-            if (buffer[0] == '1' or buffer[0] == '2' or buffer[0] == '3' or buffer[0] == '4' or buffer[0] == '5') {
+            if ('1' <= buffer[0] and buffer[0] <= '7') {
                 break;
             } else {
                 return 0;
@@ -241,6 +246,8 @@ int ui_manager_main(void) {
 int ui_manage_functions(int key) {
     ChainTableManager chain_table;
     ChainTableManager *string;
+    char userid[32];
+    int length;
 
 
     if (key == 1) {
@@ -268,15 +275,145 @@ int ui_manage_functions(int key) {
     } else if (key == 5) {
         // 删除 菜单
         ui_remove_menu();
+    }else if (key == 6) {
+        ui_show_all_customers();
+    } else if (key == 7) {
+        // Edit customers
+        while (1) {
+            printf("* User ID, q for exit:  ");
+            memset(userid, 0, PASSWORD_LENGTH_MAX * 2);
+            fflush(stdin);
+            scanf("%[^\n]", userid);
+            length = (int) strlen(userid);
+            if (length == PASSWORD_LENGTH_MAX) {
+                break;
+            } else if (length == 1 and userid[0] == 'q') {
+                return -1;
+            }
+            printf("Unexpect length, need %d, get %d.\n", PASSWORD_LENGTH_MAX, length);
+            printf("Input user ID again...\n");
+        }
+        ui_edit_customers(userid);
     }
     return 0;
 }
 
 
-int ui_rename_customer(const char * userid) {
+int ui_rename_customer(const char *userid) {
     ChainTableManager username;
 
+    printf("Input new name:");
+    read_from_stdin(&username);
+
+    account_rename(userid, &username);
+
     chain_table_clear(&username, FREE_AS_MANAGER);
+    return 0;
+}
+
+int ui_show_all_customers(void) {
+    ChainTableManager file, superuser_id;
+    ChainTableManager *string;
+    char buffer[32];
+
+    chain_table_init(&superuser_id);
+    string_extend(&superuser_id, "Superuser", -1, 16);
+
+    read_ascii_file_lines(ACCOUNT_INFO_FILE_PATH, &file);
+    for (int index = 0; index < file.length; index+=5) {
+        string = chain_table_get(&file, index);
+        if (string_equal(string, &superuser_id)) {
+            continue;
+        }
+
+        memset(buffer, 0, sizeof(buffer));
+        string_read(string, buffer, 32);
+        ui_show_customer_info(buffer);
+    }
+
+    chain_table_clear(&file, FREE_AS_MANAGER);
+    chain_table_clear(&superuser_id, FREE_AS_MANAGER);
+
+    return 0;
+}
+
+int ui_edit_customers(const char * userid) {
+    ChainTableManager file;
+    ChainTableManager *string;
+    int index, choose;
+
+    read_ascii_file_lines(ACCOUNT_INFO_FILE_PATH, &file);
+    index = account_in(&file, userid);
+
+    string = chain_table_get(&file, index + 1);
+
+    printf("*****************************************\n");
+    printf("*  >>>     Hello~");
+    string_print(string);
+    printf("\n");
+    ui_show_customer_info(userid);
+    printf("*****************************************\n");
+    printf("*                                       *\n");
+    printf("*                                       *\n");
+    printf("* 1)  Rename                            *\n");
+    printf("*                                       *\n");
+    printf("* 2)  Reset password                    *\n");
+    printf("*                                       *\n");
+    printf("* 3)  Recharge                          *\n");
+    printf("*                                       *\n");
+    printf("*                                 :)    *\n");
+    printf("*****************************************\n");
+
+        printf("input the number to choose, b for exit:");
+        choose = ui_multiple_choice("123b", 3, 1);
+
+    if (choose == 0) {
+        ui_rename_customer(userid);
+    } else if (choose == 1) {
+        // Reset password.
+        ui_reset_password(userid);
+    } else if (choose == 2) {
+        // Recharge
+        ui_recharge(userid);
+    }
+
+    chain_table_clear(&file, FREE_AS_MANAGER);
+    return 0;
+}
+
+
+int ui_show_customer_info(const char * userid) {
+    ChainTableManager file;
+    ChainTableManager *string;
+    int index;
+
+    read_ascii_file_lines(ACCOUNT_INFO_FILE_PATH, &file);
+
+    index = account_in(&file, userid);
+    if (index > 0) {
+        string = chain_table_get(&file, index - 1);
+        printf("User ID-:");
+        string_print(string);
+        printf("\n");
+
+        string = chain_table_get(&file, index);
+        printf("User hashed password-:");
+        string_print(string);
+        printf("\n");
+
+        string = chain_table_get(&file, index + 1);
+        printf("User name-:");
+        string_print(string);
+        printf("\n");
+
+        string = chain_table_get(&file, index + 2);
+        printf("User balance-:");
+        string_print(string);
+        printf("\n");
+    }
+
+    chain_table_clear(&file, FREE_AS_MANAGER);
+
     return 0;
 }
 
@@ -369,14 +506,57 @@ int ui_show_pizza(ChainTableManager *menu, Pizza const *pizza) {
     }
 }
 
+int ui_reset_password(const char *userid) {
+    char buffer[PASSWORD_LENGTH_MAX * 2];
+    int length;
+
+    while (1) {
+        printf("\nInput password:");
+        memset(buffer, 0, sizeof(buffer));
+        fflush(stdin);
+        scanf("%[^\n]", buffer);
+
+        length = (int) strlen(buffer);
+
+        if (length <= PASSWORD_LENGTH_MAX and length >= PASSWORD_LENGTH_MIN) {
+            break;
+        }
+        printf("Password too long or too short ... Please input again...\n");
+    }
+
+    account_change_password(userid, buffer);
+
+    return 0;
+}
+
+
+int ui_recharge(const char *userid) {
+    char buffer[16];
+    char *c;
+    int change, new;
+
+    printf("Enter the amount change:");
+    // 获取输入
+    memset(buffer, 0, sizeof(buffer));
+    fflush(stdin);
+    scanf("%[^\n]", buffer);
+
+    change = (int) strtol(buffer, &c, 10) - 1;
+
+    new = account_get_balance(userid) + change;
+    account_change_balance(userid, new);
+
+    return 0;
+}
+
 
 /**
  *
- * @param user_id  待写入的字符串数组, 长度应当为 (PASSWORD_LENGTH_MAX * 2), 执行完成后写入登录的用户ID
+ * @param userid  待写入的字符串数组, 长度应当为 (PASSWORD_LENGTH_MAX * 2), 执行完成后写入登录的用户ID
  * @return         0  登录成功
  *                 -1 用户取消登录
  */
-int ui_login_page(char *user_id) {
+int ui_login_page(char *userid) {
     int length, login;
     char password[PASSWORD_LENGTH_MAX * 2];
 
@@ -390,13 +570,13 @@ int ui_login_page(char *user_id) {
 
         while (1) {
             printf("* User ID, q for exit:  ");
-            memset(user_id, 0, PASSWORD_LENGTH_MAX * 2);
+            memset(userid, 0, PASSWORD_LENGTH_MAX * 2);
             fflush(stdin);
-            scanf("%[^\n]", user_id);
-            length = (int) strlen(user_id);
+            scanf("%[^\n]", userid);
+            length = (int) strlen(userid);
             if (length == PASSWORD_LENGTH_MAX) {
                 break;
-            } else if (length == 1 and user_id[0] == 'q') {
+            } else if (length == 1 and userid[0] == 'q') {
                 return -1;
             }
             printf("Unexpect length, need %d, get %d.\n", PASSWORD_LENGTH_MAX, length);
@@ -416,7 +596,7 @@ int ui_login_page(char *user_id) {
             printf("Input password again...\n");
         }
 
-        login = account_login(user_id, password);
+        login = account_login(userid, password);
         if (login == 0) {
             printf("Login success! Hello~\n");
             return 0;
