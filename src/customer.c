@@ -27,13 +27,14 @@
 void password_hash(const char *password, char disk[]) {
     int hash = 0;
 
-    for (int i = 0; i < PASSWORD_LENGTH_MAX; i++) {
+    for (int i = 0; password[i] != '\0'; i++) {
         hash = 33 * hash + (int) password[i];
         if (hash >= (INT_MAX - 256) / 33) {
             itoa(hash, disk + strlen(disk), 16);
             hash = 0;
         }
     }
+    itoa(hash, disk + strlen(disk), 16);
 }
 
 
@@ -51,7 +52,7 @@ int account_in(const ChainTableManager *file, const USERNAME_TYPE *userid) {
     for (int index = 0; index < file->length; index += 6) {
         string = chain_table_get(file, index);
 
-        memset(buffer, 0, PASSWORD_LENGTH_MAX);
+        memset(buffer, 0, sizeof(buffer));
         string_read(string, buffer, PASSWORD_LENGTH_MAX);
 
         if (memcmp(buffer, userid, PASSWORD_LENGTH_MAX) == 0) {
@@ -111,8 +112,8 @@ int account_register(USERNAME_TYPE *userid, char *password, const ChainTableMana
     // 写入电话号码
     chain_table_append(&file, sizeof(ChainTableManager), true);
     string = chain_table_get(&file, -1);
+    chain_table_init(string);
     string_extend(string, tel, -1, 8);
-    chain_table_init(string);;
 
     // 写入空节点, 用于换行
     chain_table_append(&file, sizeof(ChainTableManager), true);
@@ -153,7 +154,7 @@ int account_login(USERNAME_TYPE *userid, char *password) {
     string = chain_table_get(&file, password_index);
     string_read(string, password_read, 22);
 
-    if (strcmp(password_hashed, password_read) == 0) {
+    if (strcmp(password_hashed, password_read) != 0) {
         return -2;
     }
 
@@ -369,7 +370,7 @@ void gen_id(char *write_space) {
             Sleep(100);
         }
         if (i % 5 == 0) {
-            // FIXME: vs 上无法获取毫秒级时间戳
+            // NOTE: vs 上毫秒级时间戳似乎不更新
             GetSystemTime(&sys_time);
 //            printf("%d-%d\n", sys_time.wSecond, sys_time.wMilliseconds);
         }

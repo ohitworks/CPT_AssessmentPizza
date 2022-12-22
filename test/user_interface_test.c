@@ -25,15 +25,14 @@ int main() {
     Pizza *pizza;
 
     char user_id[PASSWORD_LENGTH_MAX * 2];
-    char buffer[128] = {0};
     int key;
 
     chain_table_init(&username);
     string_extend(&username, "user", -1, 6);
-    account_register("Hello return -1.", "1234567809", &username, NULL);
+    account_register("Hello return -1.", "1234567809", &username, "123456");
 
     string_extend(&username, "++", -1, 6);
-    account_register("Hello return -2.", "password 123", &username, NULL);
+    account_register("Hello return -2.", "password 123", &username, "654321");
 //    account_change_password("Hello return -2.", "1234567809");
 
     menu_load_from_file(&menu, "pizzas.cfg");
@@ -66,7 +65,7 @@ int main() {
     while (1) {
         pizza = ui_welcome_menu(&pizzas);
         if (pizza == NULL) {
-            printf("pizza null\n");
+            printf("`pizza null\n");
             break;
         }
         printf("---\n update %d\n---\n", ui_show_pizza(&menu, pizza));
