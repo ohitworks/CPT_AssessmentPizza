@@ -11,6 +11,10 @@
 #ifndef ASSESSMENT_PIZZA_FILE_IO_H
 #define ASSESSMENT_PIZZA_FILE_IO_H
 
+#ifndef _CRT_SECURE_NO_WARNINGS
+#define _CRT_SECURE_NO_WARNINGS 1
+#endif
+
 #include "chain_table.h"
 
 int read_ascii_file_lines(const char *path, ChainTableManager *string_array);

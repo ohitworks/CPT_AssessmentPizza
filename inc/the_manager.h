@@ -11,6 +11,10 @@
 #ifndef ASSESSMENT_PIZZA_THE_MANAGER_H
 #define ASSESSMENT_PIZZA_THE_MANAGER_H
 
+#ifndef _CRT_SECURE_NO_WARNINGS
+#define _CRT_SECURE_NO_WARNINGS 1
+#endif
+
 int manager_login(char * password);
 
 #endif //ASSESSMENT_PIZZA_THE_MANAGER_H

@@ -155,6 +155,7 @@ int ui_customer_register(char *userid_write_space) {
         printf("%s", buffer);
     }
     printf("\nYour ID is [%s] please remember this.\n", userid_write_space);
+    printf("\033[1;31mID is your credentials for the next login!!\033[0m\n");
 
     return 0;
 }
@@ -434,7 +435,7 @@ int ui_show_all_customers(void) {
     char buffer[32];
 
     chain_table_init(&superuser_id);
-    string_extend(&superuser_id, "Superuser", -1, 16);
+    string_extend(&superuser_id, "----Superuser/----", -1, 16);
 
     read_ascii_file_lines(ACCOUNT_INFO_FILE_PATH, &file);
     for (int index = 0; index < file.length; index += 6) {
@@ -939,70 +940,3 @@ int ui_remove_pizza(void) {
     return 0;
 }
 
-/**
- * @brief   顾客下单用的菜单
- * @return
- */
-void menu_order_welcome() {
-    printf("****************************************\n");
-    printf("*                                      *\n");
-    printf("*                                      *\n");
-    printf("*  Welcome to the pizza order system   *\n");
-    printf("*                                      *\n");
-    printf("*                                 :)   *\n");
-    printf("****************************************\n");
-}
-
-void menu_order_type() {
-    printf("****************************************\n");
-    printf("*             Pizza  Type              *\n");
-    printf("****************************************\n");
-    printf("*                                      *\n");
-    printf("*                                      *\n");
-    printf("* 1) Hand Tossed                       *\n");
-    printf("*                                      *\n");
-    printf("* 2) Thin pancake base                 *\n");
-    printf("*                                      *\n");
-    printf("* 3) Pastry base                       *\n");
-    printf("*                                      *\n");
-    printf("* 4) Extra-thick                       *\n");
-    printf("*                                      *\n");
-    printf("*                                 :)   *\n");
-    printf("****************************************\n");
-}
-
-void menu_order_size() {
-    printf("****************************************\n");
-    printf("*              Pizza  Size             *\n");
-    printf("****************************************\n");
-    printf("*                                      *\n");
-    printf("*                                      *\n");
-    printf("* 1) 10 inches                         *\n");
-    printf("*                                      *\n");
-    printf("* 2) 12 inches                         *\n");
-    printf("*                                      *\n");
-    printf("* 3) 14 inches                         *\n");
-    printf("*                                      *\n");
-    printf("* 4) 16 inches                         *\n");
-    printf("*                                      *\n");
-    printf("*                                 :)   *\n");
-    printf("****************************************\n");
-}
-
-void menu_order_topping() {
-    printf("****************************************\n");
-    printf("*            Pizza  Topping            *\n");
-    printf("****************************************\n");
-    printf("*                                      *\n");
-    printf("*                                      *\n");
-    printf("* 1) Supreme                           *\n");
-    printf("*                                      *\n");
-    printf("* 2) Hawaiian                          *\n");
-    printf("*                                      *\n");
-    printf("* 3) Margherita                        *\n");
-    printf("*                                      *\n");
-    printf("* 4) BBQ Chicken                       *\n");
-    printf("*                                      *\n");
-    printf("*                                 :)   *\n");
-    printf("****************************************\n");
-}

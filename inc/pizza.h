@@ -11,6 +11,10 @@
 #ifndef ASSESSMENT_PIZZA_PIZZA_H
 #define ASSESSMENT_PIZZA_PIZZA_H
 
+#ifndef _CRT_SECURE_NO_WARNINGS
+#define _CRT_SECURE_NO_WARNINGS 1
+#endif
+
 #include "pizza_cfg.h"
 #include "chain_table.h"
 

@@ -11,6 +11,10 @@
 #ifndef ASSESSMENT_PIZZA_CHAIN_TABLE_H
 #define ASSESSMENT_PIZZA_CHAIN_TABLE_H
 
+#ifndef _CRT_SECURE_NO_WARNINGS
+#define _CRT_SECURE_NO_WARNINGS 1
+#endif
+
 #include <stdint.h>
 #include <stddef.h>
 #include <stdbool.h>

@@ -11,6 +11,10 @@
 #ifndef TEST_PASSWORD_H
 #define TEST_PASSWORD_H
 
+#ifndef _CRT_SECURE_NO_WARNINGS
+#define _CRT_SECURE_NO_WARNINGS 1
+#endif
+
 #include "account_cfg.h"
 #include "chain_table.h"
 

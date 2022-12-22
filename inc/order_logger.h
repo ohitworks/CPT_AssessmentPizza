@@ -11,6 +11,10 @@
 #ifndef ASSESSMENT_PIZZA_ORDER_LOGGER_H
 #define ASSESSMENT_PIZZA_ORDER_LOGGER_H
 
+#ifndef _CRT_SECURE_NO_WARNINGS
+#define _CRT_SECURE_NO_WARNINGS 1
+#endif
+
 #include "chain_table.h"
 
 int write_log(const ChainTableManager *username, const ChainTableManager *menu_pizzas, const ChainTableManager *pizzas,

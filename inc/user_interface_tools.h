@@ -11,6 +11,10 @@
 #ifndef ASSESSMENT_PIZZA_USER_INTERFACE_TOOLS_H
 #define ASSESSMENT_PIZZA_USER_INTERFACE_TOOLS_H
 
+#ifndef _CRT_SECURE_NO_WARNINGS
+#define _CRT_SECURE_NO_WARNINGS 1
+#endif
+
 #include <stddef.h>
 
 int ui_multiple_choice(char *chooses, size_t size, int mode);
