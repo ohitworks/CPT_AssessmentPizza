@@ -267,7 +267,7 @@ int account_remove(const char *userid) {
     }
     index -= 1;
 
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 6; i++) {
         chain_table_remove(&file, FREE_AS_MANAGER, index);
     }
 
