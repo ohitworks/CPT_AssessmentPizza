@@ -23,9 +23,6 @@ add_executable(teamwork_week_2 src/chain_table.c test/chain_table_test.c)
 add_executable(teamwork_week_3_pizza ${ChainTable} ${FileIO}
                                      src/pizza.c inc/pizza.h test/pizza_test.c)
 
-add_executable(teamwork_week_3_yaml ${ChainTable}
-                                    src/yaml_subset.c inc/pizza.h test/yaml_subset_test.c test/yaml_subset_test.c)
-
 add_executable(teamwork_week_4_file ${ChainTable}
                                     src/file_io.c test/file_io_test.c)
 
@@ -41,3 +38,7 @@ add_executable(teamwork_week_4_ui ${Menu} ${Pizza} ${Password} ${Log} ${Manager}
 
 add_executable(teamwork_week_4_manager ${ChainTable} ${FileIO}
                                        src/the_manager.c test/the_manager_test.c)
+
+add_executable(${PROJECT_NAME} ${Menu} ${Pizza} ${Password} ${Log} ${Manager}
+                               src/user_interface_tools.c test/user_interface_test.c
+                               src/user_interface.c)
