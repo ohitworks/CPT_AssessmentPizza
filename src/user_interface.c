@@ -220,6 +220,10 @@ int ui_manager_main(void) {
     printf("*                                      *\n");
     printf("* 7) Edit customer                     *\n");
     printf("*                                      *\n");
+    printf("* 8) Add customer                      *\n");
+    printf("*                                      *\n");
+    printf("* 9) Delete customer                   *\n");
+    printf("*                                      *\n");
     printf("*                                 :)   *\n");
     printf("****************************************\n");
 
@@ -230,7 +234,7 @@ int ui_manager_main(void) {
         scanf("%[^\n]", buffer);
 
         if (buffer[1] == '\0') {
-            if ('1' <= buffer[0] and buffer[0] <= '7') {
+            if ('1' <= buffer[0] and buffer[0] <= '9') {
                 break;
             } else {
                 return 0;
@@ -275,7 +279,7 @@ int ui_manage_functions(int key) {
     } else if (key == 5) {
         // 删除 菜单
         ui_remove_menu();
-    }else if (key == 6) {
+    } else if (key == 6) {
         ui_show_all_customers();
     } else if (key == 7) {
         // Edit customers
@@ -294,6 +298,26 @@ int ui_manage_functions(int key) {
             printf("Input user ID again...\n");
         }
         ui_edit_customers(userid);
+    } else if (key == 8) {
+        // add customer
+        ui_customer_register(userid);
+    } else if (key == 9) {
+        // add customer
+        while (1) {
+            printf("* User ID, q for exit:  ");
+            memset(userid, 0, PASSWORD_LENGTH_MAX * 2);
+            fflush(stdin);
+            scanf("%[^\n]", userid);
+            length = (int) strlen(userid);
+            if (length == PASSWORD_LENGTH_MAX) {
+                break;
+            } else if (length == 1 and userid[0] == 'q') {
+                return -1;
+            }
+            printf("Unexpect length, need %d, get %d.\n", PASSWORD_LENGTH_MAX, length);
+            printf("Input user ID again...\n");
+        }
+        ui_customer_register(userid);
     }
     return 0;
 }

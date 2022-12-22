@@ -29,6 +29,8 @@ int account_rename(const char *userid, ChainTableManager *username);
 
 int account_change_balance(const char *userid, int balance);
 
+int account_remove(const char *userid);
+
 int account_get_balance(const char *userid);
 
 void gen_id(char *write_space);

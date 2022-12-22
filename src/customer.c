@@ -249,6 +249,30 @@ int account_get_username(const USERNAME_TYPE *userid, ChainTableManager *usernam
 }
 
 
+int account_remove(const char *userid) {
+    ChainTableManager file;
+    int index;
+
+    read_ascii_file_lines(ACCOUNT_INFO_FILE_PATH, &file);
+    index = account_in(&file, userid);
+    if (index == 0) {
+        // 用户不存在
+        return -1;
+    }
+    index -= 1;
+
+    for (int i = 0; i < 5; i++) {
+        chain_table_remove(&file, FREE_AS_MANAGER, index);
+    }
+
+    write_lines_to_file(&file, ACCOUNT_INFO_FILE_PATH);
+
+    chain_table_clear(&file, FREE_AS_MANAGER);
+
+    return 0;
+}
+
+
 int account_get_balance(const char *userid) {
     ChainTableManager file;
     ChainTableManager *string;
