@@ -26,7 +26,7 @@ int ui_customer_register(char *userid_write_space);
 
 int ui_add_pizza(void);
 
-int ui_add_menu(ChainTableManager * pizzas);
+void ui_add_menu(ChainTableManager * pizzas);
 
 int ui_remove_menu(void);
 

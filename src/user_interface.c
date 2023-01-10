@@ -580,7 +580,6 @@ int ui_manager_login(void) {
  * @brief
  * @param pizza
  * @return       数量变更, 将修改 menu 上对应的节点
- * @warning      程序不检查输入
  */
 int ui_order_pizza(ChainTableManager *menu, Pizza const *pizza) {
     char *ptr;
@@ -589,6 +588,12 @@ int ui_order_pizza(ChainTableManager *menu, Pizza const *pizza) {
     MenuPizza *menu_pizza;
 
     menu_pizza = menu_get_pizza_from_info(menu, pizza);
+
+    if (menu_pizza == NULL) {
+        // this pizza is not in menu
+        printf("This pizza is not in the menu, please connect the manager for help.\n");
+        return 0;
+    }
 
     string_read(&pizza->name, buffer, 128);
 
@@ -731,7 +736,7 @@ int ui_login_page(char *userid) {
 }
 
 
-int ui_add_menu(ChainTableManager *pizzas) {
+void ui_add_menu(ChainTableManager *pizzas) {
     Pizza *pizza;
     MenuPizza menu_pizza;
     ChainTableManager menu_pizzas, names_for_edit;
@@ -756,7 +761,7 @@ int ui_add_menu(ChainTableManager *pizzas) {
 
     if (names_for_edit.length == 0) {
         // Nothing to do.
-        return 0;
+        return;
     }
 
     // 打印所有可添加的名称
@@ -816,8 +821,6 @@ int ui_add_menu(ChainTableManager *pizzas) {
 
     chain_table_clear(&menu_pizzas, FREE_AS_MANAGER);
     chain_table_clear(&names_for_edit, FREE_AS_MANAGER);
-
-    return 0;
 }
 
 int ui_remove_menu(void) {

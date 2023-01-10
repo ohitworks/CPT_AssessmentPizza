@@ -40,5 +40,5 @@ add_executable(teamwork_week_4_manager ${ChainTable} ${FileIO}
                                        src/the_manager.c test/the_manager_test.c)
 
 add_executable(${PROJECT_NAME} ${Menu} ${Pizza} ${Password} ${Log} ${Manager}
-                               src/user_interface_tools.c test/user_interface_test.c
-                               src/user_interface.c)
+                               src/user_interface_tools.c src/user_interface.c
+                               src/main.c)
